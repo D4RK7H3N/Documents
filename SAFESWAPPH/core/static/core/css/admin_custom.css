@@ -1,0 +1,330 @@
+/* ── SafeSwap PH Admin Custom Styles ────────────────────────────── */
+
+/* Force light mode - disable AdminLTE dark mode */
+body.dark-mode {
+    display: none !important;
+}
+html {
+    color-scheme: light !important;
+}
+.layout-fixed .wrapper {
+    background: #f4f6fb !important;
+}
+
+/* Login Page */
+body.login-page {
+    background: linear-gradient(135deg, #185FA5 0%, #534AB7 50%, #0F6E56 100%) !important;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-page .login-box {
+    width: 420px;
+}
+
+.login-page .card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(24, 95, 165, 0.25);
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.login-page .card-body {
+    padding: 2.5rem 2rem;
+}
+
+.login-page .login-logo {
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.login-page .login-logo img {
+    height: 48px;
+    width: auto;
+}
+
+.login-page .login-logo .brand-text {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: #185FA5;
+    letter-spacing: -0.5px;
+}
+
+.login-page .login-logo .brand-text span {
+    color: #534AB7;
+}
+
+.login-page .login-logo .brand-tagline {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #0F6E56;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+.login-page .login-card-body .input-group {
+    margin-bottom: 1.25rem;
+}
+
+.login-page .login-card-body .input-group-text {
+    border: 2px solid #e9ecef;
+    border-right: none;
+    background: #f8f9fa;
+    border-radius: 8px 0 0 8px;
+    color: #6c757d;
+}
+
+.login-page .login-card-body .form-control {
+    border: 2px solid #e9ecef;
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+    padding: 0.625rem 0.75rem;
+    font-size: 0.9rem;
+    transition: border-color 0.2s ease;
+    height: auto;
+}
+
+.login-page .login-card-body .form-control:focus {
+    border-color: #534AB7;
+    box-shadow: none;
+}
+
+.login-page .login-card-body .form-control:focus + .input-group-text,
+.login-page .login-card-body .input-group:focus-within .input-group-text {
+    border-color: #534AB7;
+}
+
+.login-page .btn-primary {
+    background: linear-gradient(135deg, #185FA5, #534AB7);
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+    width: 100%;
+}
+
+.login-page .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(83, 74, 183, 0.35);
+}
+
+.login-page .btn-primary:active {
+    transform: translateY(0);
+}
+
+.login-page .callout {
+    border-radius: 8px;
+    border-left-width: 4px;
+}
+
+.login-page .callout-danger {
+    border-left-color: #dc3545;
+    background: #fff5f5;
+}
+
+.login-page .login-card-body .form-check-input:checked {
+    background-color: #185FA5;
+    border-color: #185FA5;
+}
+
+.login-page .login-card-body a {
+    color: #534AB7;
+    font-weight: 600;
+}
+
+.login-page .login-card-body a:hover {
+    color: #185FA5;
+}
+
+/* ── Dashboard ──────────────────────────────────────────────────── */
+
+.content-wrapper {
+    background: #f4f6fb;
+}
+
+.content-header > .container-fluid {
+    padding: 0 1.5rem;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.card-header {
+    background: transparent;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 1.25rem 1.5rem 0.75rem;
+    font-weight: 700;
+}
+
+.card-header .card-title {
+    font-weight: 700;
+    color: #185FA5;
+}
+
+/* Tables */
+.table thead th {
+    border-bottom: 2px solid #e9ecef;
+    font-weight: 700;
+    color: #495057;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table td {
+    vertical-align: middle;
+    padding: 0.85rem 0.75rem;
+}
+
+.table-hover tbody tr:hover {
+    background: rgba(24, 95, 165, 0.04);
+}
+
+/* Buttons */
+.btn-outline-secondary {
+    border-color: #dee2e6;
+    border-radius: 8px;
+}
+
+.btn-primary, .btn-success, .btn-danger, .btn-info, .btn-warning {
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.3px;
+}
+
+.btn-primary {
+    background: #185FA5;
+    border-color: #185FA5;
+}
+
+.btn-primary:hover {
+    background: #134d87;
+    border-color: #134d87;
+}
+
+/* Navbar */
+.main-header.navbar {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.navbar-white {
+    background: #ffffff !important;
+}
+
+/* Sidebar */
+.main-sidebar {
+    box-shadow: 2px 0 12px rgba(0,0,0,0.04);
+}
+
+.sidebar-light-purple {
+    background: #f8f9ff !important;
+}
+
+.nav-sidebar .nav-item > .nav-link {
+    border-radius: 8px;
+    margin: 2px 8px;
+    font-weight: 500;
+    color: #495057;
+    transition: all 0.15s ease;
+}
+
+.nav-sidebar .nav-item > .nav-link:hover {
+    background: rgba(83, 74, 183, 0.08);
+    color: #534AB7;
+}
+
+.nav-sidebar .nav-item > .nav-link.active {
+    background: linear-gradient(135deg, rgba(24, 95, 165, 0.12), rgba(83, 74, 183, 0.12));
+    color: #185FA5;
+    font-weight: 600;
+}
+
+.nav-sidebar .nav-item > .nav-link .nav-icon {
+    color: #185FA5;
+}
+
+/* Brand Link */
+.brand-link {
+    border-bottom: 1px solid #f0f0f0 !important;
+    padding: 1rem 0.5rem !important;
+}
+
+.brand-link .brand-image {
+    opacity: 1 !important;
+}
+
+/* Info Boxes */
+.info-box {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    min-height: 100px;
+}
+
+.info-box .info-box-icon {
+    border-radius: 10px;
+}
+
+.info-box .info-box-text {
+    font-weight: 600;
+    color: #6c757d;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+.info-box .info-box-number {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: #212529;
+}
+
+/* Pagination */
+.pagination .page-link {
+    border-radius: 8px;
+    margin: 0 2px;
+    border: none;
+    color: #185FA5;
+    font-weight: 600;
+}
+
+.pagination .page-item.active .page-link {
+    background: #185FA5;
+    color: #fff;
+}
+
+/* Alerts */
+.alert {
+    border: none;
+    border-radius: 10px;
+}
+
+/* Small screens */
+@media (max-width: 576px) {
+    .login-page .login-box {
+        width: 100%;
+        padding: 0 1rem;
+    }
+    .login-page .card-body {
+        padding: 1.5rem 1.25rem;
+    }
+}
