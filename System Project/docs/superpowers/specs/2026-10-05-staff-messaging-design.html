@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Staff Messaging - Design Spec</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", -apple-system, "Helvetica Neue", Arial, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+    color: #1a1a1a;
+    margin: 0;
+  }
+  h1 {
+    font-size: 20pt; margin: 0 0 4pt; color: #0f172a;
+    border-bottom: 3px solid #1d4ed8; padding-bottom: 8pt;
+  }
+  h2 {
+    font-size: 13.5pt; margin: 20pt 0 6pt; color: #1e3a8a;
+    border-bottom: 1px solid #dbe3f4; padding-bottom: 3pt;
+    page-break-after: avoid;
+  }
+  h3 { font-size: 11.5pt; margin: 13pt 0 4pt; color: #334155; page-break-after: avoid; }
+  p  { margin: 0 0 7pt; }
+  ul, ol { margin: 0 0 8pt; padding-left: 20pt; }
+  li { margin-bottom: 3pt; }
+  strong { color: #0f172a; }
+  code {
+    font-family: "Cascadia Mono", Consolas, "Courier New", monospace;
+    font-size: 9pt; background: #f1f5f9; padding: 1px 4px;
+    border-radius: 3px; color: #b91c1c;
+  }
+  pre {
+    background: #f8fafc; border: 1px solid #e2e8f0; border-left: 3px solid #1d4ed8;
+    border-radius: 4px; padding: 9pt 11pt; overflow-x: auto;
+    page-break-inside: avoid; margin: 0 0 10pt;
+  }
+  pre code { background: none; padding: 0; color: #0f172a; font-size: 8.6pt; line-height: 1.42; }
+  table {
+    border-collapse: collapse; width: 100%; margin: 0 0 11pt;
+    font-size: 9.2pt; page-break-inside: avoid;
+  }
+  th {
+    background: #1e3a8a; color: #fff; text-align: left;
+    padding: 6pt 8pt; border: 1px solid #1e3a8a; font-weight: 600;
+  }
+  td { padding: 5pt 8pt; border: 1px solid #cbd5e1; vertical-align: top; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  hr { border: 0; border-top: 1px solid #e2e8f0; margin: 14pt 0; }
+  blockquote {
+    margin: 0 0 9pt; padding: 6pt 11pt; background: #fffbeb;
+    border-left: 3px solid #f59e0b; color: #78350f;
+  }
+  /* keep section headings with their content where possible */
+  h2 + p, h2 + table, h2 + ul, h2 + ol { page-break-before: avoid; }
+</style>
+</head>
+<body>
+<h1>Staff Messaging — Announcements &amp; Direct Messages</h1>
+<p><strong>Date:</strong> 2026-10-05
+<strong>Status:</strong> Draft for review
+<strong>Scope:</strong> Internal staff-to-staff communication inside the existing School Management System.</p>
+<hr />
+<h2>1. Problem</h2>
+<p>Staff cannot talk to each other through the system. The only shared surface today is
+the global <code>maintenance_mode</code> banner on <code>SchoolConfiguration</code>
+(<code>school_pos/school_config/models.py:113-121</code>), which is all-or-nothing and carries no
+author or history.</p>
+<p>The bell dropdown that looks like a notification system
+(<code>frontend/src/layouts/MainLayout.jsx:169-230</code>) is <strong>not</strong> one. It is fed by
+<code>NotificationContext</code> (<code>frontend/src/context/NotificationContext.jsx</code>), which generates
+entries <strong>client-side from the acting user's own actions</strong> (<code>notifyPayment</code>,
+<code>notifyEnrollment</code>, <code>notifySale</code>, <code>notifyLogin</code> at <code>:38-61</code>), keeps them in React state,
+caps them at 20 (<code>:36</code>), and loses them on reload. No other user can ever receive one.
+The four <code>notificationSettings</code> toggles in <code>SettingsPage.jsx:31-38</code> are persisted to
+<code>localStorage</code> and read by nothing.</p>
+<p>Result: a cashier who needs the registrar to action something has to walk over and ask.</p>
+<h2>2. Goals</h2>
+<ol>
+<li>Any staff member can post an announcement that all other staff can read, with an
+   author and a timestamp, and see which announcements they have already read.</li>
+<li>Any two staff members can hold a private, persisted direct-message conversation and
+   return to its history later.</li>
+<li>The existing bell shows a real, server-backed unread count across both features.</li>
+</ol>
+<h2>3. Non-goals (explicitly out of scope, v1)</h2>
+<p>Attachments · reactions or emoji · thread replies · editing or deleting sent messages ·
+full-text search · WebSockets or push · mobile/background delivery · per-person read
+receipts for announcements (a read marker only) · message moderation or retention
+policies.</p>
+<p>Also out of scope: introducing a role model. The codebase has only <code>is_staff</code> /
+<code>is_superuser</code> (<code>staff/models.py</code> has no role field), and adding one is a separate
+concern. Anyone who can sign in can post; every message is attributed to a real
+<code>User</code> FK.</p>
+<hr />
+<h2>4. Decisions made (confirm or override these)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Decision</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D1</td>
+<td><strong>Short-polling, not WebSockets</strong></td>
+<td>No Channels, no <code>ASGI_APPLICATION</code>, no Redis, no Celery in <code>requirements.txt</code>. Waitress is WSGI/thread-based. Adding ASGI would mean daphne + a channel layer + reconfiguring the <code>DarkZSMS-Backend</code> NSSM service. Polling is sufficient for a school office.</td>
+</tr>
+<tr>
+<td>D2</td>
+<td><strong>Poll every 20s, only when the tab is visible</strong></td>
+<td>Avoids burning the <code>user: 1000/hour</code> throttle (<code>settings.py:338-341</code>) and pointless traffic. 20s is a reasonable "office chat" latency.</td>
+</tr>
+<tr>
+<td>D3</td>
+<td><strong>New <code>messaging/</code> Django app</strong></td>
+<td>Follows the per-domain app convention already used by <code>dorm</code>, <code>tours</code>, <code>graduation</code>, <code>assessment</code>. The empty <code>accounts/</code> stub was rejected — the name implies auth.</td>
+</tr>
+<tr>
+<td>D4</td>
+<td><strong>Routed at <code>/api/messaging/</code> via its own <code>urls.py</code></strong></td>
+<td>Exactly the <code>school_config</code> pattern: <code>path('api/', include('school_config.urls'))</code> at <code>school_pos/urls.py:38</code>.</td>
+</tr>
+<tr>
+<td>D5</td>
+<td><strong>Announcements have no replies</strong></td>
+<td>Keeps it to one model and one feed. Replies would immediately require threads.</td>
+</tr>
+<tr>
+<td>D6</td>
+<td><strong>A DM is exactly two people, stored as a canonical ordered pair</strong></td>
+<td>Avoids a participants M2M and a group-permission matrix in v1. <code>user_a.id &lt; user_b.id</code> is enforced on creation so the same pair can never produce two conversations.</td>
+</tr>
+<tr>
+<td>D7</td>
+<td><strong>No end-to-end encryption</strong></td>
+<td>Messages are staff business communication, not regulated data. Server must read them to enforce participant checks and power search later.</td>
+</tr>
+<tr>
+<td>D8</td>
+<td><strong>Soft-delete not implemented; authors can delete their own announcement</strong></td>
+<td>Simplest defensible rule for v1.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>5. Architecture</h2>
+<pre><code>Browser (React SPA)
+  MessagesPage.jsx  ── tabs: Announcements | Direct Messages
+        │
+        │  axios  Authorization: Token &lt;…&gt;          (api.js:42 interceptor)
+        ▼
+  Cloudflare Worker  nexus-bridge  (gw.darkzhub.asia)
+        │  allowlisted CORS, strips upstream CORS
+        ▼
+  cloudflared tunnel  sms2-backend  →  localhost:8000
+        ▼
+  Waitress (WSGI, 8 threads)  →  Django
+        ▼
+  messaging/ app  (views → serializers → models → PostgreSQL)
+</code></pre>
+<p>Polling reuses the existing axios instance, so auth, the 401 handler, and the
+pagination auto-unflattening interceptor (<code>api.js:103-111</code>) all apply unchanged.</p>
+<h2>6. Data model</h2>
+<p>New file <code>school_pos/messaging/models.py</code>. All models reference
+<code>django.contrib.auth.models.User</code>.</p>
+<pre><code class="language-python">class Announcement(models.Model):
+    title     = models.CharField(max_length=200)
+    body      = models.TextField()
+    author    = models.ForeignKey(User, on_delete=models.PROTECT, related_name=&quot;announcements&quot;)
+    is_pinned = models.BooleanField(default=False)      # sorts above the rest
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = [&quot;-is_pinned&quot;, &quot;-created_at&quot;]
+
+
+class AnnouncementRead(models.Model):
+    announcement = models.ForeignKey(Announcement, on_delete=models.CASCADE, related_name=&quot;reads&quot;)
+    user         = models.ForeignKey(User, on_delete=models.CASCADE, related_name=&quot;announcement_reads&quot;)
+    read_at      = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=[&quot;announcement&quot;, &quot;user&quot;], name=&quot;uniq_announcement_read&quot;)
+        ]
+
+
+class Conversation(models.Model):
+    user_a          = models.ForeignKey(User, on_delete=models.CASCADE, related_name=&quot;conversations_as_a&quot;)
+    user_b          = models.ForeignKey(User, on_delete=models.CASCADE, related_name=&quot;conversations_as_b&quot;)
+    created_at      = models.DateTimeField(auto_now_add=True)
+    last_message_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=[&quot;user_a&quot;, &quot;user_b&quot;], name=&quot;uniq_dm_pair&quot;)
+        ]
+
+
+class Message(models.Model):
+    conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE, related_name=&quot;messages&quot;)
+    sender       = models.ForeignKey(User, on_delete=models.CASCADE, related_name=&quot;sent_messages&quot;)
+    body         = models.TextField()
+    created_at   = models.DateTimeField(auto_now_add=True)
+    read_at      = models.DateTimeField(null=True, blank=True)   # set when the recipient opens it
+</code></pre>
+<p><code>on_delete=models.PROTECT</code> on <code>Announcement.author</code> is deliberate: deleting a staff
+account must not silently orphan announcements other people need to read.</p>
+<p><strong>Canonical pair.</strong> A helper enforces ordering before any create:</p>
+<pre><code class="language-python">def canonical_pair(u1, u2):
+    a, b = sorted([u1, u2], key=lambda u: u.id)
+    return a, b
+</code></pre>
+<p><code>Conversation.objects.get_or_create(user_a=a, user_b=b)</code> then makes starting a DM
+idempotent — clicking the same person twice reuses the thread.</p>
+<h2>7. API surface</h2>
+<p>All endpoints <code>permission_classes = [IsAuthenticated]</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td><code>/api/messaging/staff/</code></td>
+<td>Recipient picker: id, full name, <code>department</code>, <code>position</code>, avatar. Excludes the caller.</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/messaging/announcements/</code></td>
+<td>List, paginated. Each item carries <code>is_read</code> for the caller and <code>read_count</code>.</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/api/messaging/announcements/</code></td>
+<td>Create. <code>author</code> is forced to <code>request.user</code>, never taken from the body.</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/api/messaging/announcements/{id}/read/</code></td>
+<td>Idempotent mark-read for the caller.</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><code>/api/messaging/announcements/{id}/</code></td>
+<td>Author or superuser only.</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/messaging/conversations/</code></td>
+<td>Caller's threads: other participant, last message, unread count.</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/api/messaging/conversations/</code></td>
+<td>Body <code>{user_id}</code>. Returns existing or new thread.</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/messaging/conversations/{id}/messages/</code></td>
+<td>History, paginated, oldest-first. Side effect: marks the thread read for the caller.</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/api/messaging/conversations/{id}/messages/</code></td>
+<td>Send. Rejects non-participants with 403.</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/messaging/unread-count/</code></td>
+<td>Single cheap poll for the badge: <code>{announcements: n, messages: n, total: n}</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>The badge endpoint is deliberately one aggregated query set rather than N requests —
+it is the only endpoint polled continuously.</p>
+<p>Implementation follows the canonical ViewSet shape in <code>api/views.py:2229-2250</code>
+(<code>queryset</code> / <code>serializer_class</code> / <code>permission_classes</code> as class attributes,
+<code>get_queryset()</code> for scoping, <code>@action</code> for extras).</p>
+<h2>8. Frontend</h2>
+<p><strong>New file</strong> <code>frontend/src/pages/MessagesPage.jsx</code>, following the <code>TracksPage</code>
+pattern already described in the project memory: coloured stat cards
+(<code>rounded-2xl p-4 border border-transparent</code>), search card (<code>rounded-2xl border-gray-100</code>),
+modal (<code>backdrop-blur-sm</code>, <code>rounded-2xl shadow-2xl</code>, sticky header), and local <code>toast</code>.</p>
+<p>Structure:
+- Header stat cards: unread announcements, unread messages, total threads.
+- Tab 1 <strong>Announcements</strong> — pinned first, unread marked, compose modal for staff,
+  "Mark all read".
+- Tab 2 <strong>Direct Messages</strong> — thread list + selected thread; composer at the bottom.</p>
+<p><strong><code>api.js</code></strong> — new group alongside the existing ones (pattern at <code>api.js:413-420</code>):</p>
+<pre><code class="language-js">export const messagingAPI = {
+  listStaff:        () =&gt; data(apiClient.get('/api/messaging/staff/')),
+  listAnnouncements:() =&gt; data(apiClient.get('/api/messaging/announcements/')),
+  createAnnouncement:(d) =&gt; data(apiClient.post('/api/messaging/announcements/', d)),
+  markAnnouncementRead:(id) =&gt; data(apiClient.post(`/api/messaging/announcements/${id}/read/`)),
+  deleteAnnouncement:(id) =&gt; data(apiClient.delete(`/api/messaging/announcements/${id}/`)),
+  listConversations:() =&gt; data(apiClient.get('/api/messaging/conversations/')),
+  startConversation:(userId) =&gt; data(apiClient.post('/api/messaging/conversations/', { user_id: userId })),
+  listMessages:(id, params) =&gt; data(apiClient.get(`/api/messaging/conversations/${id}/messages/`, { params })),
+  sendMessage:(id, body) =&gt; data(apiClient.post(`/api/messaging/conversations/${id}/messages/`, { body })),
+  unreadCount:      () =&gt; data(apiClient.get('/api/messaging/unread-count/')),
+}
+</code></pre>
+<p><strong>Wiring — three places, matching how every other page is registered:</strong>
+1. <code>App.jsx:11-30</code> — <code>const MessagesPage = lazy(() =&gt; import('./pages/MessagesPage'))</code>
+2. <code>App.jsx:61-82</code> — <code>routeTitles['/messages'] = 'Messages'</code>
+3. <code>MainLayout.jsx:36-78</code> — add to <code>navigationGroups</code> (not <code>adminOnly</code>)</p>
+<p><strong>Bell repoint.</strong> <code>NotificationContext</code> gains a server-backed feed. The existing local
+<code>notifyPayment</code>/<code>notifyEnrollment</code> calls stay (they are useful immediate feedback), but
+the dropdown list becomes a merge of: server announcements + DM previews, refreshed by
+the 20s poll. This is deliberately additive so the bell never appears broken on a failed
+poll — on error, keep the last good payload and skip the update.</p>
+<p><strong>Polling lifecycle</strong> (this would be the first <code>setInterval</code> in the codebase, so it
+must be correct):</p>
+<pre><code class="language-js">useEffect(() =&gt; {
+  let timer = null
+  const tick = () =&gt; {
+    if (document.visibilityState === 'visible') refreshUnread()
+    timer = setTimeout(tick, 20000)   // timeout chain, not setInterval
+  }
+  tick()
+  return () =&gt; clearTimeout(timer)
+}, [])
+</code></pre>
+<p>A recursive <code>setTimeout</code> rather than <code>setInterval</code> means a slow response cannot queue up
+overlapping requests. Visibility-gated so a backgrounded tab costs nothing.</p>
+<h2>9. Security &amp; privacy</h2>
+<ul>
+<li><strong>Participant enforcement is the critical control.</strong> Every conversation endpoint calls
+  a shared guard that returns 403 unless <code>request.user</code> is <code>user_a</code> or <code>user_b</code>. Without
+  this, any authenticated staff member could read any DM by guessing an id.</li>
+<li><strong><code>author</code>/<code>sender</code> are always server-derived</strong> from <code>request.user</code>, never read from
+  the request body, so messages cannot be forged.</li>
+<li><strong>Message bodies render as plain text.</strong> No <code>dangerouslySetInnerHTML</code> anywhere; this
+  avoids stored XSS entirely.</li>
+<li><strong>Body length cap</strong> of 5,000 characters, enforced server-side, to stop the text field
+  being used as unbounded storage.</li>
+<li><strong>Pagination</strong> on both announcements and message history.</li>
+<li><strong>No student PII in messages.</strong> This system holds data on minors. The spec adds no
+  technical control for that, so it is stated as a usage rule in the compose UI as a
+  one-line hint, not as enforcement.</li>
+<li>Messages are visible to all staff in the announcement feed and to the two
+  participants in a DM. There is no encryption at rest (D7).</li>
+</ul>
+<h2>10. Error handling</h2>
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Non-participant opens a thread</td>
+<td>403 <code>{"error": "..."}</code>, matching the existing <code>{"error": ...}</code> convention at <code>api/views.py:266-269</code></td>
+</tr>
+<tr>
+<td>Empty / whitespace body</td>
+<td>400</td>
+</tr>
+<tr>
+<td>Body over 5,000 chars</td>
+<td>400</td>
+</tr>
+<tr>
+<td>Unknown staff id when starting a DM</td>
+<td>404</td>
+</tr>
+<tr>
+<td>Announce/serve the same staff id twice</td>
+<td>Idempotent — reuses the thread</td>
+</tr>
+<tr>
+<td>Poll fails</td>
+<td>Silent. Keep last count, retry on next tick, no toast spam</td>
+</tr>
+<tr>
+<td>Send fails</td>
+<td>Toast + keep the text in the composer so nothing is lost</td>
+</tr>
+</tbody>
+</table>
+<h2>11. Testing</h2>
+<p><strong>Backend</strong> (<code>APIClient</code>, new <code>messaging/tests.py</code>):
+- Non-participant gets 403 on message list and send — the highest-value test here.
+- <code>author</code>/<code>sender</code> cannot be spoofed via the request body.
+- Starting a DM twice returns the same conversation id.
+- Ordering is canonical regardless of argument order.
+- Mark-announcement-read is idempotent and does not double-count.
+- Unread count decrements after reading.
+- Empty body rejected; over-length body rejected.</p>
+<p><strong>Frontend</strong> manual checklist: unread badge increments; opening a thread clears it;
+announcement compose → appears for a second browser; refresh does not lose an open
+thread; backgrounded tab issues no requests.</p>
+<h2>12. Rollout</h2>
+<ol>
+<li><code>messaging/</code> app: <code>models.py</code>, <code>serializers.py</code>, <code>views.py</code>, <code>urls.py</code>, <code>admin.py</code></li>
+<li>Register in <code>INSTALLED_APPS</code> (<code>settings.py</code>, near the other domain apps)</li>
+<li><code>path("api/messaging/", include("messaging.urls"))</code> in <code>school_pos/urls.py</code></li>
+<li><code>makemigrations messaging</code> → <code>0001_initial</code></li>
+<li><code>manage.py check</code> and <code>manage.py test messaging</code></li>
+<li>Restart the <code>DarkZSMS-Backend</code> service</li>
+<li>Frontend: <code>api.js</code> group → <code>MessagesPage.jsx</code> → route + title + nav → bell repoint</li>
+<li>Build, deploy to <code>sms-3</code>, hard refresh</li>
+</ol>
+<p><strong>Risk:</strong> low. Additive only — no existing model, endpoint, or page is modified. The
+only change to shared code is additive entries in <code>NotificationContext</code>, <code>App.jsx</code>, and
+<code>MainLayout.jsx</code>. Reversible by removing the nav entry.</p>
+<h2>13. Open items for you to confirm</h2>
+<ol>
+<li><strong>Poll interval of 20s</strong> — acceptable, or do you want snappier/cheaper?</li>
+<li><strong>Anyone can post announcements</strong> — or restrict to <code>is_superuser</code>?</li>
+<li><strong>No replies on announcements</strong> — correct, or do you need threaded discussion?</li>
+<li><strong>Retention</strong> — messages kept indefinitely. Is there a school policy or expected
+   term that needs a cleanup job?</li>
+<li><strong>Group messaging</strong> — deliberately excluded from v1. Confirm that is acceptable.</li>
+</ol>
+</body>
+</html>
