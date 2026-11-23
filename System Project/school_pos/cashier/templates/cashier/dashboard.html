@@ -1,0 +1,378 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Cashier - POS{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item active">Cashier / POS</li>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .product-card {
+        cursor: pointer;
+        transition: all 0.2s;
+        border: 2px solid transparent;
+    }
+    .product-card:hover {
+        border-color: var(--primary-color);
+        transform: translateY(-2px);
+    }
+    .product-card.selected {
+        border-color: var(--success-color);
+        background-color: rgba(16, 185, 129, 0.05);
+    }
+    .cart-item {
+        background: #f8fafc;
+        border-radius: 8px;
+        padding: 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+    .qty-btn {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .cart-total {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+    }
+    .student-result {
+        cursor: pointer;
+        padding: 0.75rem;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    .student-result:hover {
+        background: #f1f5f9;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header d-flex justify-content-between align-items-center">
+    <div>
+        <h1 class="page-title"><i class="fas fa-cash-register me-2"></i>Point of Sale</h1>
+        <p class="page-subtitle">Process sales and payments</p>
+    </div>
+</div>
+
+<form method="post" action="{% url 'cashier:checkout' %}" id="checkout-form">
+    {% csrf_token %}
+    <div class="row g-4">
+        <!-- Left: Products & Cart -->
+        <div class="col-lg-8">
+            <!-- Customer Selection -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-user me-2"></i>Customer
+                </div>
+                <div class="card-body">
+                    <div class="btn-group w-100 mb-3" role="group">
+                        <input type="radio" class="btn-check" name="customer_type" id="type_student" value="student" checked>
+                        <label class="btn btn-outline-primary" for="type_student">
+                            <i class="fas fa-user-graduate me-1"></i>Student
+                        </label>
+                        <input type="radio" class="btn-check" name="customer_type" id="type_walkin" value="walkin">
+                        <label class="btn btn-outline-primary" for="type_walkin">
+                            <i class="fas fa-user me-1"></i>Walk-in
+                        </label>
+                    </div>
+
+                    <!-- Student Search -->
+                    <div id="student-section">
+                        <div class="position-relative">
+                            <input type="text" id="student-search" class="form-control form-control-lg" placeholder="Search student name or LRN...">
+                            <input type="hidden" name="student" id="selected-student-id">
+                            <div id="student-results" class="position-absolute w-100 bg-white border rounded-3 shadow-lg mt-1" style="z-index: 100; display: none; max-height: 300px; overflow-y: auto;"></div>
+                        </div>
+                        <div id="selected-student" class="alert alert-info mt-2" style="display: none;">
+                            <strong>Selected:</strong> <span id="student-name"></span>
+                            <button type="button" class="btn-close float-end" onclick="clearStudent()"></button>
+                        </div>
+                    </div>
+
+                    <!-- Walk-in Name -->
+                    <div id="walkin-section" style="display: none;">
+                        <input type="text" name="customer_name" class="form-control form-control-lg" placeholder="Customer name (optional)">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products -->
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span><i class="fas fa-boxes me-2"></i>Products</span>
+                    <input type="text" id="product-search" class="form-control form-control-sm w-auto" placeholder="Search products..." style="width: 200px !important;">
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="products-table">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th class="text-center">Price</th>
+                                    <th class="text-center">Stock</th>
+                                    <th class="text-center" style="width: 150px;">Quantity</th>
+                                    <th class="text-end">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in products %}
+                                <tr class="product-row">
+                                    <td>
+                                        <strong>{{ product.name }}</strong>
+                                        {% if product.tuition_type != 'other' %}
+                                        <span class="badge bg-info ms-1">{{ product.get_tuition_type_display }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center text-success fw-bold">₱{{ product.price|floatformat:2 }}</td>
+                                    <td class="text-center">
+                                        {% if product.stock != None %}
+                                        <span class="badge {% if product.stock > 10 %}bg-success{% elif product.stock > 0 %}bg-warning{% else %}bg-danger{% endif %}">
+                                            {{ product.stock }}
+                                        </span>
+                                        {% else %}
+                                        <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="input-group input-group-sm justify-content-center">
+                                            <button type="button" class="btn btn-outline-secondary qty-btn" onclick="changeQty(this, -1)">-</button>
+                                            <input type="number" name="quantities" value="0" min="0"
+                                                   {% if product.stock != None %}max="{{ product.stock }}"{% endif %}
+                                                   class="form-control text-center qty-input" style="width: 60px;"
+                                                   data-price="{{ product.price }}">
+                                            <button type="button" class="btn btn-outline-secondary qty-btn" onclick="changeQty(this, 1)">+</button>
+                                        </div>
+                                        <input type="hidden" name="products" value="{{ product.id }}">
+                                    </td>
+                                    <td class="text-end fw-bold subtotal">₱0.00</td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="5" class="text-center py-4 text-muted">
+                                        <i class="fas fa-inbox fa-3x mb-2 d-block"></i>
+                                        No products available
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Custom Items -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <i class="fas fa-plus-circle me-2"></i>Custom Items
+                </div>
+                <div class="card-body">
+                    <div id="custom-items"></div>
+                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="addCustomItem()">
+                        <i class="fas fa-plus me-1"></i>Add Custom Item
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Cart Summary -->
+        <div class="col-lg-4">
+            <div class="card sticky-top" style="top: 80px;">
+                <div class="card-header">
+                    <i class="fas fa-shopping-cart me-2"></i>Order Summary
+                </div>
+                <div class="card-body">
+                    <!-- Payment Method -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Payment Method</label>
+                        <div class="d-flex gap-2">
+                            <div class="form-check flex-fill">
+                                <input class="form-check-input" type="radio" name="payment_method" id="pay_cash" value="Cash" checked>
+                                <label class="form-check-label" for="pay_cash">
+                                    <i class="fas fa-money-bill-wave text-success me-1"></i>Cash
+                                </label>
+                            </div>
+                            <div class="form-check flex-fill">
+                                <input class="form-check-input" type="radio" name="payment_method" id="pay_gcash" value="GCash">
+                                <label class="form-check-label" for="pay_gcash">
+                                    <i class="fas fa-mobile-alt text-primary me-1"></i>GCash
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GCash Details -->
+                    <div id="gcash-details" style="display: none;">
+                        <div class="mb-3">
+                            <label class="form-label">GCash Number</label>
+                            <input type="text" name="gcash_number" class="form-control" placeholder="09XX-XXX-XXXX">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Reference Number</label>
+                            <input type="text" name="reference_number" class="form-control" placeholder="Enter reference #">
+                        </div>
+                    </div>
+
+                    <!-- Total -->
+                    <div class="cart-total text-center mb-4">
+                        <small>Grand Total</small>
+                        <h2 class="mb-0" id="grand-total">₱0.00</h2>
+                    </div>
+
+                    <!-- Checkout Button -->
+                    <button type="submit" class="btn btn-success btn-lg w-100" id="checkout-btn">
+                        <i class="fas fa-check-circle me-2"></i>Process Payment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Customer type toggle
+    document.querySelectorAll('input[name="customer_type"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            document.getElementById('student-section').style.display = this.value === 'student' ? 'block' : 'none';
+            document.getElementById('walkin-section').style.display = this.value === 'walkin' ? 'block' : 'none';
+        });
+    });
+
+    // Payment method toggle
+    document.querySelectorAll('input[name="payment_method"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            document.getElementById('gcash-details').style.display = this.value === 'GCash' ? 'block' : 'none';
+        });
+    });
+
+    // Student search
+    const studentSearch = document.getElementById('student-search');
+    const studentResults = document.getElementById('student-results');
+    let searchTimeout;
+
+    studentSearch.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        const query = this.value.trim();
+
+        if (query.length < 2) {
+            studentResults.style.display = 'none';
+            return;
+        }
+
+        searchTimeout = setTimeout(() => {
+            // Simulated search - in production, this would be an AJAX call
+            studentResults.innerHTML = '<div class="p-3 text-muted text-center"><i class="fas fa-spinner fa-spin me-1"></i>Searching...</div>';
+            studentResults.style.display = 'block';
+
+            // Mock data - replace with actual AJAX
+            {% if students %}
+            let html = '';
+            {% for student in students %}
+            if ('{{ student.first_name }} {{ student.last_name }}'.toLowerCase().includes(query.toLowerCase()) ||
+                '{{ student.lrn }}'.includes(query)) {
+                html += `<div class="student-result" onclick="selectStudent({{ student.id }}, '{{ student.first_name }} {{ student.last_name }}', '{{ student.lrn }}')">
+                    <strong>{{ student.first_name }} {{ student.last_name }}</strong><br>
+                    <small class="text-muted">LRN: {{ student.lrn }}</small>
+                </div>`;
+            }
+            {% endfor %}
+            studentResults.innerHTML = html || '<div class="p-3 text-muted text-center">No students found</div>';
+            {% endif %}
+        }, 300);
+    });
+
+    function selectStudent(id, name, lrn) {
+        document.getElementById('selected-student-id').value = id;
+        document.getElementById('student-name').textContent = name + ' (LRN: ' + lrn + ')';
+        document.getElementById('selected-student').style.display = 'block';
+        studentResults.style.display = 'none';
+        studentSearch.value = '';
+    }
+
+    function clearStudent() {
+        document.getElementById('selected-student-id').value = '';
+        document.getElementById('selected-student').style.display = 'none';
+    }
+
+    // Product quantity
+    function changeQty(btn, delta) {
+        const input = btn.parentElement.querySelector('.qty-input');
+        let newVal = parseInt(input.value) + delta;
+        const max = input.max ? parseInt(input.max) : 9999;
+        newVal = Math.max(0, Math.min(newVal, max));
+        input.value = newVal;
+        updateSubtotals();
+    }
+
+    document.querySelectorAll('.qty-input').forEach(input => {
+        input.addEventListener('change', updateSubtotals);
+    });
+
+    function updateSubtotals() {
+        let grandTotal = 0;
+        document.querySelectorAll('.product-row').forEach(row => {
+            const qty = parseInt(row.querySelector('.qty-input').value) || 0;
+            const price = parseFloat(row.querySelector('.qty-input').dataset.price) || 0;
+            const subtotal = qty * price;
+            row.querySelector('.subtotal').textContent = '₱' + subtotal.toFixed(2);
+            grandTotal += subtotal;
+        });
+
+        // Add custom items
+        document.querySelectorAll('.custom-item-row').forEach(row => {
+            const qty = parseInt(row.querySelector('.custom-qty').value) || 1;
+            const price = parseFloat(row.querySelector('.custom-price').value) || 0;
+            grandTotal += qty * price;
+        });
+
+        document.getElementById('grand-total').textContent = '₱' + grandTotal.toFixed(2);
+    }
+
+    // Custom items
+    let customItemCount = 0;
+    function addCustomItem() {
+        customItemCount++;
+        const html = `
+            <div class="row g-2 mb-2 custom-item-row" id="custom-${customItemCount}">
+                <div class="col-5">
+                    <input type="text" name="custom_item_name" class="form-control form-control-sm" placeholder="Item name">
+                </div>
+                <div class="col-3">
+                    <input type="number" name="custom_item_price" class="form-control form-control-sm custom-price" placeholder="Price" step="0.01" onchange="updateSubtotals()">
+                </div>
+                <div class="col-2">
+                    <input type="number" name="custom_item_qty" class="form-control form-control-sm custom-qty" value="1" min="1" onchange="updateSubtotals()">
+                </div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-outline-danger btn-sm w-100" onclick="removeCustomItem(${customItemCount})">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+        document.getElementById('custom-items').insertAdjacentHTML('beforeend', html);
+    }
+
+    function removeCustomItem(id) {
+        document.getElementById('custom-' + id).remove();
+        updateSubtotals();
+    }
+
+    // Product search filter
+    document.getElementById('product-search').addEventListener('input', function() {
+        const query = this.value.toLowerCase();
+        document.querySelectorAll('.product-row').forEach(row => {
+            const name = row.querySelector('td strong').textContent.toLowerCase();
+            row.style.display = name.includes(query) ? '' : 'none';
+        });
+    });
+</script>
+{% endblock %}
