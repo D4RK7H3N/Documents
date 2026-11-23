@@ -1,0 +1,1415 @@
+{
+  "loginLayout": {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "documentWidth": 390,
+    "bodyWidth": 390
+  },
+  "results": [
+    {
+      "requestedRoute": "/",
+      "finalUrl": "/",
+      "title": "Administration Overview",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "bodyWidth": 390,
+      "horizontalOverflow": false,
+      "sidebarVisible": false,
+      "smallTargets": [
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "Dashboard",
+          "width": 91,
+          "height": 24
+        },
+        {
+          "text": "My Classes",
+          "width": 96,
+          "height": 24
+        },
+        {
+          "text": "Submissions",
+          "width": 103,
+          "height": 24
+        },
+        {
+          "text": "Reports",
+          "width": 73,
+          "height": 24
+        },
+        {
+          "text": "Class Records",
+          "width": 113,
+          "height": 24
+        },
+        {
+          "text": "Students",
+          "width": 80,
+          "height": 24
+        },
+        {
+          "text": "Teacher Config",
+          "width": 120,
+          "height": 24
+        },
+        {
+          "text": "User Accounts",
+          "width": 116,
+          "height": 24
+        },
+        {
+          "text": "Academics",
+          "width": 93,
+          "height": 24
+        },
+        {
+          "text": "Grading Config",
+          "width": 119,
+          "height": 24
+        },
+        {
+          "text": "School Settings",
+          "width": 122,
+          "height": 24
+        },
+        {
+          "text": "Audit Log",
+          "width": 84,
+          "height": 24
+        },
+        {
+          "text": "history\nAudit Log",
+          "width": 108,
+          "height": 28
+        },
+        {
+          "text": "person_add\nManage Learners",
+          "width": 157,
+          "height": 28
+        },
+        {
+          "text": "open_in_new\nOpen",
+          "width": 81,
+          "height": 28
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    },
+    {
+      "requestedRoute": "/classes",
+      "finalUrl": "/classes",
+      "title": null,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "bodyWidth": 390,
+      "horizontalOverflow": false,
+      "sidebarVisible": false,
+      "smallTargets": [
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "Dashboard",
+          "width": 92,
+          "height": 24
+        },
+        {
+          "text": "My Classes",
+          "width": 95,
+          "height": 24
+        },
+        {
+          "text": "Submissions",
+          "width": 103,
+          "height": 24
+        },
+        {
+          "text": "Reports",
+          "width": 73,
+          "height": 24
+        },
+        {
+          "text": "Class Records",
+          "width": 113,
+          "height": 24
+        },
+        {
+          "text": "Students",
+          "width": 80,
+          "height": 24
+        },
+        {
+          "text": "Teacher Config",
+          "width": 120,
+          "height": 24
+        },
+        {
+          "text": "User Accounts",
+          "width": 116,
+          "height": 24
+        },
+        {
+          "text": "Academics",
+          "width": 93,
+          "height": 24
+        },
+        {
+          "text": "Grading Config",
+          "width": 119,
+          "height": 24
+        },
+        {
+          "text": "School Settings",
+          "width": 122,
+          "height": 24
+        },
+        {
+          "text": "Audit Log",
+          "width": 84,
+          "height": 24
+        }
+      ],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+        "Failed to load resource: the server responded with a status of 403 (Forbidden)"
+      ],
+      "pageErrors": [],
+      "badResponses": [
+        {
+          "status": 403,
+          "url": "http://127.0.0.1:5173/api/v1/teacher/classes/"
+        },
+        {
+          "status": 403,
+          "url": "http://127.0.0.1:5173/api/v1/teacher/classes/"
+        }
+      ]
+    },
+    {
+      "requestedRoute": "/submissions",
+      "finalUrl": "/submissions",
+      "title": "Grade Submissions",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "bodyWidth": 390,
+      "horizontalOverflow": false,
+      "sidebarVisible": false,
+      "smallTargets": [
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "Dashboard",
+          "width": 92,
+          "height": 24
+        },
+        {
+          "text": "My Classes",
+          "width": 96,
+          "height": 24
+        },
+        {
+          "text": "Submissions",
+          "width": 102,
+          "height": 24
+        },
+        {
+          "text": "Reports",
+          "width": 73,
+          "height": 24
+        },
+        {
+          "text": "Class Records",
+          "width": 113,
+          "height": 24
+        },
+        {
+          "text": "Students",
+          "width": 80,
+          "height": 24
+        },
+        {
+          "text": "Teacher Config",
+          "width": 120,
+          "height": 24
+        },
+        {
+          "text": "User Accounts",
+          "width": 116,
+          "height": 24
+        },
+        {
+          "text": "Academics",
+          "width": 93,
+          "height": 24
+        },
+        {
+          "text": "Grading Config",
+          "width": 119,
+          "height": 24
+        },
+        {
+          "text": "School Settings",
+          "width": 122,
+          "height": 24
+        },
+        {
+          "text": "Audit Log",
+          "width": 84,
+          "height": 24
+        },
+        {
+          "text": "Received",
+          "width": 97,
+          "height": 24
+        },
+        {
+          "text": "Sent",
+          "width": 68,
+          "height": 24
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    },
+    {
+      "requestedRoute": "/reports",
+      "finalUrl": "/reports",
+      "title": "Section Reports",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "bodyWidth": 390,
+      "horizontalOverflow": false,
+      "sidebarVisible": false,
+      "smallTargets": [
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "Dashboard",
+          "width": 92,
+          "height": 24
+        },
+        {
+          "text": "My Classes",
+          "width": 96,
+          "height": 24
+        },
+        {
+          "text": "Submissions",
+          "width": 103,
+          "height": 24
+        },
+        {
+          "text": "Reports",
+          "width": 72,
+          "height": 24
+        },
+        {
+          "text": "Class Records",
+          "width": 113,
+          "height": 24
+        },
+        {
+          "text": "Students",
+          "width": 80,
+          "height": 24
+        },
+        {
+          "text": "Teacher Config",
+          "width": 120,
+          "height": 24
+        },
+        {
+          "text": "User Accounts",
+          "width": 116,
+          "height": 24
+        },
+        {
+          "text": "Academics",
+          "width": 93,
+          "height": 24
+        },
+        {
+          "text": "Grading Config",
+          "width": 119,
+          "height": 24
+        },
+        {
+          "text": "School Settings",
+          "width": 122,
+          "height": 24
+        },
+        {
+          "text": "Audit Log",
+          "width": 84,
+          "height": 24
+        },
+        {
+          "text": "Semester 1",
+          "width": 92,
+          "height": 20
+        },
+        {
+          "text": "Semester 2",
+          "width": 95,
+          "height": 20
+        },
+        {
+          "text": "print\nPrint",
+          "width": 78,
+          "height": 28
+        },
+        {
+          "text": "NOAH (Grade 11)\nThessalonians (Grade 12)\nZechariah (Grade 12)\nZephaniah (Grade 1",
+          "width": 228,
+          "height": 32
+        },
+        {
+          "text": "Justin D Bueno\n\n117700192342",
+          "width": 95,
+          "height": 32
+        },
+        {
+          "text": "May M Sinadhan\n\n112313554655",
+          "width": 103,
+          "height": 32
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    },
+    {
+      "requestedRoute": "/admin/class-records",
+      "finalUrl": "/",
+      "title": "Administration Overview",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "bodyWidth": 390,
+      "horizontalOverflow": false,
+      "sidebarVisible": false,
+      "smallTargets": [
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "Dashboard",
+          "width": 91,
+          "height": 24
+        },
+        {
+          "text": "My Classes",
+          "width": 96,
+          "height": 24
+        },
+        {
+          "text": "Submissions",
+          "width": 103,
+          "height": 24
+        },
+        {
+          "text": "Reports",
+          "width": 73,
+          "height": 24
+        },
+        {
+          "text": "Class Records",
+          "width": 113,
+          "height": 24
+        },
+        {
+          "text": "Students",
+          "width": 80,
+          "height": 24
+        },
+        {
+          "text": "Teacher Config",
+          "width": 120,
+          "height": 24
+        },
+        {
+          "text": "User Accounts",
+          "width": 116,
+          "height": 24
+        },
+        {
+          "text": "Academics",
+          "width": 93,
+          "height": 24
+        },
+        {
+          "text": "Grading Config",
+          "width": 119,
+          "height": 24
+        },
+        {
+          "text": "School Settings",
+          "width": 122,
+          "height": 24
+        },
+        {
+          "text": "Audit Log",
+          "width": 84,
+          "height": 24
+        },
+        {
+          "text": "history\nAudit Log",
+          "width": 108,
+          "height": 28
+        },
+        {
+          "text": "person_add\nManage Learners",
+          "width": 157,
+          "height": 28
+        },
+        {
+          "text": "open_in_new\nOpen",
+          "width": 81,
+          "height": 28
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    },
+    {
+      "requestedRoute": "/students",
+      "finalUrl": "/students",
+      "title": "Students",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "bodyWidth": 390,
+      "horizontalOverflow": false,
+      "sidebarVisible": false,
+      "smallTargets": [
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "Dashboard",
+          "width": 92,
+          "height": 24
+        },
+        {
+          "text": "My Classes",
+          "width": 96,
+          "height": 24
+        },
+        {
+          "text": "Submissions",
+          "width": 103,
+          "height": 24
+        },
+        {
+          "text": "Reports",
+          "width": 73,
+          "height": 24
+        },
+        {
+          "text": "Class Records",
+          "width": 113,
+          "height": 24
+        },
+        {
+          "text": "Students",
+          "width": 79,
+          "height": 24
+        },
+        {
+          "text": "Teacher Config",
+          "width": 120,
+          "height": 24
+        },
+        {
+          "text": "User Accounts",
+          "width": 116,
+          "height": 24
+        },
+        {
+          "text": "Academics",
+          "width": 93,
+          "height": 24
+        },
+        {
+          "text": "Grading Config",
+          "width": 119,
+          "height": 24
+        },
+        {
+          "text": "School Settings",
+          "width": 122,
+          "height": 24
+        },
+        {
+          "text": "Audit Log",
+          "width": 84,
+          "height": 24
+        },
+        {
+          "text": "INPUT",
+          "width": 286,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 286,
+          "height": 38
+        },
+        {
+          "text": "Select section\nNOAH (2026-2027)\nThessalonians (2026-2027)\nZechariah (2026-2027)\n",
+          "width": 286,
+          "height": 37
+        },
+        {
+          "text": "person_add\nCreate learner",
+          "width": 286,
+          "height": 28
+        },
+        {
+          "text": "upload_file\nChoose CSV file",
+          "width": 286,
+          "height": 28
+        },
+        {
+          "text": "INPUT",
+          "width": 238,
+          "height": 18
+        },
+        {
+          "text": "description\nRecord",
+          "width": 92,
+          "height": 28
+        },
+        {
+          "text": "edit\nEdit",
+          "width": 72,
+          "height": 28
+        },
+        {
+          "text": "vpn_key\nPassword",
+          "width": 109,
+          "height": 28
+        },
+        {
+          "text": "description\nRecord",
+          "width": 92,
+          "height": 28
+        },
+        {
+          "text": "edit\nEdit",
+          "width": 72,
+          "height": 28
+        },
+        {
+          "text": "vpn_key\nPassword",
+          "width": 109,
+          "height": 28
+        },
+        {
+          "text": "description\nRecord",
+          "width": 92,
+          "height": 28
+        },
+        {
+          "text": "edit\nEdit",
+          "width": 72,
+          "height": 28
+        },
+        {
+          "text": "vpn_key\nPassword",
+          "width": 109,
+          "height": 28
+        },
+        {
+          "text": "description\nRecord",
+          "width": 92,
+          "height": 28
+        },
+        {
+          "text": "edit\nEdit",
+          "width": 72,
+          "height": 28
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    },
+    {
+      "requestedRoute": "/teachers",
+      "finalUrl": "/teachers",
+      "title": "Teacher Configuration",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "bodyWidth": 390,
+      "horizontalOverflow": false,
+      "sidebarVisible": false,
+      "smallTargets": [
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "Dashboard",
+          "width": 92,
+          "height": 24
+        },
+        {
+          "text": "My Classes",
+          "width": 96,
+          "height": 24
+        },
+        {
+          "text": "Submissions",
+          "width": 103,
+          "height": 24
+        },
+        {
+          "text": "Reports",
+          "width": 73,
+          "height": 24
+        },
+        {
+          "text": "Class Records",
+          "width": 113,
+          "height": 24
+        },
+        {
+          "text": "Students",
+          "width": 80,
+          "height": 24
+        },
+        {
+          "text": "Teacher Config",
+          "width": 119,
+          "height": 24
+        },
+        {
+          "text": "User Accounts",
+          "width": 116,
+          "height": 24
+        },
+        {
+          "text": "Academics",
+          "width": 93,
+          "height": 24
+        },
+        {
+          "text": "Grading Config",
+          "width": 119,
+          "height": 24
+        },
+        {
+          "text": "School Settings",
+          "width": 122,
+          "height": 24
+        },
+        {
+          "text": "Audit Log",
+          "width": 84,
+          "height": 24
+        },
+        {
+          "text": "INPUT",
+          "width": 137,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 137,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 286,
+          "height": 38
+        },
+        {
+          "text": "Teacher\nAdministrator",
+          "width": 286,
+          "height": 37
+        },
+        {
+          "text": "person_add\nCreate account",
+          "width": 286,
+          "height": 28
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    },
+    {
+      "requestedRoute": "/users",
+      "finalUrl": "/users",
+      "title": "User Accounts",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "bodyWidth": 390,
+      "horizontalOverflow": false,
+      "sidebarVisible": false,
+      "smallTargets": [
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "Dashboard",
+          "width": 92,
+          "height": 24
+        },
+        {
+          "text": "My Classes",
+          "width": 96,
+          "height": 24
+        },
+        {
+          "text": "Submissions",
+          "width": 103,
+          "height": 24
+        },
+        {
+          "text": "Reports",
+          "width": 73,
+          "height": 24
+        },
+        {
+          "text": "Class Records",
+          "width": 113,
+          "height": 24
+        },
+        {
+          "text": "Students",
+          "width": 80,
+          "height": 24
+        },
+        {
+          "text": "Teacher Config",
+          "width": 120,
+          "height": 24
+        },
+        {
+          "text": "User Accounts",
+          "width": 115,
+          "height": 24
+        },
+        {
+          "text": "Academics",
+          "width": 93,
+          "height": 24
+        },
+        {
+          "text": "Grading Config",
+          "width": 119,
+          "height": 24
+        },
+        {
+          "text": "School Settings",
+          "width": 122,
+          "height": 24
+        },
+        {
+          "text": "Audit Log",
+          "width": 84,
+          "height": 24
+        },
+        {
+          "text": "All",
+          "width": 40,
+          "height": 24
+        },
+        {
+          "text": "Students",
+          "width": 80,
+          "height": 24
+        },
+        {
+          "text": "Teachers",
+          "width": 82,
+          "height": 24
+        },
+        {
+          "text": "Administrators",
+          "width": 116,
+          "height": 24
+        },
+        {
+          "text": "key\nReset",
+          "width": 83,
+          "height": 28
+        },
+        {
+          "text": "block\nDeactivate",
+          "width": 115,
+          "height": 28
+        },
+        {
+          "text": "check_circle\nActivate",
+          "width": 100,
+          "height": 28
+        },
+        {
+          "text": "key\nReset",
+          "width": 83,
+          "height": 28
+        },
+        {
+          "text": "block\nDeactivate",
+          "width": 115,
+          "height": 28
+        },
+        {
+          "text": "check_circle\nActivate",
+          "width": 100,
+          "height": 28
+        },
+        {
+          "text": "key\nReset",
+          "width": 83,
+          "height": 28
+        },
+        {
+          "text": "block\nDeactivate",
+          "width": 115,
+          "height": 28
+        },
+        {
+          "text": "check_circle\nActivate",
+          "width": 100,
+          "height": 28
+        },
+        {
+          "text": "key\nReset",
+          "width": 83,
+          "height": 28
+        },
+        {
+          "text": "block\nDeactivate",
+          "width": 115,
+          "height": 28
+        },
+        {
+          "text": "check_circle\nActivate",
+          "width": 100,
+          "height": 28
+        },
+        {
+          "text": "key\nReset",
+          "width": 83,
+          "height": 28
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    },
+    {
+      "requestedRoute": "/academics",
+      "finalUrl": "/academics",
+      "title": "Academics",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "bodyWidth": 390,
+      "horizontalOverflow": false,
+      "sidebarVisible": false,
+      "smallTargets": [
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "Dashboard",
+          "width": 92,
+          "height": 24
+        },
+        {
+          "text": "My Classes",
+          "width": 96,
+          "height": 24
+        },
+        {
+          "text": "Submissions",
+          "width": 103,
+          "height": 24
+        },
+        {
+          "text": "Reports",
+          "width": 73,
+          "height": 24
+        },
+        {
+          "text": "Class Records",
+          "width": 113,
+          "height": 24
+        },
+        {
+          "text": "Students",
+          "width": 80,
+          "height": 24
+        },
+        {
+          "text": "Teacher Config",
+          "width": 120,
+          "height": 24
+        },
+        {
+          "text": "User Accounts",
+          "width": 116,
+          "height": 24
+        },
+        {
+          "text": "Academics",
+          "width": 92,
+          "height": 24
+        },
+        {
+          "text": "Grading Config",
+          "width": 119,
+          "height": 24
+        },
+        {
+          "text": "School Settings",
+          "width": 122,
+          "height": 24
+        },
+        {
+          "text": "Audit Log",
+          "width": 84,
+          "height": 24
+        },
+        {
+          "text": "Subjects",
+          "width": 94,
+          "height": 24
+        },
+        {
+          "text": "Sections",
+          "width": 94,
+          "height": 24
+        },
+        {
+          "text": "Assignments",
+          "width": 121,
+          "height": 24
+        },
+        {
+          "text": "INPUT",
+          "width": 208,
+          "height": 38
+        },
+        {
+          "text": "Select…\nCore\nApplied\nSpecialized",
+          "width": 160,
+          "height": 37
+        },
+        {
+          "text": "add\nAdd",
+          "width": 73,
+          "height": 28
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    },
+    {
+      "requestedRoute": "/grading-config",
+      "finalUrl": "/grading-config",
+      "title": "Grading Config",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "bodyWidth": 390,
+      "horizontalOverflow": false,
+      "sidebarVisible": false,
+      "smallTargets": [
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "Dashboard",
+          "width": 92,
+          "height": 24
+        },
+        {
+          "text": "My Classes",
+          "width": 96,
+          "height": 24
+        },
+        {
+          "text": "Submissions",
+          "width": 103,
+          "height": 24
+        },
+        {
+          "text": "Reports",
+          "width": 73,
+          "height": 24
+        },
+        {
+          "text": "Class Records",
+          "width": 113,
+          "height": 24
+        },
+        {
+          "text": "Students",
+          "width": 80,
+          "height": 24
+        },
+        {
+          "text": "Teacher Config",
+          "width": 120,
+          "height": 24
+        },
+        {
+          "text": "User Accounts",
+          "width": 116,
+          "height": 24
+        },
+        {
+          "text": "Academics",
+          "width": 93,
+          "height": 24
+        },
+        {
+          "text": "Grading Config",
+          "width": 118,
+          "height": 24
+        },
+        {
+          "text": "School Settings",
+          "width": 122,
+          "height": 24
+        },
+        {
+          "text": "Audit Log",
+          "width": 84,
+          "height": 24
+        },
+        {
+          "text": "save\nSave configuration",
+          "width": 166,
+          "height": 28
+        },
+        {
+          "text": "INPUT",
+          "width": 93,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 93,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 93,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 93,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 93,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 93,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 93,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 93,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 93,
+          "height": 38
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    },
+    {
+      "requestedRoute": "/settings",
+      "finalUrl": "/settings",
+      "title": "School Settings",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "bodyWidth": 390,
+      "horizontalOverflow": false,
+      "sidebarVisible": false,
+      "smallTargets": [
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "Dashboard",
+          "width": 92,
+          "height": 24
+        },
+        {
+          "text": "My Classes",
+          "width": 96,
+          "height": 24
+        },
+        {
+          "text": "Submissions",
+          "width": 103,
+          "height": 24
+        },
+        {
+          "text": "Reports",
+          "width": 73,
+          "height": 24
+        },
+        {
+          "text": "Class Records",
+          "width": 113,
+          "height": 24
+        },
+        {
+          "text": "Students",
+          "width": 80,
+          "height": 24
+        },
+        {
+          "text": "Teacher Config",
+          "width": 120,
+          "height": 24
+        },
+        {
+          "text": "User Accounts",
+          "width": 116,
+          "height": 24
+        },
+        {
+          "text": "Academics",
+          "width": 93,
+          "height": 24
+        },
+        {
+          "text": "Grading Config",
+          "width": 119,
+          "height": 24
+        },
+        {
+          "text": "School Settings",
+          "width": 121,
+          "height": 24
+        },
+        {
+          "text": "Audit Log",
+          "width": 84,
+          "height": 24
+        },
+        {
+          "text": "INPUT",
+          "width": 302,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 302,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 302,
+          "height": 38
+        },
+        {
+          "text": "save\nSave settings",
+          "width": 132,
+          "height": 28
+        },
+        {
+          "text": "INPUT",
+          "width": 279,
+          "height": 18
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    },
+    {
+      "requestedRoute": "/audit-log",
+      "finalUrl": "/audit-log",
+      "title": "Audit Log",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "bodyWidth": 390,
+      "horizontalOverflow": false,
+      "sidebarVisible": false,
+      "smallTargets": [
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "Dashboard",
+          "width": 92,
+          "height": 24
+        },
+        {
+          "text": "My Classes",
+          "width": 96,
+          "height": 24
+        },
+        {
+          "text": "Submissions",
+          "width": 103,
+          "height": 24
+        },
+        {
+          "text": "Reports",
+          "width": 73,
+          "height": 24
+        },
+        {
+          "text": "Class Records",
+          "width": 113,
+          "height": 24
+        },
+        {
+          "text": "Students",
+          "width": 80,
+          "height": 24
+        },
+        {
+          "text": "Teacher Config",
+          "width": 120,
+          "height": 24
+        },
+        {
+          "text": "User Accounts",
+          "width": 116,
+          "height": 24
+        },
+        {
+          "text": "Academics",
+          "width": 93,
+          "height": 24
+        },
+        {
+          "text": "Grading Config",
+          "width": 119,
+          "height": 24
+        },
+        {
+          "text": "School Settings",
+          "width": 122,
+          "height": 24
+        },
+        {
+          "text": "Audit Log",
+          "width": 83,
+          "height": 24
+        },
+        {
+          "text": "INPUT",
+          "width": 286,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 286,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 286,
+          "height": 38
+        },
+        {
+          "text": "chevron_left\nPrevious",
+          "width": 102,
+          "height": 28
+        },
+        {
+          "text": "chevron_right\nNext",
+          "width": 77,
+          "height": 28
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    }
+  ]
+}
