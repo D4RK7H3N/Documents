@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+/* SimLab dark theme tokens — these generate utilities such as bg-void,
+   bg-panel, border-edge, text-lilac, text-ink, text-ash, font-display. */
+@theme {
+  --color-void: #0d0b12; /* near-black page background */
+  --color-panel: #161320; /* card background */
+  --color-edge: #2b2440; /* borders */
+  --color-lilac: #a78bfa; /* purple accent */
+  --color-ink: #e8e4f3; /* primary text */
+  --color-ash: #928aa6; /* secondary text */
+  --font-display: Georgia, "Iowan Old Style", "Times New Roman", serif;
+}
+
+body {
+  background-color: var(--color-void);
+  color: var(--color-ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+/* Purple browser-native styling for range sliders. */
+input[type="range"] {
+  accent-color: var(--color-lilac);
+}
+
+/* Native dark controls (number input spinners). */
+input[type="number"] {
+  color-scheme: dark;
+}

@@ -1,0 +1,25 @@
+name: verify backend hiding (non-blocking)
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    continue-on-error: true # P6 is advisory for every PR; never blocks a deploy
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dig
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq dnsutils
+      - name: Run verification script against staging
+        env:
+          SMS_TEST_TOKEN: ${{ secrets.SMS_TEST_TOKEN }}
+          ORIGIN_IP: ${{ secrets.SMS_ORIGIN_IP }}
+        run: bash tools/verify-hiding.sh | tee verify-output.txt
+      - name: Upload output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hiding-verification
+          path: verify-output.txt
