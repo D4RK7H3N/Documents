@@ -1,0 +1,462 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Cashier Quick Payment Terminal</title>
+<!-- Tailwind CSS CDN with forms and container queries plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+            }
+          }
+        }
+      }
+    }
+  </script>
+<!-- BEGIN: Custom Styles -->
+<style data-purpose="custom-scrollbars">
+    /* Subtle custom scrollbar for fee lists */
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+<!-- END: Custom Styles -->
+</head>
+<body class="bg-slate-100 min-h-screen text-slate-800 antialiased p-4 sm:p-6 lg:p-8 flex items-center justify-center font-sans" data-mode="connect">
+<!-- BEGIN: MainPaymentContainer -->
+<main class="w-full max-w-7xl bg-white rounded-2xl shadow-xl border border-slate-200/80 overflow-hidden flex flex-col" data-purpose="cashier-terminal">
+<!-- BEGIN: HeaderSection -->
+<header class="flex flex-col sm:flex-row items-center justify-between border-b border-slate-200 px-6 sm:px-8 py-5 bg-white gap-4" data-purpose="top-navigation">
+<div class="flex items-center space-x-3 w-full sm:w-auto">
+<div class="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-brand-600 shadow-sm">
+<!-- Currency / Receipt Icon -->
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<rect height="14" rx="2" width="20" x="2" y="5"></rect>
+<line x1="2" x2="22" y1="10" y2="10"></line>
+<path d="M7 15h2m4 0h4"></path>
+</svg>
+</div>
+<div>
+<h1 class="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+            Quick Payment
+            <span class="text-xs bg-emerald-100 text-emerald-800 font-medium px-2 py-0.5 rounded-full border border-emerald-200">Terminal 01</span>
+</h1>
+<p class="text-xs text-slate-500">Cashier Counter: Academic Year 2024-2025</p>
+</div>
+</div>
+<!-- Mode Toggle Switch (Student vs Walk-in) -->
+<nav aria-label="Customer Type Mode" class="inline-flex p-1 bg-slate-100 rounded-xl border border-slate-200 w-full sm:w-auto justify-center" data-purpose="mode-toggle">
+<button class="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg shadow-sm bg-white text-brand-600 border border-slate-200/80 transition-all" type="button">
+<svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+<circle cx="9" cy="7" r="4"></circle>
+<path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+</svg>
+          Student
+        </button>
+<button class="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all" type="button">
+<svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+<circle cx="12" cy="7" r="4"></circle>
+</svg>
+          Walk-in
+        </button>
+</nav><div class="flex items-center gap-2"><button type="button" id="btn-quick-reset" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition active:scale-95 border border-slate-200 shadow-sm"><svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg><span class="">New Transaction</span><kbd class="hidden sm:inline-block px-1.5 py-0.5 text-[10px] bg-white rounded border border-slate-300 text-slate-500 font-mono">F1</kbd></button></div>
+</header>
+<!-- END: HeaderSection -->
+<!-- BEGIN: MainContentGrid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-200 min-h-[640px]">
+<!-- BEGIN: LeftColumn (Student Lookup & Info) -->
+<section class="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between space-y-6 bg-slate-50/60" data-purpose="student-lookup-panel">
+<div class="space-y-6">
+<!-- Search Input Block -->
+<div>
+<label class="block text-sm font-semibold text-slate-800 mb-2" for="student-search-input">
+              Student / LRN
+            </label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<circle cx="11" cy="11" r="8"></circle>
+<path d="m21 21-4.3-4.3"></path>
+</svg>
+</div>
+<input class="w-full pl-10 pr-10 py-2.5 bg-white border border-slate-300 rounded-xl text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-600 transition shadow-sm" id="student-search-input" name="student-search" placeholder="Enter student name or LRN (e.g., 102938475612)" type="text" value="102938475612">
+<!-- Clear/Action Button inside input -->
+<button class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M18 6 6 18M6 6l12 12"></path>
+</svg>
+</button>
+</div>
+<p class="text-xs text-slate-500 mt-1.5 flex items-center gap-1">
+<svg class="w-3.5 h-3.5 text-slate-400 inline" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="10"></circle>
+<path d="M12 16v-4m0-4h.01"></path>
+</svg>
+              Search by student full name or 12-digit Learner Reference Number (LRN)
+            </p>
+</div>
+<!-- Active Resolved Student Card -->
+<article class="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-sm space-y-5" data-purpose="active-student-card"><!-- Student Profile Header -->
+<div class="flex items-start gap-4">
+<div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center font-bold text-lg shadow-md ring-4 ring-blue-50 flex-shrink-0">
+  MC
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-2">
+  <h2 class="text-base font-bold text-slate-900 truncate">Maria Santos dela Cruz</h2>
+  <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 flex-shrink-0">
+    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+    Enrolled (Active)
+  </span>
+</div>
+<p class="text-xs font-mono font-medium text-slate-500 mt-0.5">LRN: 102938475612</p>
+<div class="flex flex-wrap items-center gap-1.5 mt-2"><span class="text-xs bg-blue-50 text-brand-700 px-2.5 py-0.5 rounded-md font-semibold border border-blue-200">Grade 11</span>
+  <span class="text-xs bg-blue-50 text-brand-700 px-2.5 py-0.5 rounded-md font-semibold border border-blue-200">Section: NOAH</span>
+  <span class="text-xs bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded-md font-medium border border-slate-200">STEM • Senior High School</span></div>
+</div>
+</div>
+
+<!-- Ledger / Financial Overview Pill -->
+<div class="bg-amber-50/70 border border-amber-200/80 rounded-xl p-3.5 flex items-center justify-between">
+<div>
+  <p class="text-xs font-medium text-amber-800">Current Outstanding Balance</p>
+  <p class="text-xl font-extrabold text-amber-900 mt-0.5">₱4,500.00</p>
+</div>
+<span class="text-xs font-medium bg-amber-100 text-amber-800 px-2.5 py-1 rounded-lg border border-amber-300/50">
+  Pending Due
+</span>
+</div>
+
+<!-- Student Metadata & Enrollment Information Grid -->
+<div class="space-y-2 pt-2 border-t border-slate-100 text-xs text-slate-600 divide-y divide-slate-100">
+<div class="flex justify-between items-center py-1">
+  <span class="text-slate-500">Grade Level:</span>
+  <span class="font-semibold text-slate-800">Grade 11</span>
+</div>
+<div class="flex justify-between items-center py-1">
+  <span class="text-slate-500">Section:</span>
+  <span class="font-semibold text-slate-800">NOAH</span>
+</div>
+<div class="flex justify-between items-center py-1">
+  <span class="text-slate-500">Track &amp; Strand:</span>
+  <span class="font-medium text-slate-800">Academic Track - STEM (Senior High School)</span>
+</div>
+<div class="flex justify-between items-center py-1">
+  <span class="text-slate-500">School Year &amp; Term:</span>
+  <span class="font-medium text-slate-800">S.Y. 2024-2025 • 1st Semester</span>
+</div>
+<div class="flex justify-between items-center py-1">
+  <span class="text-slate-500">Class Adviser:</span>
+  <span class="font-medium text-slate-800">Mr. Jonathan Ramirez, LPT</span>
+</div>
+<div class="flex justify-between items-center py-1">
+  <span class="text-slate-500">Guardian / Parent:</span>
+  <span class="font-medium text-slate-800">Elena dela Cruz (Mother)</span>
+</div>
+<div class="flex justify-between items-center py-1">
+  <span class="text-slate-500">Contact Number:</span>
+  <span class="font-mono font-medium text-slate-800">+63 917 842 9012</span>
+</div>
+<div class="flex justify-between items-center py-1">
+  <span class="text-slate-500">Billing / Category:</span>
+  <span class="font-medium text-slate-800">Regular (Non-ESC / Voucher)</span>
+</div>
+<div class="flex justify-between items-center py-1">
+  <span class="text-slate-500">Last Payment Made:</span>
+  <span class="font-medium text-slate-800">₱2,500.00 (June 15, 2024)</span>
+</div>
+</div></article>
+</div>
+<!-- Terminal Quick Action Note -->
+<div class="rounded-xl border border-dashed border-slate-300 p-3.5 text-xs text-slate-500 flex items-center gap-3 bg-white/70">
+<svg class="w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<rect height="18" rx="2" width="18" x="3" y="3"></rect>
+<path d="M8 12h8m-8-4h8m-8 8h4"></path>
+</svg>
+<p class="">Official receipts are generated automatically upon successful settlement and saved to the registry.</p>
+</div>
+</section>
+<!-- END: LeftColumn -->
+<!-- BEGIN: RightColumn (Fee Items, Method & Checkout) -->
+<section class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between space-y-6 bg-white" data-purpose="payment-items-panel">
+<div class="space-y-6">
+<!-- Section Title & Item count counter -->
+<div class="flex items-center justify-between pb-2 border-b border-slate-100">
+<div>
+<h2 class="text-base font-bold text-slate-900">Select Payable Items / Fees</h2>
+<p class="text-xs text-slate-500">Check fees to include in the current transaction receipt</p>
+</div>
+<span class="text-xs font-semibold px-2.5 py-1 bg-blue-50 text-brand-600 rounded-lg border border-blue-200">0 Items Selected</span>
+</div><div class="flex items-center gap-2 pt-1 pb-1 overflow-x-auto text-xs" id="fee-category-tabs" role="tablist"><button type="button" data-filter="all" class="category-tab px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 hover:bg-slate-200/60 text-slate-700 transition cursor-pointer">All Items (5)</button><button type="button" data-filter="academic" class="category-tab px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 hover:bg-slate-200/60 text-slate-700 transition cursor-pointer">Academic Fees (3)</button><button type="button" data-filter="product" class="category-tab px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-600 text-white shadow-sm transition">Products &amp; Supplies (2)</button></div>
+<!-- Product / Fee Checklist (5 Items) -->
+<div class="space-y-2.5 max-h-[300px] overflow-y-auto pr-1.5 custom-scroll" data-purpose="fee-item-list"><!-- Item 1 [Academic] (Selected) --><label data-category="academic" class="fee-item flex items-center justify-between p-3.5 rounded-xl cursor-pointer hover:bg-blue-50/80 transition-all bg-white border-slate-200" style="display: none;"><div class="flex items-start gap-3"><input checked="" class="fee-checkbox mt-1 w-4 h-4 text-brand-600 rounded border-slate-300 focus:ring-brand-500" name="fees" type="checkbox" value="2500"><div class="space-y-1"><div class="flex items-center gap-2"><p class="text-sm font-semibold text-slate-900">Tuition Fee - 1st Quarter</p><span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-50 text-brand-600 border border-blue-200">Academic</span></div><p class="text-xs text-slate-500">Mandatory quarterly basic tuition installment</p><div class="flex items-center gap-2 text-xs text-slate-500"><span class="bg-white px-2 py-0.5 rounded border border-slate-200 text-slate-700">Qty: 1</span><span class="">× ₱2,500.00</span></div></div></div><div class="text-right pl-3"><span class="text-sm font-semibold text-slate-700">₱2,500.00</span><p class="text-[10px] text-slate-400 status-tag">Optional</p></div></label><!-- Item 2 [Academic] (Selected) --><label data-category="academic" class="fee-item flex items-center justify-between p-3.5 rounded-xl cursor-pointer hover:bg-blue-50/80 transition-all bg-white border-slate-200" style="display: none;"><div class="flex items-start gap-3"><input checked="" class="fee-checkbox mt-1 w-4 h-4 text-brand-600 rounded border-slate-300 focus:ring-brand-500" name="fees" type="checkbox" value="1200"><div class="space-y-1"><div class="flex items-center gap-2"><p class="text-sm font-semibold text-slate-900">Miscellaneous &amp; Registration Fee</p><span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-50 text-brand-600 border border-blue-200">Academic</span></div><p class="text-xs text-slate-500">Library, athletics, campus insurance &amp; lab access</p><div class="flex items-center gap-2 text-xs text-slate-500"><span class="bg-white px-2 py-0.5 rounded border border-slate-200 text-slate-700">Qty: 1</span><span class="">× ₱1,200.00</span></div></div></div><div class="text-right pl-3"><span class="text-sm font-semibold text-slate-700">₱1,200.00</span><p class="text-[10px] text-slate-400 status-tag">Optional</p></div></label><!-- Item 3 [Academic] (Unchecked) --><label data-category="academic" class="fee-item flex items-center justify-between p-3.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 hover:border-slate-300 transition-all" style="display: none;"><div class="flex items-start gap-3"><input class="fee-checkbox mt-1 w-4 h-4 text-brand-600 rounded border-slate-300 focus:ring-brand-500" name="fees" type="checkbox" value="500"><div class="space-y-1"><div class="flex items-center gap-2"><p class="text-sm font-medium text-slate-800">Examination &amp; Assessment Fee</p><span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-50 text-brand-600 border border-blue-200">Academic</span></div><p class="text-xs text-slate-500">Standardized periodical testing &amp; credentials</p><div class="flex items-center gap-2 text-xs text-slate-500"><span class="bg-slate-50 px-2 py-0.5 rounded border border-slate-200 text-slate-700">Qty: 1</span><span class="">× ₱500.00</span></div></div></div><div class="text-right pl-3"><span class="text-sm font-semibold text-slate-700">₱500.00</span><p class="text-[10px] text-slate-400 status-tag">Optional</p></div></label><!-- Item 4 [Product] (Unchecked) --><label data-category="product" class="fee-item flex items-center justify-between p-3.5 border rounded-xl cursor-pointer hover:bg-slate-50 hover:border-slate-300 transition-all bg-white border-slate-200" style="display: flex;"><div class="flex items-start gap-3"><input class="fee-checkbox mt-1 w-4 h-4 text-brand-600 rounded border-slate-300 focus:ring-brand-500" name="fees" type="checkbox" value="950"><div class="space-y-1"><div class="flex items-center gap-2"><p class="text-sm font-medium text-slate-800">Official School Uniform Set (SHS)</p><span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">Product</span></div><p class="text-xs text-slate-500">2x Polo/Blouse + Pants/Skirt with school patch</p><div class="flex items-center gap-2 text-xs text-slate-500"><span class="bg-slate-50 px-2 py-0.5 rounded border border-slate-200 text-slate-700">Qty: 1</span><span class="">× ₱950.00</span></div></div></div><div class="text-right pl-3"><span class="text-sm font-semibold text-slate-700">₱950.00</span><p class="text-[10px] text-slate-400 status-tag">Optional</p></div></label><!-- Item 5 [Product] (Unchecked) --><label data-category="product" class="fee-item flex items-center justify-between p-3.5 border rounded-xl cursor-pointer hover:bg-slate-50 hover:border-slate-300 transition-all bg-white border-slate-200" style="display: flex;"><div class="flex items-start gap-3"><input class="fee-checkbox mt-1 w-4 h-4 text-brand-600 rounded border-slate-300 focus:ring-brand-500" name="fees" type="checkbox" value="650"><div class="space-y-1"><div class="flex items-center gap-2"><p class="text-sm font-medium text-slate-800">P.E. Uniform &amp; Official Activity Shirt</p><span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">Product</span></div><p class="text-xs text-slate-500">Breathable athletic jogger pants &amp; school dry-fit shirt</p><div class="flex items-center gap-2 text-xs text-slate-500"><span class="bg-slate-50 px-2 py-0.5 rounded border border-slate-200 text-slate-700">Qty: 1</span><span class="">× ₱650.00</span></div></div></div><div class="text-right pl-3"><span class="text-sm font-semibold text-slate-700">₱650.00</span><p class="text-[10px] text-slate-400 status-tag">Optional</p></div></label></div>
+<!-- Total Due Banner -->
+<div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex items-center justify-between" data-purpose="subtotal-summary">
+<div>
+<span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Total Payable Amount</span>
+<p class="text-xs text-slate-500">Based on 0 selected line items</p>
+</div>
+<div class="text-right">
+<span class="text-2xl font-black text-brand-600 tracking-tight">₱0.00</span>
+</div>
+</div>
+<!-- Payment Method Segment Cards -->
+<div class="space-y-2" data-purpose="payment-methods">
+<label class="block text-sm font-semibold text-slate-800">Payment Method</label>
+<div class="grid grid-cols-3 gap-3">
+<!-- Cash (Active/Selected) -->
+<button class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-brand-600 bg-blue-50/50 text-brand-700 font-semibold shadow-sm transition" type="button">
+<svg class="w-6 h-6 mb-1 text-brand-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<rect height="12" rx="2" width="20" x="2" y="6"></rect>
+<circle cx="12" cy="12" r="2"></circle>
+<path d="M6 12h.01M18 12h.01"></path>
+</svg>
+<span class="text-xs">Cash</span>
+</button>
+<!-- GCash / e-Wallet -->
+<button class="flex flex-col items-center justify-center p-3 rounded-xl border border-slate-200 hover:border-slate-300 bg-white text-slate-700 font-medium hover:bg-slate-50 transition" type="button">
+<svg class="w-6 h-6 mb-1 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<rect height="14" rx="2" width="20" x="2" y="5"></rect>
+<line x1="2" x2="22" y1="10" y2="10"></line>
+</svg>
+<span class="text-xs">GCash</span>
+</button>
+<!-- Bank / Online -->
+<button class="flex flex-col items-center justify-center p-3 rounded-xl border border-slate-200 hover:border-slate-300 bg-white text-slate-700 font-medium hover:bg-slate-50 transition" type="button">
+<svg class="w-6 h-6 mb-1 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+<span class="text-xs">Bank Transfer</span>
+</button>
+</div>
+</div>
+<!-- Reference Number Input Field -->
+<div class="space-y-1.5">
+<label class="block text-xs font-semibold text-slate-700" for="reference-field">
+              Reference Number <span class="text-slate-400 font-normal">(optional for Cash, required for GCash/Bank)</span>
+</label>
+<input class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-600 focus:bg-white transition" id="reference-field" placeholder="e.g. GCASH-123456 or Bank Ref #" type="text">
+</div>
+</div>
+<!-- Action / Submit Button -->
+<div class="pt-4 border-t border-slate-100" data-purpose="checkout-button-container">
+<button class="w-full py-3.5 px-6 rounded-xl bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-md shadow-brand-600/20 transition-all focus:outline-none focus:ring-4 focus:ring-brand-500/30" type="button">
+<!-- Cash Register / Payment Process Icon -->
+<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<rect height="12" rx="2" width="20" x="2" y="6"></rect>
+<circle cx="12" cy="12" r="2"></circle>
+<path d="M6 12h.01M18 12h.01"></path>
+</svg>
+<span class="">Process Payment (₱0.00)</span>
+</button>
+<div class="flex items-center justify-between text-[11px] text-slate-400 mt-2.5 px-1">
+<span class="">Press <kbd class="px-1.5 py-0.5 bg-slate-100 border border-slate-300 rounded text-slate-600 font-mono text-[10px]">F12</kbd> or <kbd class="px-1.5 py-0.5 bg-slate-100 border border-slate-300 rounded text-slate-600 font-mono text-[10px]">Enter</kbd> to quick pay</span>
+<span class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Printer Online
+            </span>
+</div>
+</div>
+</section>
+<!-- END: RightColumn -->
+</div>
+<!-- END: MainContentGrid -->
+</main>
+<!-- END: MainPaymentContainer -->
+
+
+<script>document.addEventListener('DOMContentLoaded',function(){var tabs=document.querySelectorAll('.category-tab');var items=document.querySelectorAll('.fee-item');var checkboxes=document.querySelectorAll('.fee-checkbox');var counterBadge=document.querySelector("span.bg-blue-50.text-brand-600");var subtotalCounter=document.querySelector("[data-purpose='subtotal-summary'] p");var totalAmountEl=document.querySelector("[data-purpose='subtotal-summary'] .text-2xl");var payButtonSpan=document.querySelector("[data-purpose='checkout-button-container'] button span");function updateTotal(){var total=0;var count=0;checkboxes.forEach(function(cb){var item=cb.closest('.fee-item');var statusTag=item.querySelector('.status-tag');var priceTag=item.querySelector('.text-right span');if(cb.checked){total+=parseFloat(cb.value);count++;item.classList.add('bg-blue-50/50','border-2','border-brand-500');item.classList.remove('bg-white','border-slate-200');if(statusTag){statusTag.textContent='Included';statusTag.className='text-[10px] text-emerald-700 font-medium status-tag';}if(priceTag){priceTag.className='text-sm font-bold text-brand-700';}}else{item.classList.remove('bg-blue-50/50','border-2','border-brand-500');item.classList.add('bg-white','border-slate-200');if(statusTag){statusTag.textContent='Optional';statusTag.className='text-[10px] text-slate-400 status-tag';}if(priceTag){priceTag.className='text-sm font-semibold text-slate-700';}}});var formatted='₱'+total.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(counterBadge)counterBadge.textContent=count+' Items Selected';if(subtotalCounter)subtotalCounter.textContent='Based on '+count+' selected line items';if(totalAmountEl)totalAmountEl.textContent=formatted;if(payButtonSpan)payButtonSpan.textContent='Process Payment ('+formatted+')';}tabs.forEach(function(tab){tab.addEventListener('click',function(){var filter=tab.getAttribute('data-filter');tabs.forEach(function(t){t.className='category-tab px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 hover:bg-slate-200/60 text-slate-700 transition cursor-pointer';});tab.className='category-tab px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-600 text-white shadow-sm transition';items.forEach(function(item){if(filter==='all'||item.getAttribute('data-category')===filter){item.style.display='flex';}else{item.style.display='none';}});});});checkboxes.forEach(function(cb){cb.addEventListener('change',updateTotal);});});</script>
+
+
+
+
+
+<!-- BEGIN: PaymentDetailsModal -->
+<div id="payment-details-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm transition-opacity duration-200">
+  <!-- Modal Card -->
+  <div class="bg-white rounded-3xl shadow-2xl w-full max-w-sm sm:max-w-md p-6 sm:p-7 flex flex-col items-center relative animate-in fade-in zoom-in-95 duration-150">
+    
+    <!-- Header Icon -->
+    <div class="w-14 h-14 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center shadow-inner mb-3.5">
+      <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"></path>
+        <path d="M12 7v10"></path>
+        <path d="M9.5 9.5a2.5 2.5 0 0 1 5 0c0 2-5 2-5 4a2.5 2.5 0 0 0 5 0"></path>
+      </svg>
+    </div>
+
+    <!-- Modal Title -->
+    <h3 class="text-xl font-bold text-slate-900 mb-5 tracking-tight">Payment Details</h3>
+
+    <!-- Modal Body Content Box -->
+    <div class="w-full bg-slate-50/70 border border-slate-100 rounded-2xl p-4 sm:p-5 flex flex-col items-center text-center space-y-4 mb-5">
+      
+      <!-- Item -->
+      <div>
+        <p class="text-xs text-slate-400 font-medium mb-0.5">Item</p>
+        <p class="text-sm font-semibold text-slate-800">Uniform type - A lower</p>
+      </div>
+
+      <!-- Method -->
+      <div>
+        <p class="text-xs text-slate-400 font-medium mb-0.5">Method</p>
+        <p class="text-sm font-semibold text-slate-800">Cash</p>
+      </div>
+
+      <!-- Amount Due Input Display -->
+      <div class="w-full">
+        <p class="text-xs text-slate-400 font-medium mb-1.5">Amount Due</p>
+        <div class="flex items-center justify-between bg-slate-100/80 border border-slate-200/80 rounded-xl px-4 py-2.5">
+          <span class="text-base font-semibold text-slate-400">$</span>
+          <span class="text-lg font-bold text-slate-800 tracking-tight">500.00</span>
+        </div>
+      </div>
+
+      <!-- Pay Segment Selector -->
+      <div class="w-full">
+        <p class="text-xs text-slate-400 font-medium mb-2">Pay</p>
+        <div class="grid grid-cols-3 gap-2.5">
+          <!-- Full -->
+          <button type="button" id="btn-pay-full" class="flex flex-col items-center justify-center py-2.5 px-2 rounded-xl bg-blue-600 text-white font-semibold shadow-sm transition hover:bg-blue-700 active:scale-95">
+            <span class="text-xs font-bold leading-tight">Full</span>
+            <span class="text-xs font-medium leading-tight">₱500</span>
+          </button>
+          <!-- Half -->
+          <button type="button" id="btn-pay-half" class="flex flex-col items-center justify-center py-2.5 px-2 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold transition hover:bg-slate-100 active:scale-95">
+            <span class="text-xs font-bold leading-tight">Half</span>
+            <span class="text-xs font-medium text-slate-500 leading-tight">₱250</span>
+          </button>
+          <!-- Other -->
+          <button type="button" id="btn-pay-other" class="flex flex-col items-center justify-center py-2.5 px-2 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold transition hover:bg-slate-100 active:scale-95">
+            <span class="text-xs font-bold leading-tight">Other</span>
+            <span class="text-xs font-medium text-slate-500 leading-tight">custom</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Collecting Now Text -->
+      <div class="text-xs text-slate-500">
+        Collecting now: <strong class="text-slate-900 font-extrabold text-sm ml-0.5" id="collecting-now-val">₱500.00</strong>
+      </div>
+
+      <!-- Cash Tendered -->
+      <div class="w-full">
+        <p class="text-xs text-slate-400 font-medium mb-1.5">Cash Tendered <span class="text-slate-400 font-normal">(optional)</span></p>
+        <div class="flex items-center justify-between bg-white border border-slate-200 rounded-xl px-4 py-2.5 shadow-sm mb-2.5">
+          <span class="text-base font-semibold text-slate-400">$</span>
+          <input type="text" id="cash-tendered-input" class="w-full bg-transparent text-right font-bold text-slate-800 text-base focus:outline-none border-0 p-0 focus:ring-0" value="0.00" placeholder="0.00">
+        </div>
+
+        <!-- Quick Preset Bills -->
+        <div class="flex flex-wrap items-center justify-center gap-1.5">
+          <button type="button" class="denom-btn px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 hover:border-slate-300 transition active:scale-95" data-val="50">₱50</button>
+          <button type="button" class="denom-btn px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 hover:border-slate-300 transition active:scale-95" data-val="100">₱100</button>
+          <button type="button" class="denom-btn px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 hover:border-slate-300 transition active:scale-95" data-val="200">₱200</button>
+          <button type="button" class="denom-btn px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 hover:border-slate-300 transition active:scale-95" data-val="500">₱500</button>
+          <button type="button" class="denom-btn px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 hover:border-slate-300 transition active:scale-95" data-val="1000">₱1,000</button>
+        </div>
+        <div class="flex justify-center mt-1.5">
+          <button type="button" class="denom-btn px-3 py-1 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 hover:border-slate-300 transition active:scale-95" data-val="5000">₱5,000</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions Footer -->
+    <div class="w-full flex items-center gap-3">
+      <button type="button" id="modal-cancel-btn" class="flex-1 py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm transition text-center">
+        Cancel
+      </button>
+      <button type="button" id="modal-confirm-btn" class="flex-1 py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold text-sm shadow-md transition text-center">
+        Confirm Payment
+      </button>
+    </div>
+  </div>
+</div><div id="transaction-toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 pointer-events-none" style="display: none;"><div class="bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-slate-700 text-sm"><div class="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0 text-white font-bold text-xs">✓</div><div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2"><span class="font-bold text-emerald-400">Transaction Completed</span><span class="text-slate-300 hidden sm:inline">•</span><span class="text-slate-300 font-mono text-xs">OR #2024-00892 recorded</span><span class="text-slate-300 hidden sm:inline">•</span><span class="text-blue-300 text-xs font-medium">Cashier terminal reset &amp; ready for next student</span></div></div></div><div id="receipt-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm transition-opacity duration-200" style="display: none;"><div class="bg-white rounded-3xl shadow-2xl w-full max-w-sm sm:max-w-md p-6 sm:p-7 flex flex-col items-center relative animate-in fade-in zoom-in-95 duration-150"><div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center shadow-inner mb-3.5"><svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div><h3 class="text-xl font-bold text-slate-900 mb-1 tracking-tight">Payment Successful</h3><p class="text-xs text-slate-500 mb-4">Official Receipt <span class="font-mono font-bold text-slate-800">#2024-00892</span></p><div id="receipt-print-feedback" class="w-full mb-3 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center justify-between" style="display: none;"><div class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg><span class="font-medium">Receipt printed successfully! Ready for next transaction.</span></div><span class="text-[10px] bg-emerald-200 text-emerald-900 px-1.5 py-0.5 rounded font-bold">Printed</span></div><div class="w-full bg-slate-50 border border-slate-200/80 rounded-2xl p-4 text-xs space-y-2 mb-5"><div class="flex justify-between items-center text-slate-600"><span class="text-slate-500">Student:</span><span class="font-semibold text-slate-900" id="receipt-student-name">Maria Santos dela Cruz</span></div><div class="flex justify-between items-center text-slate-600"><span class="text-slate-500">LRN:</span><span class="font-mono font-medium text-slate-700">102938475612</span></div><div class="flex justify-between items-center text-slate-600 border-t border-slate-200/60 pt-1.5"><span class="text-slate-500">Item Settled:</span><span class="font-medium text-slate-800">Uniform type - A lower</span></div><div class="flex justify-between items-center text-slate-600"><span class="text-slate-500">Payment Method:</span><span class="font-semibold text-slate-800">Cash</span></div><div class="flex justify-between items-center text-slate-600 border-t border-slate-200/60 pt-1.5"><span class="font-bold text-slate-700 text-sm">Amount Paid:</span><span class="font-extrabold text-brand-600 text-base" id="receipt-amount-paid">₱500.00</span></div><div class="flex justify-between items-center text-slate-500 pt-0.5 text-[11px]"><span class="">Date &amp; Time:</span><span class="font-mono">Oct 24, 2024 • 10:42 AM</span></div></div><div class="w-full space-y-2.5"><div class="flex items-center gap-2"><button type="button" id="btn-print-receipt" class="flex-1 py-3 px-4 rounded-xl border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-800 font-semibold text-sm flex items-center justify-center gap-2 shadow-sm transition active:scale-95"><svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"></path><path d="M6 14h12v8H6z"></path></svg><span class="">Print Receipt</span></button><button type="button" id="btn-receipt-done" class="py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm transition text-center">Done</button></div><button type="button" id="btn-new-transaction" class="w-full py-3 px-4 rounded-xl bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-bold text-sm shadow-md shadow-brand-600/20 flex items-center justify-center gap-2 transition active:scale-95"><svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"></path></svg><span class="">Start New Transaction</span><span class="text-[11px] font-normal text-blue-200 bg-blue-700/60 px-1.5 py-0.5 rounded font-mono">Enter / F1</span></button></div></div></div>
+
+<script>
+(function(){
+  var modal = document.getElementById('payment-details-modal');
+  var cancelBtn = document.getElementById('modal-cancel-btn');
+  var confirmBtn = document.getElementById('modal-confirm-btn');
+  var processPayBtn = document.querySelector("[data-purpose='checkout-button-container'] button");
+  var cashInput = document.getElementById('cash-tendered-input');
+  var collectingVal = document.getElementById('collecting-now-val');
+  var denomBtns = document.querySelectorAll('.denom-btn');
+  var payFull = document.getElementById('btn-pay-full');
+  var payHalf = document.getElementById('btn-pay-half');
+  var payOther = document.getElementById('btn-pay-other');
+
+  function openModal() {
+    if (modal) modal.style.display = 'flex';
+  }
+  function closeModal() {
+    if (modal) modal.style.display = 'none';
+  }
+
+  if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+  if (confirmBtn) {
+    confirmBtn.addEventListener('click', function() {
+      closeModal();
+    });
+  }
+  if (processPayBtn) processPayBtn.addEventListener('click', openModal);
+
+  denomBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var val = parseFloat(btn.getAttribute('data-val'));
+      if (cashInput) cashInput.value = val.toFixed(2);
+    });
+  });
+
+  function setPayMode(type) {
+    var activeClass = 'flex flex-col items-center justify-center py-2.5 px-2 rounded-xl bg-blue-600 text-white font-semibold shadow-sm transition hover:bg-blue-700 active:scale-95';
+    var inactiveClass = 'flex flex-col items-center justify-center py-2.5 px-2 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold transition hover:bg-slate-100 active:scale-95';
+    
+    [payFull, payHalf, payOther].forEach(function(b) {
+      if (b) b.className = inactiveClass;
+    });
+
+    if (type === 'full' && payFull) {
+      payFull.className = activeClass;
+      if (collectingVal) collectingVal.textContent = '₱500.00';
+    } else if (type === 'half' && payHalf) {
+      payHalf.className = activeClass;
+      if (collectingVal) collectingVal.textContent = '₱250.00';
+    } else if (type === 'other' && payOther) {
+      payOther.className = activeClass;
+      if (collectingVal) collectingVal.textContent = '₱0.00';
+    }
+  }
+
+  if (payFull) payFull.addEventListener('click', function() { setPayMode('full'); });
+  if (payHalf) payHalf.addEventListener('click', function() { setPayMode('half'); });
+  if (payOther) payOther.addEventListener('click', function() { setPayMode('other'); });
+})();
+</script>
+<!-- END: PaymentDetailsModal -->
+
+</body></html>
