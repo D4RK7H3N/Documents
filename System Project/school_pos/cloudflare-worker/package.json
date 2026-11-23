@@ -1,0 +1,18 @@
+{
+  "name": "sms-2-cloudflare-worker",
+  "version": "1.0.0",
+  "description": "SMS-2 Backend — Cloudflare Worker + D1 + R2",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "migrate": "wrangler d1 migrations apply sms2-db",
+    "migrate:local": "wrangler d1 migrations apply sms2-db --local"
+  },
+  "dependencies": {
+    "jose": "^5.9.6"
+  },
+  "devDependencies": {
+    "wrangler": "^3.114.0"
+  }
+}

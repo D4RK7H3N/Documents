@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+release/
+out/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+# Code-signing material - must never be committed
+*.pfx
+*.p12
+*.cer
+*.pem
+*.key
+signing-credentials*.txt
+e2e/.auth/
+test-results/
+playwright-report/
