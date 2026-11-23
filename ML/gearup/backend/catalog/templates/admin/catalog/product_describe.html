@@ -1,0 +1,31 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+  <h1>AI description generator</h1>
+  <p>Enter a product name and its key features. The LLM drafts a description you can copy into any product's description field and edit before saving.</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <p>
+      <label for="id_name"><strong>Product name</strong></label><br>
+      <input type="text" id="id_name" name="name" value="{{ name }}" style="width: 50%;" />
+    </p>
+    <p>
+      <label for="id_features"><strong>Key features</strong> (comma or newline separated)</label><br>
+      <textarea id="id_features" name="features" rows="4" style="width: 75%;">{{ features }}</textarea>
+    </p>
+    <p><input type="submit" value="Generate draft" class="default" /></p>
+  </form>
+
+  {% if error %}
+    <p style="color: #ba2121;"><strong>{{ error }}</strong></p>
+  {% endif %}
+
+  {% if draft %}
+    <fieldset class="module aligned">
+      <h2>Draft description</h2>
+      <textarea rows="10" style="width: 100%;" readonly>{{ draft }}</textarea>
+      <p class="help">Copy this into the product's description field, edit as needed, then save the product.</p>
+    </fieldset>
+  {% endif %}
+{% endblock %}

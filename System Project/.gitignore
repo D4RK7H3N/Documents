@@ -1,0 +1,64 @@
+# Dependencies
+frontend/node_modules/
+Netlify/node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+school_pos/venv/
+school_pos/.venv/
+school_pos/env/
+school_pos/ENV/
+
+# Build output
+frontend/dist/
+frontend/release/
+Netlify/dist/
+school_pos/dist/
+school_pos/build/
+
+# Django
+*.log
+db.sqlite3
+local_settings.py
+
+# Environment files
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# IDE
+.vscode/
+.idea/
+.ruff_cache/
+
+# Media & static
+school_pos/media/
+school_pos/staticfiles/
+
+# NOTE: school_pos/static/ is intentionally TRACKED.
+# STATICFILES_STORAGE uses CompressedManifestStaticFilesStorage, which raises
+# "Missing staticfiles manifest entry" (HTTP 500 on every Django admin page)
+# when css/admin_custom.css is absent from the build.
+!school_pos/static/
+!school_pos/static/**
+
+# External projects (own git repos)
+Darkzhen-project/
+PORTFOLIO/
+
+# Generated sample data (student import files)
+sample_data/

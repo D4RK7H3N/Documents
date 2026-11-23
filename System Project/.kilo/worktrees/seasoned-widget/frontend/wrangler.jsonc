@@ -1,0 +1,27 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Must match the Worker that actually serves production
+  // (sms.darkzhub.asia -> Worker "sms-3"). Previously this said "frontend",
+  // so `wrangler deploy` silently published to the wrong Worker and
+  // production kept serving a stale, out-of-sync build.
+  "name": "sms-3",
+  "compatibility_date": "2026-08-03",
+  "main": "worker.js",
+  "build": {
+    "command": "npm run build"
+  },
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application",
+    // Binding lets worker.js set correct cache headers: the HTML entry document
+    // must never be cached, or a stale index.html points at pruned chunks and
+    // the SPA fallback serves text/html for module scripts.
+    "binding": "ASSETS",
+    // Without this Cloudflare serves matching assets itself and never invokes
+    // worker.js, so the cache headers below were never applied.
+    "run_worker_first": true
+  },
+  "observability": {
+    "enabled": true
+  }
+}
