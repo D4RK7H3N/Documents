@@ -1,0 +1,9 @@
+Django>=5.2,<5.3
+djangorestframework>=3.16,<4.0
+django-cors-headers>=4.4,<8.0
+psycopg2-binary>=2.9.10,<3.0
+python-dotenv>=1.0,<2.0
+numpy>=2.0,<3.0
+scikit-learn>=1.6,<2.0
+joblib>=1.4,<2.0
+xgboost>=3.0,<4.0

@@ -1,0 +1,9 @@
+/* Fix login page logo sizing */
+.login-logo img,
+.login-box .login-logo img {
+    max-width: 150px;
+    max-height: 150px;
+    width: auto;
+    height: auto;
+    border-radius: 50%;
+}
