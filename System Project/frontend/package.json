@@ -1,0 +1,119 @@
+{
+  "name": "school-management-system",
+  "version": "1.1.19",
+  "private": true,
+  "main": "electron/main.js",
+  "homepage": "./",
+  "description": "A complete School Management System",
+  "author": {
+    "name": "School Management System",
+    "email": "noreply@schoolms.local"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run gen-icons && vite build",
+    "preview": "vite preview",
+    "electron": "electron .",
+    "start": "concurrently \"npm run dev\" \"wait-on http://localhost:5173 && electron .\"",
+    "build:win": "npm run build && electron-builder --win --x64 --ia32",
+    "build:win:signed": "powershell -ExecutionPolicy Bypass -File scripts/build-signed.ps1",
+    "build:win:signed:selfsigned": "powershell -ExecutionPolicy Bypass -File scripts/build-signed.ps1 -SelfSigned",
+    "cert:create": "powershell -ExecutionPolicy Bypass -File scripts/create-signing-cert.ps1",
+    "verify:signature": "powershell -ExecutionPolicy Bypass -File scripts/verify-signature.ps1",
+    "build:win:x64": "npm run build && electron-builder --win --x64",
+    "build:win:x86": "npm run build && electron-builder --win --ia32",
+    "dist": "npm run build && electron-builder --win",
+    "pack": "electron-builder --dir",
+    "gen-icons": "node scripts/generate-icons.cjs",
+    "deploy": "npm run build && wrangler deploy",
+    "deploy:frontend": "npm run build && wrangler deploy --name frontend",
+    "cf:whoami": "wrangler whoami",
+    "release:publish": "node scripts/publish-local.mjs && node scripts/publish-release.mjs",
+    "release:publish:dry": "node scripts/publish-release.mjs --dry-run",
+    "release:publish:local": "node scripts/publish-local.mjs",
+    "release:publish:mirror": "node scripts/publish-release.mjs",
+    "release:list": "node scripts/publish-local.mjs --list"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.0",
+    "@capacitor/cli": "^8.5.0",
+    "@capacitor/core": "^8.5.0",
+    "@capacitor/preferences": "^8.0.1",
+    "axios": "^1.6.8",
+    "caniuse-lite": "^1.0.30001823",
+    "electron-updater": "^6.8.11",
+    "lucide-react": "^0.263.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.18.5",
+    "react-to-print": "^3.3.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^6.0.2",
+    "autoprefixer": "^10.4.14",
+    "concurrently": "^8.0.0",
+    "electron": "^42.6.0",
+    "electron-builder": "^25.1.0",
+    "postcss": "^8.4.24",
+    "sharp": "^0.35.2",
+    "tailwindcss": "^3.3.2",
+    "typescript": "^7.0.2",
+    "vite": "^8.0.13",
+    "wait-on": "^7.0.0",
+    "wrangler": "^4.118.0"
+  },
+  "build": {
+    "appId": "com.sms.schoolmanagementsystem",
+    "productName": "School Management System",
+    "files": [
+      "dist/index.html",
+      "dist/assets/**/*",
+      "electron/main.js",
+      "electron/preload.js",
+      "electron/splash.html",
+      "package.json"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "icon": "build/icon.ico",
+      "forceCodeSigning": false,
+      "signtoolOptions": {
+        "publisherName": "Dan Aldrin Español"
+      },
+      "requestedExecutionLevel": "asInvoker",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "SMS"
+    },
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "https://sms.darkzhub.asia/releases/"
+      }
+    ]
+  },
+  "allowScripts": {
+    "electron-winstaller@5.4.0": true,
+    "esbuild@0.28.2": true,
+    "workerd@1.20261109.1": true
+  }
+}
