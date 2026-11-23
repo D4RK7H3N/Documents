@@ -1,0 +1,153 @@
+{
+  "categories": [
+    { "name": "Keyboards", "slug": "keyboards" },
+    { "name": "Mice", "slug": "mice" },
+    { "name": "Headsets", "slug": "headsets" },
+    { "name": "Controllers", "slug": "controllers" },
+    { "name": "Mousepads", "slug": "mousepads" },
+    { "name": "Monitors", "slug": "monitors" },
+    { "name": "Accessories", "slug": "accessories" }
+  ],
+  "products": [
+    {
+      "name": "ApexStrike K87 Mechanical Keyboard",
+      "slug": "apexstrike-k87-mechanical-keyboard",
+      "category": "keyboards", "brand": "ApexStrike", "price": "2495.00", "stock": 24, "featured": true,
+      "description": "Tenkeyless hot-swappable mechanical keyboard with per-key RGB, double-shot PBT keycaps and a detachable USB-C cable. Great for FPS players who want a compact desk setup.",
+      "variants": [
+        { "name": "Color", "value": "Black", "stock": 14 },
+        { "name": "Color", "value": "White", "price": "2595.00", "stock": 10 }
+      ]
+    },
+    {
+      "name": "NovaType 65 Hot-Swap Keyboard",
+      "slug": "novatype-65-hot-swap-keyboard",
+      "category": "keyboards", "brand": "NovaType", "price": "3295.00", "stock": 12,
+      "description": "Compact 65 percent gasket-mount keyboard with hot-swap sockets, south-facing RGB and a CNC aluminum case. Pick your own switches and build your endgame keeb.",
+      "variants": [
+        { "name": "Switch", "value": "Linear Red", "stock": 6 },
+        { "name": "Switch", "value": "Tactile Brown", "stock": 6 }
+      ]
+    },
+    {
+      "name": "BudgetBoard K1 Membrane Keyboard",
+      "slug": "budgetboard-k1-membrane-keyboard",
+      "category": "keyboards", "brand": "BudgetBoard", "price": "795.00", "stock": 40,
+      "description": "Affordable quiet membrane keyboard with spill resistance and rainbow backlighting. A solid starter keyboard for school work and casual gaming."
+    },
+    {
+      "name": "Vortex Pro Wireless Gaming Mouse",
+      "slug": "vortex-pro-wireless-gaming-mouse",
+      "category": "mice", "brand": "Vortex", "price": "1895.00", "stock": 30, "featured": true,
+      "description": "Ultra-light 58 gram wireless mouse with a 26,000 DPI optical sensor, 1000 Hz polling and 70 hours of battery life. Designed for competitive FPS grip styles.",
+      "variants": [
+        { "name": "Color", "value": "Black", "stock": 18 },
+        { "name": "Color", "value": "White", "stock": 12 }
+      ]
+    },
+    {
+      "name": "SwiftClick Lightweight Mouse",
+      "slug": "swiftclick-lightweight-mouse",
+      "category": "mice", "brand": "SwiftClick", "price": "895.00", "stock": 45,
+      "description": "Budget-friendly honeycomb mouse at 68 grams with six programmable buttons and adjustable 12,400 DPI. Perfect first gaming mouse for students."
+    },
+    {
+      "name": "TitanXL MMO Mouse",
+      "slug": "titanxl-mmo-mouse",
+      "category": "mice", "brand": "Titan", "price": "1595.00", "stock": 18,
+      "description": "MMO mouse with 12 side buttons, onboard macro memory and an ergonomic right-handed shape built for long raid nights and MOBA grinding."
+    },
+    {
+      "name": "EchoWave 7.1 Surround Headset",
+      "slug": "echowave-71-surround-headset",
+      "category": "headsets", "brand": "EchoWave", "price": "1995.00", "stock": 26, "featured": true,
+      "description": "Virtual 7.1 surround gaming headset with memory foam earcups, a noise-cancelling boom mic and inline volume controls. Hear footsteps before you see them.",
+      "variants": [
+        { "name": "Color", "value": "Black", "stock": 16 },
+        { "name": "Color", "value": "White", "stock": 10 }
+      ]
+    },
+    {
+      "name": "CloudBeat Wireless Headset",
+      "slug": "cloudbeat-wireless-headset",
+      "category": "headsets", "brand": "CloudBeat", "price": "2795.00", "stock": 15,
+      "description": "Low-latency 2.4 GHz wireless headset with dual connectivity, 40 hour battery life and plush breathable cushions for all-day comfort."
+    },
+    {
+      "name": "SwiftMic Budget Headset",
+      "slug": "swiftmic-budget-headset",
+      "category": "headsets", "brand": "SwiftMic", "price": "695.00", "stock": 50,
+      "description": "Simple, sturdy stereo headset with a flexible mic and 3.5 millimeter plug. Works with PC, console, and mobile without any drivers."
+    },
+    {
+      "name": "PulsePad Pro Wireless Controller",
+      "slug": "pulsepad-pro-wireless-controller",
+      "category": "controllers", "brand": "PulsePad", "price": "2195.00", "stock": 20, "featured": true,
+      "description": "Wireless pro controller with hall-effect sticks that never drift, remappable back paddles and turbo triggers. Compatible with PC and Android.",
+      "variants": [
+        { "name": "Color", "value": "Black", "stock": 12 },
+        { "name": "Color", "value": "Red", "stock": 8 }
+      ]
+    },
+    {
+      "name": "RetroLink Wired Controller",
+      "slug": "retrolink-wired-controller",
+      "category": "controllers", "brand": "RetroLink", "price": "995.00", "stock": 35,
+      "description": "Plug-and-play wired controller with a classic layout, perfect for emulation, fighting games, and couch co-op without battery anxiety."
+    },
+    {
+      "name": "GlidePad XL Desk Mat",
+      "slug": "glidepad-xl-desk-mat",
+      "category": "mousepads", "brand": "GlidePad", "price": "595.00", "stock": 60,
+      "description": "Extra large 900x400 millimeter stitched-edge desk mat with a smooth micro-weave surface. Fits your keyboard, mouse, and everything else."
+    },
+    {
+      "name": "GlidePad Speed Edition",
+      "slug": "glidepad-speed-edition",
+      "category": "mousepads", "brand": "GlidePad", "price": "450.00", "stock": 55,
+      "description": "Hard-gliding speed surface with a rubber base for low friction flicks. Built for players who want the fastest possible mouse movement."
+    },
+    {
+      "name": "ViewForce 24 inch 165Hz IPS Monitor",
+      "slug": "viewforce-24-165hz-ips-monitor",
+      "category": "monitors", "brand": "ViewForce", "price": "7995.00", "stock": 8, "featured": true,
+      "description": "24 inch Full HD IPS gaming monitor with 165 Hz refresh rate, 1 millisecond MPRT, and adaptive sync. Smooth, color-accurate, and easy on the eyes."
+    },
+    {
+      "name": "ViewForce 27 inch 4K Monitor",
+      "slug": "viewforce-27-4k-monitor",
+      "category": "monitors", "brand": "ViewForce", "price": "16995.00", "stock": 5,
+      "description": "27 inch 4K UHD IPS monitor with HDR400, 144 Hz refresh rate and a fully adjustable stand. For creators and gamers who want it all."
+    },
+    {
+      "name": "StreamLite RGB Microphone",
+      "slug": "streamlite-rgb-microphone",
+      "category": "accessories", "brand": "StreamLite", "price": "1795.00", "stock": 22,
+      "description": "USB condenser microphone with cardioid pickup, tap-to-mute sensor, and RGB ring light. Plug in and sound professional on stream."
+    },
+    {
+      "name": "Cable Nest Headset Stand",
+      "slug": "cable-nest-headset-stand",
+      "category": "accessories", "brand": "CableNest", "price": "745.00", "stock": 30,
+      "description": "Aluminum headset stand with a weighted base, built-in USB hub and cable routing hooks to keep your battle station clean."
+    },
+    {
+      "name": "PowerHub 6-Port USB Charger",
+      "slug": "powerhub-6-port-usb-charger",
+      "category": "accessories", "brand": "PowerHub", "price": "1195.00", "stock": 25,
+      "description": "Six-port USB charging station with smart power delivery for controllers, phones, and tablets. One brick to charge your whole setup."
+    },
+    {
+      "name": "GameVault 1TB Portable SSD",
+      "slug": "gamevault-1tb-portable-ssd",
+      "category": "accessories", "brand": "GameVault", "price": "3995.00", "stock": 14,
+      "description": "1 TB USB 3.2 portable SSD with 1,050 MB/s reads in a shock-resistant shell. Carry your whole game library to LAN nights."
+    },
+    {
+      "name": "SnapCap 1080p Webcam",
+      "slug": "snapcap-1080p-webcam",
+      "category": "accessories", "brand": "SnapCap", "price": "1495.00", "stock": 20,
+      "description": "Full HD webcam with autofocus, dual noise-cancelling mics and a privacy shutter. Clips onto any monitor and works out of the box."
+    }
+  ]
+}

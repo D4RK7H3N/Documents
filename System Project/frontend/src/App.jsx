@@ -1,0 +1,167 @@
+import { Suspense, lazy, useEffect } from 'react'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { useAuth } from './context/AuthContext'
+import { useSchoolConfig } from './contexts/SchoolConfigContext'
+import { startGlobalLoading, stopGlobalLoading } from './context/LoadingContext'
+import MainLayout from './layouts/MainLayout'
+import LoginPage from './pages/LoginPage'
+import OnboardingPage from './pages/OnboardingPage'
+import GlobalLoadingScreen from './components/GlobalLoadingScreen'
+
+const DashboardPage = lazy(() => import('./pages/DashboardPage'))
+const StudentsPage = lazy(() => import('./pages/StudentsPage'))
+const SectionsPage = lazy(() => import('./pages/SectionsPage'))
+const TracksPage = lazy(() => import('./pages/TracksPage'))
+const CoursesPage = lazy(() => import('./pages/CoursesPage'))
+const EnrollPage = lazy(() => import('./pages/EnrollPage'))
+const DropoutsPage = lazy(() => import('./pages/DropoutsPage'))
+const PromotionPage = lazy(() => import('./pages/PromotionPage'))
+const CashierPage = lazy(() => import('./pages/CashierPage'))
+const TuitionPage = lazy(() => import('./pages/TuitionPage'))
+const RevenuePage = lazy(() => import('./pages/RevenuePage'))
+const StaffRevenuePage = lazy(() => import('./pages/StaffRevenuePage'))
+const PendingPaymentsPage = lazy(() => import('./pages/PendingPaymentsPage'))
+const SalesPage = lazy(() => import('./pages/SalesPage'))
+const AssessmentsPage = lazy(() => import('./pages/AssessmentsPage'))
+const ToursPage = lazy(() => import('./pages/ToursPage'))
+const DormPage = lazy(() => import('./pages/DormPage'))
+const SettingsPage = lazy(() => import('./pages/SettingsPage'))
+const SchoolConfigPage = lazy(() => import('./pages/SchoolConfigPage'))
+const ProfilePage = lazy(() => import('./pages/ProfilePage'))
+
+function PageLoader() {
+  useEffect(() => {
+    startGlobalLoading()
+    return () => stopGlobalLoading()
+  }, [])
+
+  return null
+}
+
+function ProtectedRoute({ children }) {
+  const { isAuthenticated, loading } = useAuth()
+
+  if (loading) {
+    return <PageLoader />
+  }
+
+  return isAuthenticated ? children : <Navigate to="/login" replace />
+}
+
+function PublicRoute({ children }) {
+  const { isAuthenticated, loading } = useAuth()
+
+  if (loading) {
+    return <PageLoader />
+  }
+
+  return isAuthenticated ? <Navigate to="/" replace /> : children
+}
+
+const routeTitles = {
+  '/': 'Dashboard',
+  '/students': 'Students',
+  '/sections': 'Sections',
+  '/tracks': 'Tracks',
+  '/courses': 'Courses',
+  '/enroll': 'Enrollment',
+  '/dropouts': 'Dropouts',
+  '/promotion': 'Promotion',
+  '/cashier': 'Cashier',
+  '/tuition': 'Tuition',
+  '/revenue': 'Revenue',
+  '/staff-revenue': 'Staff Revenue',
+  '/pending-payments': 'Pending Payments',
+  '/sales': 'Sales',
+  '/assessments': 'Assessments',
+  '/tours': 'Tours',
+  '/dorm': 'Dormitory',
+  '/settings': 'Settings',
+  '/school-config': 'School Config',
+  '/profile': 'Profile',
+}
+
+function TitleUpdater() {
+  const location = useLocation()
+  const { schoolName } = useSchoolConfig()
+
+  useEffect(() => {
+    const pageTitle = routeTitles[location.pathname] || 'Page'
+    document.title = `${pageTitle} | ${schoolName}`
+  }, [location.pathname, schoolName])
+
+  return null
+}
+
+function App() {
+  const { refetch } = useSchoolConfig()
+  const { isAuthenticated } = useAuth()
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      refetch()
+    }
+  }, [isAuthenticated, refetch])
+
+  return (
+    <>
+      <GlobalLoadingScreen />
+      <TitleUpdater />
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <LoginPage />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/onboarding"
+            element={
+              <ProtectedRoute>
+                <OnboardingPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <MainLayout>
+                  <DashboardPage />
+                </MainLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/students" element={<ProtectedRoute><MainLayout><StudentsPage /></MainLayout></ProtectedRoute>} />
+          <Route path="/sections" element={<ProtectedRoute><MainLayout><SectionsPage /></MainLayout></ProtectedRoute>} />
+          <Route path="/tracks" element={<ProtectedRoute><MainLayout><TracksPage /></MainLayout></ProtectedRoute>} />
+          <Route path="/courses" element={<ProtectedRoute><MainLayout><CoursesPage /></MainLayout></ProtectedRoute>} />
+          <Route path="/enroll" element={<ProtectedRoute><MainLayout><EnrollPage /></MainLayout></ProtectedRoute>} />
+          <Route path="/dropouts" element={<ProtectedRoute><MainLayout><DropoutsPage /></MainLayout></ProtectedRoute>} />
+          <Route path="/promotion" element={<ProtectedRoute><MainLayout><PromotionPage /></MainLayout></ProtectedRoute>} />
+          <Route path="/cashier" element={<ProtectedRoute><MainLayout><CashierPage /></MainLayout></ProtectedRoute>} />
+          <Route path="/tuition" element={<ProtectedRoute><MainLayout><TuitionPage /></MainLayout></ProtectedRoute>} />
+          <Route path="/revenue" element={<ProtectedRoute><MainLayout><RevenuePage /></MainLayout></ProtectedRoute>} />
+          <Route path="/staff-revenue" element={<ProtectedRoute><MainLayout><StaffRevenuePage /></MainLayout></ProtectedRoute>} />
+          <Route path="/pending-payments" element={<ProtectedRoute><MainLayout><PendingPaymentsPage /></MainLayout></ProtectedRoute>} />
+          <Route path="/sales" element={<ProtectedRoute><MainLayout><SalesPage /></MainLayout></ProtectedRoute>} />
+          <Route path="/assessments" element={<ProtectedRoute><MainLayout><AssessmentsPage /></MainLayout></ProtectedRoute>} />
+          {/* Graduation folded into Cashier (2026-10-08). Page kept in the repo
+              but unrouted so it can be restored; the backend app stays because
+              promotion eligibility depends on StudentGraduation records. */}
+          <Route path="/tours" element={<ProtectedRoute><MainLayout><ToursPage /></MainLayout></ProtectedRoute>} />
+          <Route path="/dorm" element={<ProtectedRoute><MainLayout><DormPage /></MainLayout></ProtectedRoute>} />
+          <Route path="/settings" element={<ProtectedRoute><MainLayout><SettingsPage /></MainLayout></ProtectedRoute>} />
+          <Route path="/school-config" element={<ProtectedRoute><MainLayout><SchoolConfigPage /></MainLayout></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><MainLayout><ProfilePage /></MainLayout></ProtectedRoute>} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
+    </>
+  )
+}
+
+export default App
