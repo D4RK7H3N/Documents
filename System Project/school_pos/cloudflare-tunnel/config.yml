@@ -1,0 +1,40 @@
+# Cloudflare Tunnel — config-as-code (mission P4)
+#
+# NEVER commit the real tunnel UUID, credentials file, or token.
+# Copy this file to config.local.yml, substitute the placeholders from your
+# secret manager, and run:
+#   cloudflared tunnel run --config config.local.yml <tunnel-name>
+#
+# The origin service is Waitress on 127.0.0.1:8000 (Windows service
+# DarkZSMS-Backend). Cloudflare is the ONLY ingress; see README.md for the
+# firewall + DNS order and the <10 minute rollback.
+tunnel: REPLACE_WITH_TUNNEL_UUID
+credentials-file: REPLACE_WITH_CREDENTIALS_JSON_PATH
+
+ingress:
+  # Same-origin public API/asset paths. The Worker routes
+  # (frontend/wrangler.proxy.jsonc) take precedence while active; these
+  # services are the tunnel fallback after a Worker bypass/rollback.
+  - hostname: sms.darkzhub.asia
+    path: /api/*
+    service: http://127.0.0.1:8000
+    originRequest:
+      connectTimeout: 10s
+      httpHostHeader: sms2-api.darkzhub.asia
+  - hostname: sms.darkzhub.asia
+    path: /media/*
+    service: http://127.0.0.1:8000
+  - hostname: sms.darkzhub.asia
+    path: /releases/*
+    service: http://127.0.0.1:8000
+
+  # Legacy hosts kept alive for installed desktop clients until reissued.
+  - hostname: gw.darkzhub.asia
+    service: http://127.0.0.1:8000
+  - hostname: dashboard.darkzhub.asia
+    service: http://127.0.0.1:8000
+  - hostname: sms2-api.darkzhub.asia
+    service: http://127.0.0.1:8000
+
+  # Catch-all (required by cloudflared).
+  - service: http_status:404
