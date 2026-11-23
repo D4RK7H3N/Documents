@@ -1,0 +1,1465 @@
+{
+  "loginLayout": {
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "documentWidth": 1440,
+    "bodyWidth": 1440
+  },
+  "results": [
+    {
+      "requestedRoute": "/",
+      "finalUrl": "/",
+      "title": "Administration Overview",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "bodyWidth": 1440,
+      "horizontalOverflow": false,
+      "sidebarVisible": true,
+      "smallTargets": [
+        {
+          "text": "dashboard\nDashboard",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "class\nMy Classes",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "outgoing_mail\nSubmissions",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "monitoring\nReports",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "table_chart\nClass Records",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "group\nStudents",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "co_present\nTeacher Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "manage_accounts\nUser Accounts",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "menu_book\nAcademics",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "tune\nGrading Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "branding_watermark\nSchool Settings",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "history\nAudit Log",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "INPUT",
+          "width": 458,
+          "height": 18
+        },
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "history\nAudit Log",
+          "width": 108,
+          "height": 28
+        },
+        {
+          "text": "person_add\nManage Learners",
+          "width": 157,
+          "height": 28
+        },
+        {
+          "text": "open_in_new\nOpen",
+          "width": 81,
+          "height": 28
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    },
+    {
+      "requestedRoute": "/classes",
+      "finalUrl": "/classes",
+      "title": null,
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "bodyWidth": 1440,
+      "horizontalOverflow": false,
+      "sidebarVisible": true,
+      "smallTargets": [
+        {
+          "text": "dashboard\nDashboard",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "class\nMy Classes",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "outgoing_mail\nSubmissions",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "monitoring\nReports",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "table_chart\nClass Records",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "group\nStudents",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "co_present\nTeacher Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "manage_accounts\nUser Accounts",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "menu_book\nAcademics",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "tune\nGrading Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "branding_watermark\nSchool Settings",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "history\nAudit Log",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "INPUT",
+          "width": 458,
+          "height": 18
+        },
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        }
+      ],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+        "Failed to load resource: the server responded with a status of 403 (Forbidden)"
+      ],
+      "pageErrors": [],
+      "badResponses": [
+        {
+          "status": 403,
+          "url": "http://127.0.0.1:5173/api/v1/teacher/classes/"
+        },
+        {
+          "status": 403,
+          "url": "http://127.0.0.1:5173/api/v1/teacher/classes/"
+        }
+      ]
+    },
+    {
+      "requestedRoute": "/submissions",
+      "finalUrl": "/submissions",
+      "title": "Grade Submissions",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "bodyWidth": 1440,
+      "horizontalOverflow": false,
+      "sidebarVisible": true,
+      "smallTargets": [
+        {
+          "text": "dashboard\nDashboard",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "class\nMy Classes",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "outgoing_mail\nSubmissions",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "monitoring\nReports",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "table_chart\nClass Records",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "group\nStudents",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "co_present\nTeacher Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "manage_accounts\nUser Accounts",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "menu_book\nAcademics",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "tune\nGrading Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "branding_watermark\nSchool Settings",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "history\nAudit Log",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "INPUT",
+          "width": 458,
+          "height": 18
+        },
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "Received",
+          "width": 97,
+          "height": 24
+        },
+        {
+          "text": "Sent",
+          "width": 68,
+          "height": 24
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    },
+    {
+      "requestedRoute": "/reports",
+      "finalUrl": "/reports",
+      "title": "Section Reports",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "bodyWidth": 1440,
+      "horizontalOverflow": false,
+      "sidebarVisible": true,
+      "smallTargets": [
+        {
+          "text": "dashboard\nDashboard",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "class\nMy Classes",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "outgoing_mail\nSubmissions",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "monitoring\nReports",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "table_chart\nClass Records",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "group\nStudents",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "co_present\nTeacher Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "manage_accounts\nUser Accounts",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "menu_book\nAcademics",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "tune\nGrading Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "branding_watermark\nSchool Settings",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "history\nAudit Log",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "INPUT",
+          "width": 458,
+          "height": 18
+        },
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "Semester 1",
+          "width": 92,
+          "height": 20
+        },
+        {
+          "text": "Semester 2",
+          "width": 95,
+          "height": 20
+        },
+        {
+          "text": "print\nPrint",
+          "width": 78,
+          "height": 28
+        },
+        {
+          "text": "NOAH (Grade 11)\nThessalonians (Grade 12)\nZechariah (Grade 12)\nZephaniah (Grade 1",
+          "width": 228,
+          "height": 32
+        },
+        {
+          "text": "Justin D Bueno\n\n117700192342",
+          "width": 95,
+          "height": 32
+        },
+        {
+          "text": "May M Sinadhan\n\n112313554655",
+          "width": 103,
+          "height": 32
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    },
+    {
+      "requestedRoute": "/admin/class-records",
+      "finalUrl": "/",
+      "title": "Administration Overview",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "bodyWidth": 1440,
+      "horizontalOverflow": false,
+      "sidebarVisible": true,
+      "smallTargets": [
+        {
+          "text": "dashboard\nDashboard",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "class\nMy Classes",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "outgoing_mail\nSubmissions",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "monitoring\nReports",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "table_chart\nClass Records",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "group\nStudents",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "co_present\nTeacher Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "manage_accounts\nUser Accounts",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "menu_book\nAcademics",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "tune\nGrading Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "branding_watermark\nSchool Settings",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "history\nAudit Log",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "INPUT",
+          "width": 458,
+          "height": 18
+        },
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "history\nAudit Log",
+          "width": 108,
+          "height": 28
+        },
+        {
+          "text": "person_add\nManage Learners",
+          "width": 157,
+          "height": 28
+        },
+        {
+          "text": "open_in_new\nOpen",
+          "width": 81,
+          "height": 28
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    },
+    {
+      "requestedRoute": "/students",
+      "finalUrl": "/students",
+      "title": "Students",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "bodyWidth": 1440,
+      "horizontalOverflow": false,
+      "sidebarVisible": true,
+      "smallTargets": [
+        {
+          "text": "dashboard\nDashboard",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "class\nMy Classes",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "outgoing_mail\nSubmissions",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "monitoring\nReports",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "table_chart\nClass Records",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "group\nStudents",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "co_present\nTeacher Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "manage_accounts\nUser Accounts",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "menu_book\nAcademics",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "tune\nGrading Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "branding_watermark\nSchool Settings",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "history\nAudit Log",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "INPUT",
+          "width": 458,
+          "height": 18
+        },
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "INPUT",
+          "width": 309,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 309,
+          "height": 38
+        },
+        {
+          "text": "Select section\nNOAH (2026-2027)\nThessalonians (2026-2027)\nZechariah (2026-2027)\n",
+          "width": 309,
+          "height": 37
+        },
+        {
+          "text": "person_add\nCreate learner",
+          "width": 309,
+          "height": 28
+        },
+        {
+          "text": "upload_file\nChoose CSV file",
+          "width": 309,
+          "height": 28
+        },
+        {
+          "text": "INPUT",
+          "width": 336,
+          "height": 18
+        },
+        {
+          "text": "description\nRecord",
+          "width": 92,
+          "height": 28
+        },
+        {
+          "text": "edit\nEdit",
+          "width": 72,
+          "height": 28
+        },
+        {
+          "text": "vpn_key\nPassword",
+          "width": 109,
+          "height": 28
+        },
+        {
+          "text": "description\nRecord",
+          "width": 92,
+          "height": 28
+        },
+        {
+          "text": "edit\nEdit",
+          "width": 72,
+          "height": 28
+        },
+        {
+          "text": "vpn_key\nPassword",
+          "width": 109,
+          "height": 28
+        },
+        {
+          "text": "description\nRecord",
+          "width": 92,
+          "height": 28
+        },
+        {
+          "text": "edit\nEdit",
+          "width": 72,
+          "height": 28
+        },
+        {
+          "text": "vpn_key\nPassword",
+          "width": 109,
+          "height": 28
+        },
+        {
+          "text": "description\nRecord",
+          "width": 92,
+          "height": 28
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    },
+    {
+      "requestedRoute": "/teachers",
+      "finalUrl": "/teachers",
+      "title": "Teacher Configuration",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "bodyWidth": 1440,
+      "horizontalOverflow": false,
+      "sidebarVisible": true,
+      "smallTargets": [
+        {
+          "text": "dashboard\nDashboard",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "class\nMy Classes",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "outgoing_mail\nSubmissions",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "monitoring\nReports",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "table_chart\nClass Records",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "group\nStudents",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "co_present\nTeacher Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "manage_accounts\nUser Accounts",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "menu_book\nAcademics",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "tune\nGrading Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "branding_watermark\nSchool Settings",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "history\nAudit Log",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "INPUT",
+          "width": 458,
+          "height": 18
+        },
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "INPUT",
+          "width": 149,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 149,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 309,
+          "height": 38
+        },
+        {
+          "text": "Teacher\nAdministrator",
+          "width": 309,
+          "height": 37
+        },
+        {
+          "text": "person_add\nCreate account",
+          "width": 309,
+          "height": 28
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    },
+    {
+      "requestedRoute": "/users",
+      "finalUrl": "/users",
+      "title": "User Accounts",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "bodyWidth": 1440,
+      "horizontalOverflow": false,
+      "sidebarVisible": true,
+      "smallTargets": [
+        {
+          "text": "dashboard\nDashboard",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "class\nMy Classes",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "outgoing_mail\nSubmissions",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "monitoring\nReports",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "table_chart\nClass Records",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "group\nStudents",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "co_present\nTeacher Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "manage_accounts\nUser Accounts",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "menu_book\nAcademics",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "tune\nGrading Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "branding_watermark\nSchool Settings",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "history\nAudit Log",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "INPUT",
+          "width": 458,
+          "height": 18
+        },
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "All",
+          "width": 40,
+          "height": 24
+        },
+        {
+          "text": "Students",
+          "width": 80,
+          "height": 24
+        },
+        {
+          "text": "Teachers",
+          "width": 82,
+          "height": 24
+        },
+        {
+          "text": "Administrators",
+          "width": 116,
+          "height": 24
+        },
+        {
+          "text": "key\nReset",
+          "width": 83,
+          "height": 28
+        },
+        {
+          "text": "block\nDeactivate",
+          "width": 115,
+          "height": 28
+        },
+        {
+          "text": "check_circle\nActivate",
+          "width": 100,
+          "height": 28
+        },
+        {
+          "text": "key\nReset",
+          "width": 83,
+          "height": 28
+        },
+        {
+          "text": "block\nDeactivate",
+          "width": 115,
+          "height": 28
+        },
+        {
+          "text": "check_circle\nActivate",
+          "width": 100,
+          "height": 28
+        },
+        {
+          "text": "key\nReset",
+          "width": 83,
+          "height": 28
+        },
+        {
+          "text": "block\nDeactivate",
+          "width": 115,
+          "height": 28
+        },
+        {
+          "text": "check_circle\nActivate",
+          "width": 100,
+          "height": 28
+        },
+        {
+          "text": "key\nReset",
+          "width": 83,
+          "height": 28
+        },
+        {
+          "text": "block\nDeactivate",
+          "width": 115,
+          "height": 28
+        },
+        {
+          "text": "check_circle\nActivate",
+          "width": 100,
+          "height": 28
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    },
+    {
+      "requestedRoute": "/academics",
+      "finalUrl": "/academics",
+      "title": "Academics",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "bodyWidth": 1440,
+      "horizontalOverflow": false,
+      "sidebarVisible": true,
+      "smallTargets": [
+        {
+          "text": "dashboard\nDashboard",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "class\nMy Classes",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "outgoing_mail\nSubmissions",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "monitoring\nReports",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "table_chart\nClass Records",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "group\nStudents",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "co_present\nTeacher Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "manage_accounts\nUser Accounts",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "menu_book\nAcademics",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "tune\nGrading Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "branding_watermark\nSchool Settings",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "history\nAudit Log",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "INPUT",
+          "width": 458,
+          "height": 18
+        },
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "Subjects",
+          "width": 94,
+          "height": 24
+        },
+        {
+          "text": "Sections",
+          "width": 94,
+          "height": 24
+        },
+        {
+          "text": "Assignments",
+          "width": 121,
+          "height": 24
+        },
+        {
+          "text": "INPUT",
+          "width": 208,
+          "height": 38
+        },
+        {
+          "text": "Select…\nCore\nApplied\nSpecialized",
+          "width": 160,
+          "height": 37
+        },
+        {
+          "text": "add\nAdd",
+          "width": 73,
+          "height": 28
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    },
+    {
+      "requestedRoute": "/grading-config",
+      "finalUrl": "/grading-config",
+      "title": "Grading Config",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "bodyWidth": 1440,
+      "horizontalOverflow": false,
+      "sidebarVisible": true,
+      "smallTargets": [
+        {
+          "text": "dashboard\nDashboard",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "class\nMy Classes",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "outgoing_mail\nSubmissions",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "monitoring\nReports",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "table_chart\nClass Records",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "group\nStudents",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "co_present\nTeacher Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "manage_accounts\nUser Accounts",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "menu_book\nAcademics",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "tune\nGrading Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "branding_watermark\nSchool Settings",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "history\nAudit Log",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "INPUT",
+          "width": 458,
+          "height": 18
+        },
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "save\nSave configuration",
+          "width": 166,
+          "height": 28
+        },
+        {
+          "text": "INPUT",
+          "width": 165,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 165,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 165,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 165,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 165,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 165,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 165,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 165,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 165,
+          "height": 38
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    },
+    {
+      "requestedRoute": "/settings",
+      "finalUrl": "/settings",
+      "title": "School Settings",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "bodyWidth": 1440,
+      "horizontalOverflow": false,
+      "sidebarVisible": true,
+      "smallTargets": [
+        {
+          "text": "dashboard\nDashboard",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "class\nMy Classes",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "outgoing_mail\nSubmissions",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "monitoring\nReports",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "table_chart\nClass Records",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "group\nStudents",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "co_present\nTeacher Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "manage_accounts\nUser Accounts",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "menu_book\nAcademics",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "tune\nGrading Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "branding_watermark\nSchool Settings",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "history\nAudit Log",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "INPUT",
+          "width": 458,
+          "height": 18
+        },
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "INPUT",
+          "width": 711,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 711,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 711,
+          "height": 38
+        },
+        {
+          "text": "save\nSave settings",
+          "width": 132,
+          "height": 28
+        },
+        {
+          "text": "INPUT",
+          "width": 279,
+          "height": 18
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    },
+    {
+      "requestedRoute": "/audit-log",
+      "finalUrl": "/audit-log",
+      "title": "Audit Log",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "bodyWidth": 1440,
+      "horizontalOverflow": false,
+      "sidebarVisible": true,
+      "smallTargets": [
+        {
+          "text": "dashboard\nDashboard",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "class\nMy Classes",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "outgoing_mail\nSubmissions",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "monitoring\nReports",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "table_chart\nClass Records",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "group\nStudents",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "co_present\nTeacher Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "manage_accounts\nUser Accounts",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "menu_book\nAcademics",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "tune\nGrading Config",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "branding_watermark\nSchool Settings",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "history\nAudit Log",
+          "width": 232,
+          "height": 36
+        },
+        {
+          "text": "INPUT",
+          "width": 458,
+          "height": 18
+        },
+        {
+          "text": "logout",
+          "width": 28,
+          "height": 33
+        },
+        {
+          "text": "INPUT",
+          "width": 1080,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 1080,
+          "height": 38
+        },
+        {
+          "text": "INPUT",
+          "width": 1080,
+          "height": 38
+        },
+        {
+          "text": "chevron_left\nPrevious",
+          "width": 102,
+          "height": 28
+        },
+        {
+          "text": "chevron_right\nNext",
+          "width": 77,
+          "height": 28
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "badResponses": []
+    }
+  ]
+}
