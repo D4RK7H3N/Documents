@@ -1,0 +1,156 @@
+:host {
+  --bf-bg: #111827;
+  --bf-fg: #f9fafb;
+  --bf-border: #374151;
+  --bf-accent: #2563eb;
+  --bf-muted: #9ca3af;
+  --bf-error: #f87171;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--bf-fg);
+}
+
+:host([data-theme="light"]) {
+  --bf-bg: #ffffff;
+  --bf-fg: #111827;
+  --bf-border: #d1d5db;
+  --bf-accent: #1d4ed8;
+  --bf-muted: #6b7280;
+  --bf-error: #dc2626;
+}
+
+.bf-fab {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 2147483647;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 18px;
+  background: var(--bf-accent);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.bf-panel {
+  position: fixed;
+  right: 20px;
+  bottom: 76px;
+  width: 340px;
+  max-width: calc(100vw - 40px);
+  z-index: 2147483647;
+  box-sizing: border-box;
+  padding: 16px;
+  background: var(--bf-bg);
+  color: var(--bf-fg);
+  border: 1px solid var(--bf-border);
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+}
+
+.bf-panel[hidden],
+.bf-panel [hidden] {
+  display: none;
+}
+
+.bf-panel.bf-dragging {
+  outline: 2px dashed var(--bf-accent);
+  outline-offset: -6px;
+}
+
+.bf-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.bf-close {
+  border: none;
+  background: transparent;
+  color: var(--bf-muted);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.bf-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 92px;
+  padding: 10px;
+  border: 1px solid var(--bf-border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--bf-fg);
+  font: inherit;
+  resize: vertical;
+}
+
+.bf-preview {
+  display: block;
+  max-width: 100%;
+  max-height: 160px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid var(--bf-border);
+}
+
+.bf-actions {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.bf-hint {
+  color: var(--bf-muted);
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.bf-error {
+  color: var(--bf-error);
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.bf-primary,
+.bf-secondary {
+  border-radius: 8px;
+  padding: 9px 14px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.bf-primary {
+  width: 100%;
+  border: none;
+  background: var(--bf-accent);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.bf-primary:disabled,
+.bf-secondary:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.bf-secondary {
+  border: 1px solid var(--bf-border);
+  background: transparent;
+  color: var(--bf-fg);
+}
+
+.bf-success p {
+  margin: 8px 0;
+}
+
+.bf-status {
+  color: var(--bf-muted);
+  font-size: 13px;
+}

@@ -1,0 +1,59 @@
+# ============================================================================
+# wrangler.toml — SMS-2 Cloudflare Worker Configuration
+# Sagay City College Inc. — School Management System
+# ============================================================================
+name = "sms-2-api"
+main = "src/index.js"
+compatibility_date = "2026-07-01"
+
+# ============================================================================
+# D1 DATABASE BINDING
+# ============================================================================
+[[d1_databases]]
+binding = "DB"              # Available as env.DB in the Worker
+database_name = "sms2-db"
+# IMPORTANT: Replace with your actual D1 database ID after creation:
+#   wrangler d1 create sms2-db
+database_id = "your-d1-database-id-here"
+
+# ============================================================================
+# R2 STORAGE BINDING (for documents, photos, receipts)
+# ============================================================================
+[[r2_buckets]]
+binding = "STORAGE"         # Available as env.STORAGE in the Worker
+bucket_name = "sms-2-storage"
+
+# ============================================================================
+# ENVIRONMENT VARIABLES
+# ============================================================================
+# SECURITY: JWT_SECRET must NEVER be committed.
+# Set it via Wrangler secrets before first deploy:
+#   wrangler secret put JWT_SECRET
+#   (then type or paste your strong random secret, min 32 chars)
+[vars]
+JWT_EXPIRY = "8h"                    # Token lifetime
+OR_PREFIX = "OR"                     # Official Receipt number prefix
+SCHOOL_NAME = "Sagay City College Inc."
+SCHOOL_ADDRESS = "Sagay City, Negros Occidental, Philippines"
+
+# ============================================================================
+# ENVIRONMENTS (optional)
+# ============================================================================
+[env.production]
+vars = { ENVIRONMENT = "production" }
+
+[env.staging]
+vars = { ENVIRONMENT = "staging" }
+
+# ============================================================================
+# ROUTES / DOMAIN
+# ============================================================================
+routes = [
+  { pattern = "api.darkzhub.asia", custom_domain = true }
+]
+
+# ============================================================================
+# COMPATIBILITY FLAGS
+# ============================================================================
+# nodejs_compat is NOT enabled — we use only Web APIs
+# (no Buffer, no process.env, no fs)

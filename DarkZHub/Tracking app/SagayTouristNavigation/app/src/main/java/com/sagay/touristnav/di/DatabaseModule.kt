@@ -1,0 +1,72 @@
+package com.sagay.touristnav.di
+
+import android.content.Context
+import androidx.room.Room
+import com.sagay.touristnav.data.local.AppDatabase
+import com.sagay.touristnav.data.local.dao.RouteDao
+import com.sagay.touristnav.data.local.dao.RouteAccessDao
+import com.sagay.touristnav.data.local.dao.DestinationDao
+import com.sagay.touristnav.data.local.dao.FareMatrixDao
+import com.sagay.touristnav.data.local.dao.FareOriginDao
+import com.sagay.touristnav.data.local.dao.FareRuleDao
+import com.sagay.touristnav.data.local.dao.TerminalDao
+import com.sagay.touristnav.data.local.dao.TripStateDao
+import com.sagay.touristnav.data.local.dao.TripRecordDao
+import com.sagay.touristnav.data.local.dao.FavoriteDao
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+object DatabaseModule {
+
+    @Provides
+    @Singleton
+    fun provideDatabase(@ApplicationContext context: Context): AppDatabase =
+        Room.databaseBuilder(context, AppDatabase::class.java, "sagay_tourist_nav.db")
+            .addMigrations(
+                AppDatabase.MIGRATION_2_3,
+                AppDatabase.MIGRATION_3_4,
+                AppDatabase.MIGRATION_4_5,
+                AppDatabase.MIGRATION_5_6,
+                AppDatabase.MIGRATION_6_7,
+                AppDatabase.MIGRATION_7_8,
+                AppDatabase.MIGRATION_8_9,
+            )
+            .fallbackToDestructiveMigration()
+            .build()
+
+    @Provides
+    fun provideTerminalDao(db: AppDatabase): TerminalDao = db.terminalDao()
+
+    @Provides
+    fun provideDestinationDao(db: AppDatabase): DestinationDao = db.destinationDao()
+
+    @Provides
+    fun provideFareRuleDao(db: AppDatabase): FareRuleDao = db.fareRuleDao()
+
+    @Provides
+    fun provideTripStateDao(db: AppDatabase): TripStateDao = db.tripStateDao()
+
+    @Provides
+    fun provideFareMatrixDao(db: AppDatabase): FareMatrixDao = db.fareMatrixDao()
+
+    @Provides
+    fun provideFareOriginDao(db: AppDatabase): FareOriginDao = db.fareOriginDao()
+
+    @Provides
+    fun provideRouteDao(db: AppDatabase): RouteDao = db.routeDao()
+
+    @Provides
+    fun provideRouteAccessDao(db: AppDatabase): RouteAccessDao = db.routeAccessDao()
+
+    @Provides
+    fun provideTripRecordDao(db: AppDatabase): TripRecordDao = db.tripRecordDao()
+
+    @Provides
+    fun provideFavoriteDao(db: AppDatabase): FavoriteDao = db.favoriteDao()
+}
