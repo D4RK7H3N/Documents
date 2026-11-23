@@ -1,0 +1,676 @@
+package com.sagay.touristnav.ui
+
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Remove
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.unit.dp
+import com.sagay.touristnav.R
+import com.sagay.touristnav.domain.FareFormat
+import com.sagay.touristnav.domain.TripSummary
+import com.sagay.touristnav.domain.models.FareScope
+import com.sagay.touristnav.domain.models.Route
+import com.sagay.touristnav.domain.models.Terminal
+import com.sagay.touristnav.domain.models.TripEstimate
+import java.util.Locale
+import kotlin.math.roundToInt
+
+/**
+ * V4 result card: the sunrise gradient strip answers the two questions
+ * tourists ask first (how far, how much) with icons, and the details below
+ * tell them **which vehicle to board** ? the part a text-only card never
+ * answered.
+ */
+@Composable
+fun TripDetailsCard(
+    trip: TripEstimate,
+    terminals: Map<String, Terminal>,
+    onSelectNew: () -> Unit,
+    onToggleDiscount: () -> Unit,
+    onSaveTrip: () -> Unit = {},
+    onStartGuidance: () -> Unit = {},
+    passengers: Int = 1,
+    onChangePassengers: (Int) -> Unit = {},
+    onShare: () -> Unit = {},
+) {
+    val layoutDuration = Motion.duration(Motion.LAYOUT_MS)
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(max = 520.dp)
+            .animateContentSize(
+                animationSpec = tween(
+                    durationMillis = layoutDuration,
+                    easing = Motion.easing,
+                ),
+            ),
+        shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+        color = MaterialTheme.colorScheme.surface,
+        tonalElevation = 3.dp,
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
+                .padding(16.dp),
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(SagayColors.bannerGradient)
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Column {
+                    BannerLine(
+                        iconRes = R.drawable.ic_route,
+                        text = String.format(Locale.US, "%.1f km", trip.roadKm),
+                    )
+                    Spacer(Modifier.height(2.dp))
+                    BannerLine(
+                        iconRes = R.drawable.ic_schedule,
+                        text = formatDuration(trip.durationMinutes),
+                    )
+                    Spacer(Modifier.height(2.dp))
+                    Text(
+                        "estimate only",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.White.copy(alpha = 0.85f),
+                    )
+                }
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_payments),
+                        contentDescription = "Fare",
+                        tint = Color.White,
+                        modifier = Modifier.size(22.dp),
+                    )
+                    Spacer(Modifier.width(4.dp))
+                    Text(
+                        fareHeadline(trip.fare),
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.Black,
+                        color = Color.White,
+                    )
+                }
+            }
+            Spacer(Modifier.height(14.dp))
+            Text(
+                trip.destination.name,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+            )
+            Text(
+                trip.destination.category,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            if (trip.boatNote != null) {
+                Spacer(Modifier.height(8.dp))
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_directions_boat),
+                        contentDescription = "Boat",
+                        tint = SagayColors.BoatTeal,
+                        modifier = Modifier.size(18.dp),
+                    )
+                    Spacer(Modifier.width(8.dp))
+                    Text(
+                        trip.boatNote,
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.SemiBold,
+                        color = SagayColors.BoatTeal,
+                    )
+                }
+            }
+            AnimatedVisibility(
+                visible = trip.distanceWarning,
+                enter = cardEnter(layoutDuration),
+                exit = cardExit(layoutDuration),
+            ) {
+                Spacer(Modifier.height(6.dp))
+                Text(
+                    "Distance looks unusual, please verify",
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.SemiBold,
+                )
+            }
+            Spacer(Modifier.height(14.dp))
+            JourneyRow(trip, terminals)
+            AnimatedVisibility(
+                visible = (trip.stopService?.stops?.size ?: 0) > 1,
+                enter = cardEnter(layoutDuration),
+                exit = cardExit(layoutDuration),
+            ) {
+                Spacer(Modifier.height(12.dp))
+                trip.stopService?.let { stopsService -> RouteStopsBlock(stopsService) }
+            }
+            if (trip.originZoneName != null) {
+                Spacer(Modifier.height(10.dp))
+                IconDetailRow(
+                    icon = {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_route),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.size(18.dp),
+                        )
+                    },
+                    label = "Fare zone",
+                    value = trip.originZoneName,
+                )
+            }
+            Spacer(Modifier.height(4.dp))
+            FareBasisBlock(fare = trip.fare)
+            if (trip.fare.canDiscount) {
+                Spacer(Modifier.height(8.dp))
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        "Passengers",
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.weight(1f),
+                    )
+                    IconButton(onClick = { onChangePassengers(passengers - 1) }) {
+                        Icon(Icons.Default.Remove, contentDescription = "Fewer passengers")
+                    }
+                    Text(
+                        "$passengers",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                    )
+                    IconButton(onClick = { onChangePassengers(passengers + 1) }) {
+                        Icon(Icons.Default.Add, contentDescription = "More passengers")
+                    }
+                }
+                if (passengers > 1) {
+                    Text(
+                        "Group total: " + FareFormat.peso(
+                            TripSummary.total(TripSummary.unitAmount(trip.fare), passengers),
+                        ),
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = SagayColors.SunriseDeep,
+                    )
+                }
+            }
+            AnimatedVisibility(
+                visible = trip.fare.canDiscount,
+                enter = cardEnter(layoutDuration),
+                exit = cardExit(layoutDuration),
+            ) {
+                Spacer(Modifier.height(10.dp))
+                DiscountToggle(
+                    checked = trip.fareDiscounted,
+                    onToggle = onToggleDiscount,
+                )
+            }
+            Spacer(Modifier.height(14.dp))
+            Button(
+                onClick = onStartGuidance,
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = SagayColors.TealPrimary,
+                    contentColor = Color.White,
+                ),
+            ) {
+                Text("Start journey guidance")
+            }
+            Spacer(Modifier.height(8.dp))
+            OutlinedButton(
+                onClick = onSaveTrip,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text("Save to trip history")
+            }
+            Spacer(Modifier.height(8.dp))
+            OutlinedButton(
+                onClick = onShare,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Icon(Icons.Default.Share, contentDescription = null)
+                Spacer(Modifier.width(8.dp))
+                Text("Share trip summary")
+            }
+            Spacer(Modifier.height(8.dp))
+            Button(
+                onClick = onSelectNew,
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = SagayColors.SunriseDeep,
+                    contentColor = Color.White,
+                ),
+            ) {
+                Text("Select new destination")
+            }
+            Spacer(Modifier.height(8.dp))
+        }
+    }
+}
+
+/**
+ * The board here: the colour of the vehicle to ask for, its type, and where
+ * to catch it. The colour belongs to the route, not to the terminal, because
+ * one terminal can board several colours.
+ *
+ * Most journeys are one service. The Old Sagay to Sagay City corridor needs
+ * two: the yellow tricycle carries the passenger into the city and the red
+ * tricycle serves the destination there, so both are listed with the point
+ * where the passenger changes.
+ */
+@Composable
+private fun JourneyRow(trip: TripEstimate, terminals: Map<String, Terminal>) {
+    val services = trip.services
+    if (services.size > 1) {
+        Column {
+            services.forEachIndexed { index, route ->
+                if (index > 0) {
+                    ChangePointRow(trip.changeAt)
+                }
+                val serviceTerminal = terminals[route.terminalId]
+                    ?: trip.terminal.takeIf { route.id == trip.route?.id }
+                ServiceRow(
+                    route = route,
+                    terminal = serviceTerminal,
+                    showArea = index == services.lastIndex,
+                )
+            }
+        }
+    } else {
+        ServiceRow(
+            route = services.firstOrNull(),
+            terminal = trip.terminal,
+            showArea = true,
+        )
+    }
+}
+
+/**
+ * Where the passenger changes service between two routes.
+ */
+@Composable
+private fun ChangePointRow(changeAt: String?) {
+    Row(
+        modifier = Modifier.padding(start = 20.dp, top = 4.dp, bottom = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(
+            painter = painterResource(R.drawable.ic_route),
+            contentDescription = null,
+            tint = SagayColors.TealPrimary,
+            modifier = Modifier.size(16.dp),
+        )
+        Spacer(Modifier.width(8.dp))
+        Text(
+            changeAt?.let { "Change at $it" } ?: "Change service",
+            style = MaterialTheme.typography.bodySmall,
+            fontWeight = FontWeight.SemiBold,
+            color = SagayColors.TealPrimary,
+        )
+    }
+}
+
+/**
+ * One service of the journey: its badge, how it is announced, and the
+ * terminal it boards at.
+ */
+@Composable
+private fun ServiceRow(
+    route: Route?,
+    terminal: Terminal?,
+    showArea: Boolean,
+) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        if (route != null) {
+            RouteBadge(
+                vehicle = route.vehicle,
+                colorHex = route.colorHex,
+                size = 40.dp,
+            )
+        } else {
+            // No route is known, so the terminal must not be shown as the
+            // service: its colour belongs to other routes.
+            Box(
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(RoundedCornerShape(20.dp))
+                    .background(MaterialTheme.colorScheme.surfaceVariant),
+            )
+        }
+        Spacer(Modifier.width(12.dp))
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                route?.serviceLabel ?: "Public transport details need verification",
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.SemiBold,
+            )
+            if (terminal != null) {
+                Text(
+                    terminal.name,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            if (showArea && terminal != null && terminal.serviceArea.isNotBlank()) {
+                Text(
+                    terminal.serviceArea,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+    }
+}
+
+/**
+ * The stops of a route. A direct ride has none, so the block only appears
+ * for the services that pass through the owner-supplied waypoints.
+ */
+@Composable
+private fun RouteStopsBlock(route: Route) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(14.dp))
+            .background(MaterialTheme.colorScheme.surfaceVariant)
+            .padding(12.dp),
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                painter = painterResource(SagayIcons.drawableFor(route.vehicle)),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.size(18.dp),
+            )
+            Spacer(Modifier.width(8.dp))
+            Text(
+                route.name,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.SemiBold,
+            )
+        }
+        Spacer(Modifier.height(8.dp))
+        route.stops.forEach { stop ->
+            Row(
+                modifier = Modifier.padding(vertical = 2.dp),
+                verticalAlignment = Alignment.Top,
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(18.dp)
+                        .clip(CircleShape)
+                        .background(Color(parseHexColor(route.colorHex))),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text(
+                        (stop.order + 1).toString(),
+                        style = MaterialTheme.typography.labelSmall,
+                        color = Color.Black,
+                        fontWeight = FontWeight.Bold,
+                    )
+                }
+                Spacer(Modifier.width(8.dp))
+                Text(
+                    stop.name,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+    }
+}
+
+/**
+ * The board here: the vehicle badge in the route colour, the terminal name,
+ * and the service description ("Red Tricycle", "Yellow Tricycle").
+ */
+
+/** One line of the gradient banner: an icon and its value. */
+@Composable
+private fun BannerLine(iconRes: Int, text: String) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Icon(
+            painter = painterResource(iconRes),
+            contentDescription = null,
+            tint = Color.White,
+            modifier = Modifier.size(16.dp),
+        )
+        Spacer(Modifier.width(6.dp))
+        Text(
+            text,
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold,
+            color = Color.White,
+        )
+    }
+}
+
+/**
+ * The fare shown in the banner, scoped to the vehicle carrying the trip.
+ *
+ * A tricycle ride shows its amount. An island trip shows the tricycle leg to
+ * the port, marked as such, because the boat fare is not published and the
+ * land amount is not the price of the whole trip. A bus ride shows that its
+ * fare is not verified rather than a tricycle fare that does not apply.
+ */
+private fun fareHeadline(fare: FareScope): String = when (fare) {
+    is FareScope.MotorizedTricycle -> FareFormat.peso(fare.amount)
+    is FareScope.Island -> FareFormat.peso(fare.tricycleToPort.amount)
+    FareScope.Bus -> "Not verified"
+    FareScope.Unverified -> "Not verified"
+}
+
+/**
+ * The fare explanation, one line per scope.
+ *
+ * The official matrix is highlighted; an estimate and an unverified fare are
+ * plainly labelled so no unpublished fare reads as a published one.
+ */
+@Composable
+private fun FareBasisBlock(fare: FareScope) {
+    when (fare) {
+        is FareScope.MotorizedTricycle -> {
+            val tricycle = fare
+            Text(
+                tricycle.basis,
+                style = MaterialTheme.typography.bodySmall,
+                color = if (tricycle.isOfficial) {
+                    SagayColors.BoatTeal
+                } else {
+                    MaterialTheme.colorScheme.onSurfaceVariant
+                },
+                fontWeight = if (tricycle.isOfficial) FontWeight.SemiBold else FontWeight.Normal,
+            )
+        }
+        is FareScope.Island -> {
+            val tricycle = fare.tricycleToPort
+            Text(
+                "Tricycle fare to the port: ${tricycle.basis}",
+                style = MaterialTheme.typography.bodySmall,
+                color = if (tricycle.isOfficial) {
+                    SagayColors.BoatTeal
+                } else {
+                    MaterialTheme.colorScheme.onSurfaceVariant
+                },
+                fontWeight = if (tricycle.isOfficial) FontWeight.SemiBold else FontWeight.Normal,
+            )
+            Spacer(Modifier.height(2.dp))
+            Text(
+                "Boat fare not verified",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+        FareScope.Bus -> Text(
+            "Bus fare not verified: the published matrix prices tricycle rides only.",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        FareScope.Unverified -> Text(
+            "Fare not verified: local public-transport details need confirmation.",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
+}
+
+/**
+ * 20% student / senior citizen / PWD fare, as published in the city's
+ * temporary fare matrix.
+ */
+@Composable
+private fun DiscountToggle(
+    checked: Boolean,
+    onToggle: () -> Unit,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(12.dp))
+            .background(
+                if (checked) {
+                    SagayColors.TealPrimary.copy(alpha = 0.08f)
+                } else {
+                    MaterialTheme.colorScheme.surfaceVariant
+                },
+            )
+            .clickable(onClick = onToggle)
+            .padding(horizontal = 12.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Box(
+            modifier = Modifier
+                .size(20.dp)
+                .clip(RoundedCornerShape(6.dp))
+                .background(
+                    if (checked) SagayColors.TealPrimary else Color.Transparent,
+                ),
+            contentAlignment = Alignment.Center,
+        ) {
+            if (checked) {
+                Text(
+                    "\u2713",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                )
+            }
+        }
+        Spacer(Modifier.width(10.dp))
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                "Senior citizen / Student / PWD",
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.SemiBold,
+            )
+            Text(
+                "20% discount (matrix fare)",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+    }
+}
+
+@Composable
+fun RouteProgressCard(message: String) {
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+        color = MaterialTheme.colorScheme.surface,
+        tonalElevation = 3.dp,
+    ) {
+        Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+            LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+            Spacer(Modifier.height(12.dp))
+            Text(message, style = MaterialTheme.typography.bodyMedium)
+            Spacer(Modifier.height(8.dp))
+        }
+    }
+}
+
+@Composable
+fun RouteErrorCard(message: String, onRetry: () -> Unit) {
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+        color = MaterialTheme.colorScheme.surface,
+        tonalElevation = 3.dp,
+    ) {
+        Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+            Text(
+                "Could not load the route",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.error,
+            )
+            Spacer(Modifier.height(6.dp))
+            Text(message, style = MaterialTheme.typography.bodyMedium)
+            Spacer(Modifier.height(12.dp))
+            OutlinedButton(onClick = onRetry, modifier = Modifier.fillMaxWidth()) {
+                Text("Retry")
+            }
+            Spacer(Modifier.height(8.dp))
+        }
+    }
+}
+
+private fun formatDuration(minutes: Double): String =
+    if (minutes < 60.0) {
+        "${minutes.roundToInt()} min"
+    } else {
+        val h = (minutes / 60).toInt()
+        val m = (minutes % 60).roundToInt()
+        if (m == 0) "${h}h" else "${h}h ${m}m"
+    }
+
+private fun cardEnter(duration: Int): EnterTransition =
+    fadeIn(tween<Float>(duration)) + expandVertically(tween<IntSize>(duration))
+
+private fun cardExit(duration: Int): ExitTransition =
+    fadeOut(tween<Float>(duration)) + shrinkVertically(tween<IntSize>(duration))

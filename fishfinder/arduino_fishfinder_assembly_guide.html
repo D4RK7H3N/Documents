@@ -1,0 +1,320 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans, sans-serif); }
+  .wrap { padding: 16px 0; }
+  .tab-bar { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+  .tab { padding: 7px 18px; border-radius: 20px; border: 0.5px solid var(--color-border-secondary); background: transparent; cursor: pointer; font-size: 13px; color: var(--color-text-secondary); transition: all .18s; }
+  .tab.active { background: var(--color-background-info); color: var(--color-text-info); border-color: transparent; font-weight: 500; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .step-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .step-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px 16px; display: flex; gap: 14px; align-items: flex-start; }
+  .step-num { min-width: 28px; height: 28px; border-radius: 50%; background: var(--color-background-info); color: var(--color-text-info); font-size: 13px; font-weight: 500; display: flex; align-items: center; justify-content: center; }
+  .step-body { flex: 1; }
+  .step-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .step-desc { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; }
+  .wire-row { display: flex; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 8px; margin-bottom: 6px; background: var(--color-background-secondary); font-size: 13px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .wire-from { font-weight: 500; color: var(--color-text-primary); min-width: 130px; }
+  .wire-arrow { color: var(--color-text-tertiary); font-size: 16px; }
+  .wire-to { color: var(--color-text-secondary); }
+  .section-label { font-size: 12px; font-weight: 500; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: .06em; margin: 16px 0 8px; }
+  .badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 500; margin-left: 6px; }
+  .badge-red { background: var(--color-background-danger); color: var(--color-text-danger); }
+  .badge-green { background: var(--color-background-success); color: var(--color-text-success); }
+  .badge-blue { background: var(--color-background-info); color: var(--color-text-info); }
+  .tip-box { background: var(--color-background-warning); border-left: 3px solid var(--color-border-warning); border-radius: 0 8px 8px 0; padding: 10px 14px; margin-top: 12px; font-size: 13px; color: var(--color-text-warning); line-height: 1.6; }
+  .parts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+  .part-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 12px 14px; }
+  .part-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 3px; }
+  .part-qty { font-size: 12px; color: var(--color-text-tertiary); }
+  .part-note { font-size: 12px; color: var(--color-text-secondary); margin-top: 4px; }
+</style>
+
+<div class="wrap">
+  <div class="tab-bar">
+    <button class="tab active" onclick="showTab('parts')">Parts list</button>
+    <button class="tab" onclick="showTab('wiring')">Wiring</button>
+    <button class="tab" onclick="showTab('diagram')">Diagram</button>
+    <button class="tab" onclick="showTab('steps')">Assembly steps</button>
+    <button class="tab" onclick="showTab('tips')">Tips & testing</button>
+  </div>
+
+  <!-- PARTS -->
+  <div id="parts" class="panel active">
+    <div class="section-label">Required components</div>
+    <div class="parts-grid">
+      <div class="part-card"><div class="part-name">Arduino UNO R3 CH340</div><div class="part-qty">Qty: 1</div><div class="part-note">Main microcontroller board</div></div>
+      <div class="part-card"><div class="part-name">JSN-SR04T Sensor</div><div class="part-qty">Qty: 1</div><div class="part-note">Waterproof ultrasonic sonar</div></div>
+      <div class="part-card"><div class="part-name">2.4" ILI9341 TFT LCD</div><div class="part-qty">Qty: 1</div><div class="part-note">240×320, SPI interface</div></div>
+      <div class="part-card"><div class="part-name">Breadboard (half)</div><div class="part-qty">Qty: 1</div><div class="part-note">For prototyping connections</div></div>
+      <div class="part-card"><div class="part-name">Jumper wires</div><div class="part-qty">Qty: 20+</div><div class="part-note">Male-to-male &amp; male-to-female</div></div>
+      <div class="part-card"><div class="part-name">9V Battery + clip</div><div class="part-qty">Qty: 1</div><div class="part-note">Or USB power bank</div></div>
+      <div class="part-card"><div class="part-name">Buzzer (passive)</div><div class="part-qty">Qty: 1</div><div class="part-note">Optional fish alert beep</div></div>
+      <div class="part-card"><div class="part-name">Waterproof project box</div><div class="part-qty">Qty: 1</div><div class="part-note">~150×100×60mm size</div></div>
+    </div>
+    <div class="tip-box">
+      <strong>⚠ Important:</strong> Use JSN-SR04T — NOT the HC-SR04. The JSN version is waterproof and safe for submersion. The HC-SR04 will short out in water.
+    </div>
+  </div>
+
+  <!-- WIRING -->
+  <div id="wiring" class="panel">
+    <div class="section-label">TFT ILI9341 → Arduino UNO</div>
+    <div class="wire-row"><span class="dot" style="background:#e74c3c"></span><span class="wire-from">TFT VCC</span><span class="wire-arrow">→</span><span class="wire-to">Arduino <strong>5V</strong> pin</span></div>
+    <div class="wire-row"><span class="dot" style="background:#2c3e50"></span><span class="wire-from">TFT GND</span><span class="wire-arrow">→</span><span class="wire-to">Arduino <strong>GND</strong></span></div>
+    <div class="wire-row"><span class="dot" style="background:#f39c12"></span><span class="wire-from">TFT CS</span><span class="wire-arrow">→</span><span class="wire-to">Arduino <strong>Pin 10</strong></span></div>
+    <div class="wire-row"><span class="dot" style="background:#9b59b6"></span><span class="wire-from">TFT DC / RS</span><span class="wire-arrow">→</span><span class="wire-to">Arduino <strong>Pin 2</strong></span></div>
+    <div class="wire-row"><span class="dot" style="background:#1abc9c"></span><span class="wire-from">TFT RST</span><span class="wire-arrow">→</span><span class="wire-to">Arduino <strong>Pin 3</strong></span></div>
+    <div class="wire-row"><span class="dot" style="background:#3498db"></span><span class="wire-from">TFT MOSI / SDA</span><span class="wire-arrow">→</span><span class="wire-to">Arduino <strong>Pin 11</strong> (SPI MOSI)</span></div>
+    <div class="wire-row"><span class="dot" style="background:#e67e22"></span><span class="wire-from">TFT SCK / CLK</span><span class="wire-arrow">→</span><span class="wire-to">Arduino <strong>Pin 13</strong> (SPI SCK)</span></div>
+    <div class="wire-row"><span class="dot" style="background:#27ae60"></span><span class="wire-from">TFT LED / BL</span><span class="wire-arrow">→</span><span class="wire-to">Arduino <strong>3.3V</strong> via 100Ω</span></div>
+
+    <div class="section-label" style="margin-top:20px">JSN-SR04T Sonar → Arduino UNO</div>
+    <div class="wire-row"><span class="dot" style="background:#e74c3c"></span><span class="wire-from">JSN VCC</span><span class="wire-arrow">→</span><span class="wire-to">Arduino <strong>5V</strong></span></div>
+    <div class="wire-row"><span class="dot" style="background:#2c3e50"></span><span class="wire-from">JSN GND</span><span class="wire-arrow">→</span><span class="wire-to">Arduino <strong>GND</strong></span></div>
+    <div class="wire-row"><span class="dot" style="background:#f1c40f"></span><span class="wire-from">JSN TRIG</span><span class="wire-arrow">→</span><span class="wire-to">Arduino <strong>Pin 6</strong></span></div>
+    <div class="wire-row"><span class="dot" style="background:#16a085"></span><span class="wire-from">JSN ECHO</span><span class="wire-arrow">→</span><span class="wire-to">Arduino <strong>Pin 7</strong></span></div>
+
+    <div class="section-label" style="margin-top:20px">Optional buzzer → Arduino</div>
+    <div class="wire-row"><span class="dot" style="background:#8e44ad"></span><span class="wire-from">Buzzer +</span><span class="wire-arrow">→</span><span class="wire-to">Arduino <strong>Pin 4</strong></span></div>
+    <div class="wire-row"><span class="dot" style="background:#2c3e50"></span><span class="wire-from">Buzzer −</span><span class="wire-arrow">→</span><span class="wire-to">Arduino <strong>GND</strong></span></div>
+  </div>
+
+  <!-- DIAGRAM -->
+  <div id="diagram" class="panel">
+    <svg width="100%" viewBox="0 0 680 520" role="img">
+      <title>Fish finder wiring diagram</title>
+      <desc>Visual wiring diagram showing Arduino UNO connected to ILI9341 TFT display, JSN-SR04T sonar, and optional buzzer.</desc>
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+
+      <!-- Arduino UNO (center) -->
+      <rect x="240" y="190" width="200" height="160" rx="10" fill="#1a6b3a" stroke="#0d4022" stroke-width="1.5"/>
+      <rect x="245" y="196" width="190" height="148" rx="8" fill="none" stroke="#2ecc71" stroke-width="0.5" opacity="0.4"/>
+      <text x="340" y="222" text-anchor="middle" fill="#2ecc71" font-size="13" font-weight="600" font-family="var(--font-sans,sans-serif)">Arduino UNO R3</text>
+      <text x="340" y="238" text-anchor="middle" fill="#a8d5b5" font-size="10" font-family="var(--font-sans,sans-serif)">CH340</text>
+
+      <!-- Arduino pin labels -->
+      <text x="252" y="262" fill="#7fbe96" font-size="9" font-family="var(--font-sans,sans-serif)">5V  GND  Pin2  Pin3</text>
+      <text x="252" y="278" fill="#7fbe96" font-size="9" font-family="var(--font-sans,sans-serif)">Pin6  Pin7  Pin10  Pin11</text>
+      <text x="252" y="294" fill="#7fbe96" font-size="9" font-family="var(--font-sans,sans-serif)">Pin13  3.3V  Pin4</text>
+      <text x="252" y="314" fill="#5aaa72" font-size="9" font-family="var(--font-sans,sans-serif)">USB ← upload code</text>
+      <rect x="272" y="318" width="36" height="18" rx="3" fill="#111" stroke="#555" stroke-width="0.8"/>
+      <text x="290" y="331" text-anchor="middle" fill="#888" font-size="8" font-family="var(--font-sans,sans-serif)">USB-B</text>
+
+      <!-- TFT Display (top left) -->
+      <rect x="22" y="22" width="160" height="130" rx="8" fill="#1a3a6b" stroke="#3498db" stroke-width="1"/>
+      <rect x="30" y="30" width="144" height="82" rx="4" fill="#0a1a33" stroke="#2980b9" stroke-width="0.5"/>
+      <text x="102" y="72" text-anchor="middle" fill="#5dade2" font-size="11" font-family="var(--font-sans,sans-serif)" font-weight="600">ILI9341 TFT</text>
+      <text x="102" y="88" text-anchor="middle" fill="#3498db" font-size="9" font-family="var(--font-sans,sans-serif)">2.4" 240×320 SPI</text>
+      <!-- TFT pins row -->
+      <text x="30" y="126" fill="#5dade2" font-size="8.5" font-family="var(--font-sans,sans-serif)">VCC GND CS DC RST</text>
+      <text x="30" y="141" fill="#5dade2" font-size="8.5" font-family="var(--font-sans,sans-serif)">MOSI SCK LED</text>
+
+      <!-- JSN-SR04T (bottom left) -->
+      <rect x="22" y="370" width="160" height="110" rx="8" fill="#4a2700" stroke="#e67e22" stroke-width="1"/>
+      <circle cx="70" cy="415" r="22" fill="#2c1800" stroke="#e67e22" stroke-width="1.5"/>
+      <circle cx="70" cy="415" r="14" fill="#1a0f00" stroke="#f39c12" stroke-width="0.8"/>
+      <text x="70" y="419" text-anchor="middle" fill="#f39c12" font-size="9" font-family="var(--font-sans,sans-serif)">SONAR</text>
+      <text x="125" y="405" text-anchor="middle" fill="#e67e22" font-size="11" font-family="var(--font-sans,sans-serif)" font-weight="600">JSN-SR04T</text>
+      <text x="125" y="421" text-anchor="middle" fill="#d35400" font-size="9" font-family="var(--font-sans,sans-serif)">Waterproof</text>
+      <text x="125" y="436" text-anchor="middle" fill="#d35400" font-size="9" font-family="var(--font-sans,sans-serif)">Ultrasonic</text>
+      <text x="35" y="464" fill="#e67e22" font-size="8.5" font-family="var(--font-sans,sans-serif)">VCC  GND  TRIG  ECHO</text>
+
+      <!-- Buzzer (top right) -->
+      <rect x="498" y="22" width="140" height="90" rx="8" fill="#3b003b" stroke="#9b59b6" stroke-width="1"/>
+      <circle cx="568" cy="58" r="20" fill="#1a001a" stroke="#8e44ad" stroke-width="1.5"/>
+      <circle cx="568" cy="58" r="10" fill="#2d0030" stroke="#9b59b6" stroke-width="0.8"/>
+      <text x="568" y="62" text-anchor="middle" fill="#bb8fce" font-size="8" font-family="var(--font-sans,sans-serif)">♪</text>
+      <text x="568" y="96" text-anchor="middle" fill="#9b59b6" font-size="11" font-family="var(--font-sans,sans-serif)" font-weight="600">Buzzer</text>
+      <text x="568" y="106" text-anchor="middle" fill="#7d3c98" font-size="9" font-family="var(--font-sans,sans-serif)">(optional)</text>
+
+      <!-- Battery (bottom right) -->
+      <rect x="498" y="370" width="140" height="90" rx="8" fill="#1a3300" stroke="#27ae60" stroke-width="1"/>
+      <rect x="520" y="390" width="96" height="50" rx="4" fill="#0d1f00" stroke="#2ecc71" stroke-width="0.8"/>
+      <rect x="556" y="383" width="24" height="8" rx="2" fill="#27ae60"/>
+      <text x="568" y="421" text-anchor="middle" fill="#2ecc71" font-size="11" font-family="var(--font-sans,sans-serif)" font-weight="600">9V Battery</text>
+      <text x="568" y="450" text-anchor="middle" fill="#1e8449" font-size="9" font-family="var(--font-sans,sans-serif)">or USB power bank</text>
+
+      <!-- TFT wires (blue family) -->
+      <!-- VCC -->
+      <path d="M182 60 L240 270" fill="none" stroke="#e74c3c" stroke-width="1.5" marker-end="url(#arr)" opacity="0.85"/>
+      <!-- GND -->
+      <path d="M182 72 L240 280" fill="none" stroke="#2c3e50" stroke-width="1.5" marker-end="url(#arr)" opacity="0.85"/>
+      <!-- CS → pin10 -->
+      <path d="M182 84 L220 84 L220 290 L240 290" fill="none" stroke="#f39c12" stroke-width="1.5" marker-end="url(#arr)" opacity="0.85"/>
+      <!-- DC → pin2 -->
+      <path d="M182 96 L214 96 L214 300 L240 300" fill="none" stroke="#9b59b6" stroke-width="1.5" marker-end="url(#arr)" opacity="0.85"/>
+      <!-- RST → pin3 -->
+      <path d="M182 108 L208 108 L208 310 L240 310" fill="none" stroke="#1abc9c" stroke-width="1.5" marker-end="url(#arr)" opacity="0.85"/>
+      <!-- MOSI → pin11 -->
+      <path d="M182 120 L202 120 L202 320 L240 320" fill="none" stroke="#3498db" stroke-width="1.5" marker-end="url(#arr)" opacity="0.85"/>
+      <!-- SCK → pin13 -->
+      <path d="M182 132 L196 132 L196 330 L240 330" fill="none" stroke="#e67e22" stroke-width="1.5" marker-end="url(#arr)" opacity="0.85"/>
+
+      <!-- JSN wires (orange family) -->
+      <!-- VCC -->
+      <path d="M182 424 L230 424 L230 260 L240 260" fill="none" stroke="#e74c3c" stroke-width="1.5" marker-end="url(#arr)" opacity="0.85"/>
+      <!-- GND -->
+      <path d="M182 436 L234 436 L234 275 L240 275" fill="none" stroke="#2c3e50" stroke-width="1.5" marker-end="url(#arr)" opacity="0.85"/>
+      <!-- TRIG → pin6 -->
+      <path d="M182 448 L238 448 L238 285 L240 285" fill="none" stroke="#f1c40f" stroke-width="1.5" marker-end="url(#arr)" opacity="0.85"/>
+      <!-- ECHO → pin7 -->
+      <path d="M182 460 L236 460 L236 295 L240 295" fill="none" stroke="#16a085" stroke-width="1.5" marker-end="url(#arr)" opacity="0.85"/>
+
+      <!-- Buzzer wires -->
+      <path d="M498 68 L450 68 L450 305 L440 305" fill="none" stroke="#8e44ad" stroke-width="1.5" marker-end="url(#arr)" opacity="0.85"/>
+      <path d="M498 80 L456 80 L456 315 L440 315" fill="none" stroke="#2c3e50" stroke-width="1.5" marker-end="url(#arr)" opacity="0.85"/>
+
+      <!-- Battery wire -->
+      <path d="M530 390 L480 390 L480 270 L440 270" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr)" opacity="0.85"/>
+      <path d="M530 400 L486 400 L486 280 L440 280" fill="none" stroke="#2c3e50" stroke-width="2" marker-end="url(#arr)" opacity="0.85"/>
+
+      <!-- Labels near wires -->
+      <text x="192" y="57" fill="#e74c3c" font-size="9" font-family="var(--font-sans,sans-serif)">5V</text>
+      <text x="192" y="69" fill="#ecf0f1" font-size="9" font-family="var(--font-sans,sans-serif)">GND</text>
+      <text x="192" y="81" fill="#f39c12" font-size="9" font-family="var(--font-sans,sans-serif)">CS→10</text>
+      <text x="192" y="93" fill="#9b59b6" font-size="9" font-family="var(--font-sans,sans-serif)">DC→2</text>
+      <text x="192" y="105" fill="#1abc9c" font-size="9" font-family="var(--font-sans,sans-serif)">RST→3</text>
+      <text x="192" y="117" fill="#3498db" font-size="9" font-family="var(--font-sans,sans-serif)">MOSI→11</text>
+      <text x="192" y="129" fill="#e67e22" font-size="9" font-family="var(--font-sans,sans-serif)">SCK→13</text>
+
+      <text x="192" y="421" fill="#e74c3c" font-size="9" font-family="var(--font-sans,sans-serif)">5V</text>
+      <text x="192" y="433" fill="#ecf0f1" font-size="9" font-family="var(--font-sans,sans-serif)">GND</text>
+      <text x="192" y="445" fill="#f1c40f" font-size="9" font-family="var(--font-sans,sans-serif)">TRIG→6</text>
+      <text x="192" y="457" fill="#16a085" font-size="9" font-family="var(--font-sans,sans-serif)">ECHO→7</text>
+
+      <text x="455" y="65" fill="#9b59b6" font-size="9" font-family="var(--font-sans,sans-serif)">+→4</text>
+      <text x="455" y="77" fill="#ecf0f1" font-size="9" font-family="var(--font-sans,sans-serif)">−→GND</text>
+
+      <!-- Sonar cable going down (deployment hint) -->
+      <path d="M70 480 L70 510" fill="none" stroke="#e67e22" stroke-width="2" stroke-dasharray="4 3" opacity="0.6"/>
+      <text x="80" y="500" fill="#d35400" font-size="9" font-family="var(--font-sans,sans-serif)">→ underwater</text>
+    </svg>
+  </div>
+
+  <!-- STEPS -->
+  <div id="steps" class="panel">
+    <div class="step-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Install Arduino libraries</div>
+          <div class="step-desc">Open Arduino IDE. Go to <strong>Sketch → Include Library → Manage Libraries</strong>. Search and install: <em>Adafruit GFX Library</em>, <em>Adafruit ILI9341</em>, and <em>NewPing</em>.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Set up the breadboard</div>
+          <div class="step-desc">Place the Arduino and breadboard side by side. Connect the breadboard power rail: Arduino 5V → red rail, Arduino GND → blue rail. This gives you shared power and ground for all components.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Wire the TFT display</div>
+          <div class="step-desc">Connect all 8 TFT pins using the wiring table. Use the SPI pins (11, 13) for MOSI/SCK. Connect TFT LED/backlight to 3.3V through a 100Ω resistor to limit current and protect the LED.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Wire the JSN-SR04T sonar</div>
+          <div class="step-desc">Connect VCC to 5V, GND to GND, TRIG to Pin 6, ECHO to Pin 7. Route the sonar cable through a hole in your project box so the transducer hangs outside, facing downward into the water.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">Wire the optional buzzer</div>
+          <div class="step-desc">Connect buzzer positive (+) to Pin 4, negative (−) to GND. The passive buzzer will beep when fish are detected. If no buzzer, no changes needed — the code handles it gracefully.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <div class="step-title">Upload the code</div>
+          <div class="step-desc">Connect Arduino to PC via USB. Select <strong>Board: Arduino UNO</strong> and the correct CH340 COM port. Paste the full fish finder code and click Upload. The CH340 driver must be installed for your PC to detect the board.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">7</div>
+        <div class="step-body">
+          <div class="step-title">Test on the bench first</div>
+          <div class="step-desc">Before waterproofing, power up and hold your hand above the JSN-SR04T at various distances. The display should show a scrolling sonar screen with changing depth values. Verify the screen lights up with the splash screen on boot.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">8</div>
+        <div class="step-body">
+          <div class="step-title">Mount in waterproof box</div>
+          <div class="step-desc">Drill a hole for the TFT display window on the lid, and a cable gland hole for the JSN sonar cable at the bottom. Mount the Arduino inside with standoffs. Seal all edges with silicone. Thread sonar cable through and waterproof the entry point.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIPS -->
+  <div id="tips" class="panel">
+    <div class="section-label">Common issues & fixes</div>
+    <div class="step-grid">
+      <div class="step-card">
+        <div class="step-num" style="background:var(--color-background-danger);color:var(--color-text-danger)"><i class="ti ti-x" aria-hidden="true"></i></div>
+        <div class="step-body">
+          <div class="step-title">Screen stays black / blank</div>
+          <div class="step-desc">Check TFT CS, DC, RST pins are correct. Make sure the TFT module is a 5V-compatible version or uses a level shifter. Some modules only take 3.3V — check your module's datasheet.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num" style="background:var(--color-background-danger);color:var(--color-text-danger)"><i class="ti ti-x" aria-hidden="true"></i></div>
+        <div class="step-body">
+          <div class="step-title">Depth always shows max / "---"</div>
+          <div class="step-desc">No echo received. Point JSN-SR04T straight down. Make sure you're using the JSN-SR04T not HC-SR04. Check VCC and GND connections. Water must be calm and sensor must be fully submerged.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num" style="background:var(--color-background-danger);color:var(--color-text-danger)"><i class="ti ti-x" aria-hidden="true"></i></div>
+        <div class="step-body">
+          <div class="step-title">CH340 port not detected</div>
+          <div class="step-desc">You need the CH340 driver installed. Download from: <strong>sparfun.com/ch340</strong> or search "CH340 driver". After installing, restart Arduino IDE and the COM port should appear.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num" style="background:var(--color-background-warning);color:var(--color-text-warning)"><i class="ti ti-alert-triangle" aria-hidden="true"></i></div>
+        <div class="step-body">
+          <div class="step-title">Noisy or jumping depth readings</div>
+          <div class="step-desc">Increase the IIR filter coefficient in code from 0.72 to 0.85 for smoother readings. Also make sure sonar is pointing straight down at 90° — any angle causes inaccurate distance.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num" style="background:var(--color-background-success);color:var(--color-text-success)"><i class="ti ti-check" aria-hidden="true"></i></div>
+        <div class="step-body">
+          <div class="step-title">Testing fish detection</div>
+          <div class="step-desc">In a bucket of water, slowly move your hand at mid-depth while sensor is at top. The display should show fish arches and the header should flash red "FISH DETECTED". This validates detection is working before real use.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num" style="background:var(--color-background-success);color:var(--color-text-success)"><i class="ti ti-check" aria-hidden="true"></i></div>
+        <div class="step-body">
+          <div class="step-title">Mounting the sonar correctly</div>
+          <div class="step-desc">Mount the JSN-SR04T on the hull of a boat or on a pole, pointing straight down. Keep it at least 5cm below the waterline. The transducer face should be fully submerged and level for accurate readings.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
