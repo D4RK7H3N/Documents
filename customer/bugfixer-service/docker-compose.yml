@@ -1,0 +1,82 @@
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-bugfixer}
+      POSTGRES_USER: ${POSTGRES_USER:-bugfixer}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-bugfixer}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-bugfixer}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    logging: *default-logging
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8444
+    env_file: .env
+    environment:
+      POSTGRES_HOST: db
+      WORKDIR: /work
+      MEDIA_ROOT: /app/media
+    ports:
+      - "8444:8444"
+    volumes:
+      - work:/work
+      - media:/app/media
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8444/health/', timeout=3)"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging: *default-logging
+
+  dashboard:
+    build:
+      context: ./dashboard
+      args:
+        VITE_API_URL: ${DASHBOARD_API_URL:-http://localhost:8444}
+    ports:
+      - "3000:80"
+    depends_on:
+      - web
+    logging: *default-logging
+
+  worker:
+    build: .
+    command: python manage.py run_worker
+    user: "10001:10001"
+    env_file: .env
+    environment:
+      POSTGRES_HOST: db
+      WORKDIR: /work
+      MEDIA_ROOT: /app/media
+      HOME: /home/bugfixer
+    volumes:
+      - work:/work
+      - media:/app/media
+    depends_on:
+      db:
+        condition: service_healthy
+    logging: *default-logging
+
+volumes:
+  pgdata:
+  work:
+  media:

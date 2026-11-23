@@ -1,0 +1,74 @@
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  db:
+    restart: unless-stopped
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-bugfixer}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    logging: *default-logging
+
+  web:
+    restart: unless-stopped
+    command: python manage.py runserver 0.0.0.0:8444 --insecure
+    user: "10001:10001"
+    environment:
+      POSTGRES_HOST: db
+      WORKDIR: /work
+      MEDIA_ROOT: /app/media
+      HOME: /home/bugfixer
+    ports: !reset []
+    volumes:
+      - work:/work
+      - media:/app/media
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8444/health/', timeout=3)"
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    logging: *default-logging
+
+  worker:
+    restart: unless-stopped
+    user: "10001:10001"
+    environment:
+      POSTGRES_HOST: db
+      WORKDIR: /work
+      MEDIA_ROOT: /app/media
+      HOME: /home/bugfixer
+    ports: !reset []
+    volumes:
+      - work:/work
+      - media:/app/media
+    cpus: 2.0
+    mem_limit: 2g
+    pids_limit: 256
+    logging: *default-logging
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN:-}
+    depends_on:
+      web:
+        condition: service_healthy
+    logging: *default-logging
+
+volumes:
+  pgdata:
+  work:
+  media:

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Register Staff - School Management System{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item">Admin</li>
+<li class="breadcrumb-item active">Register Staff</li>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">Register New Staff</h1>
+    <p class="page-subtitle">Create a new staff account</p>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-user-plus me-2"></i>Staff Registration Form
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                    <div class="mb-3">
+                        <label class="form-label">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                        <div class="text-danger small mt-1">{{ field.errors }}</div>
+                        {% endif %}
+                        {% if field.help_text %}
+                        <small class="text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-user-plus me-2"></i>Create Staff Account
+                        </button>
+                        <a href="{% url 'admin:auth_user_changelist' %}" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Back to User List
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
