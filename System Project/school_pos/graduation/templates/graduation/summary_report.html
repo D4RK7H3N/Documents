@@ -1,0 +1,377 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Graduation Summary Report - Graduation Management{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0 text-gray-800">
+            <i class="fas fa-chart-line text-success me-2"></i>
+            Graduation Summary Report
+        </h1>
+        <div>
+            <a href="{% url 'graduation:students_with_balance' %}" class="btn btn-warning btn-sm me-2">
+                <i class="fas fa-exclamation-triangle me-1"></i>
+                View Balances
+            </a>
+            <a href="{% url 'graduation:dashboard' %}" class="btn btn-secondary btn-sm">
+                <i class="fas fa-arrow-left me-1"></i>
+                Back
+            </a>
+        </div>
+    </div>
+
+    <!-- Overview Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Total Events
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_events }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Total Participants
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_participants }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Revenue Collected
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                ₱{{ total_collected|floatformat:2 }}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-money-bill-wave fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Outstanding Balance
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                ₱{{ overall_balance|floatformat:2 }}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Charts -->
+    <div class="row mb-4">
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header bg-light">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        <i class="fas fa-chart-pie me-2"></i>Revenue Overview
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-pie">
+                        <canvas id="revenueChart" width="400" height="400"></canvas>
+                    </div>
+                    <div class="mt-4 text-center small">
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-success"></i> Collected
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-warning"></i> Outstanding
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header bg-light">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        <i class="fas fa-chart-bar me-2"></i>Events Performance
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Count</th>
+                                    <th>Percentage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><i class="fas fa-circle text-success"></i> Completed</td>
+                                    <td>{{ event_summaries|length }}</td>
+                                    <td>100%</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="font-weight-bold">Completion Rate</td>
+                                </tr>
+                                {% for summary in event_summaries %}
+                                <tr>
+                                    <td>{{ summary.event.name|truncatechars:20 }}</td>
+                                    <td>{{ summary.completion_rate|floatformat:1 }}%</td>
+                                    <td>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-{% if summary.completion_rate >= 80 %}success{% elif summary.completion_rate >= 50 %}warning{% else %}danger{% endif %}"
+                                                 role="progressbar"
+                                                 style="width: {{ summary.completion_rate }}%"
+                                                 aria-valuenow="{{ summary.completion_rate }}"
+                                                 aria-valuemin="0"
+                                                 aria-valuemax="100">
+                                                {{ summary.completion_rate|floatformat:0 }}%
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Summaries -->
+    <div class="card shadow mb-4">
+        <div class="card-header bg-light">
+            <h6 class="m-0 font-weight-bold text-primary">
+                <i class="fas fa-list me-2"></i>Event-wise Summary
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover" id="eventsTable" width="100%" cellspacing="0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>Event</th>
+                            <th>Date</th>
+                            <th>Participants</th>
+                            <th>Fee per Student</th>
+                            <th>Expected Revenue</th>
+                            <th>Collected</th>
+                            <th>Balance</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for summary in event_summaries %}
+                        <tr>
+                            <td>
+                                <div class="font-weight-bold">{{ summary.event.name }}</div>
+                                <small class="text-muted">{{ summary.event.venue|default:"Venue TBA" }}</small>
+                            </td>
+                            <td>{{ summary.event.event_date|date:"M d, Y" }}</td>
+                            <td>
+                                <span class="badge bg-info">{{ summary.participants }}</span>
+                            </td>
+                            <td class="font-weight-bold">
+                                ₱{{ summary.event.total_fee_per_student|floatformat:2 }}
+                            </td>
+                            <td class="font-weight-bold text-info">
+                                ₱{{ summary.expected|floatformat:2 }}
+                            </td>
+                            <td class="font-weight-bold text-success">
+                                ₱{{ summary.collected|floatformat:2 }}
+                            </td>
+                            <td class="font-weight-bold {% if summary.balance > 0 %}text-danger{% endif %}">
+                                ₱{{ summary.balance|floatformat:2 }}
+                            </td>
+                            <td>
+                                {% if summary.event.is_registration_open %}
+                                    <span class="badge bg-success">Open</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">Closed</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'graduation:event_detail' summary.event.id %}"
+                                   class="btn btn-sm btn-primary">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="9" class="text-center py-4">
+                                <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+                                <p class="mb-0">No graduation events found.</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Insights -->
+    <div class="row">
+        <div class="col-lg-8 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header bg-light">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        <i class="fas fa-lightbulb me-2"></i>Key Insights
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <strong>{{ total_participants }}</strong> students are registered for graduation events
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-money-bill-wave text-info me-2"></i>
+                            Total expected revenue: <strong>₱{{ total_expected|floatformat:2 }}</strong>
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-percentage text-warning me-2"></i>
+                            Collection rate: <strong>{{ total_collected|div:total_expected|mul:100|floatformat:1 }}%</strong>
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-exclamation-triangle text-danger me-2"></i>
+                            Outstanding balance: <strong>₱{{ overall_balance|floatformat:2 }}</strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header bg-light">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        <i class="fas fa-tasks me-2"></i>Quick Actions
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'graduation:create_event' %}" class="btn btn-success">
+                            <i class="fas fa-plus me-2"></i>Create New Event
+                        </a>
+                        <a href="{% url 'graduation:students_with_balance' %}" class="btn btn-warning">
+                            <i class="fas fa-exclamation-triangle me-2"></i>View Outstanding Fees
+                        </a>
+                        <a href="{% url 'graduation:dashboard' %}" class="btn btn-primary">
+                            <i class="fas fa-tachometer-alt me-2"></i>Go to Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .border-left-primary {
+        border-left: 0.25rem solid #4e73df;
+    }
+    .border-left-success {
+        border-left: 0.25rem solid #1cc88a;
+    }
+    .border-left-info {
+        border-left: 0.25rem solid #36b9cc;
+    }
+    .border-left-warning {
+        border-left: 0.25rem solid #f6c23e;
+    }
+    .card {
+        border: none;
+        border-radius: 0.5rem;
+    }
+    .table-hover tbody tr:hover {
+        background-color: rgba(78, 115, 223, 0.05);
+    }
+</style>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        $('#eventsTable').DataTable({
+            "pageLength": 10,
+            "language": {
+                "search": "",
+                "searchPlaceholder": "Search events..."
+            },
+            "order": [[7, 'desc']], // Sort by collected amount
+        });
+
+        // Donut Chart for Revenue Overview
+        var ctx = document.getElementById('revenueChart').getContext('2d');
+        var revenueChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Collected', 'Outstanding'],
+                datasets: [{
+                    data: [{{ total_collected }}, {{ overall_balance }}],
+                    backgroundColor: ['#1cc88a', '#f6c23e'],
+                    hoverBackgroundColor: ['#17a673', '#dda20a'],
+                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    caretPadding: 10,
+                },
+                legend: {
+                    display: false
+                },
+                cutoutPercentage: 80,
+            },
+        });
+    });
+</script>
+{% endblock %}
