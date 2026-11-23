@@ -1,0 +1,217 @@
+{% load admin_dashboard %}
+{% load i18n static jazzmin %}
+
+{% get_available_languages as languages %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% trans 'SafeSwap PH Admin' %}</title>
+    <link rel="stylesheet" href="{% static 'vendor/adminlte/css/adminlte.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/fontawesome-free/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/admin_custom.css' %}">
+    <style>
+        body:not(.dark-mode) { --bg: #f4f6fb; --card-bg: #fff; --text: #212529; --muted: #6c757d; --border: #e9ecef; }
+        body.dark-mode { --bg: #1a1a2e; --card-bg: #222; --text: #e4e4e4; --muted: #999; --border: #333; display: none; }
+        body { background: var(--bg); font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; }
+        .wrapper { min-height: 100vh; }
+
+        .main-header { background: #fff !important; box-shadow: 0 2px 12px rgba(0,0,0,0.06); position: sticky; top: 0; z-index: 100; }
+        .main-header .navbar-nav .nav-link { color: #495057; }
+        .content-wrapper { background: var(--bg); padding: 1.5rem; }
+
+        .dashboard-header { margin-bottom: 2rem; }
+        .dashboard-header h1 { font-size: 1.75rem; font-weight: 800; color: #185FA5; margin: 0; }
+        .dashboard-header p { color: var(--muted); margin: 0.25rem 0 0; }
+
+        .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
+        .stat-card { background: var(--card-bg); border-radius: 16px; padding: 1.5rem; box-shadow: 0 2px 12px rgba(0,0,0,0.06); display: flex; align-items: center; gap: 1rem; transition: transform 0.2s, box-shadow 0.2s; }
+        .stat-card:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,0.1); }
+        .stat-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+        .stat-icon.blue { background: rgba(24,95,165,0.12); color: #185FA5; }
+        .stat-icon.purple { background: rgba(83,74,183,0.12); color: #534AB7; }
+        .stat-icon.green { background: rgba(15,110,86,0.12); color: #0F6E56; }
+        .stat-icon.orange { background: rgba(255,152,0,0.12); color: #f39c12; }
+        .stat-icon.red { background: rgba(220,53,69,0.12); color: #dc3545; }
+        .stat-icon.teal { background: rgba(0,150,136,0.12); color: #009688; }
+        .stat-info h3 { font-size: 1.65rem; font-weight: 800; color: var(--text); margin: 0; line-height: 1.2; }
+        .stat-info p { font-size: 0.8rem; color: var(--muted); margin: 0; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+
+        .dashboard-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+        @media (max-width: 992px) { .dashboard-grid { grid-template-columns: 1fr; } }
+
+        .dash-card { background: var(--card-bg); border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); overflow: hidden; }
+        .dash-card-header { padding: 1.25rem 1.5rem 0.75rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+        .dash-card-header h5 { font-weight: 700; color: #185FA5; font-size: 1rem; margin: 0; }
+        .dash-card-header .badge { font-size: 0.7rem; font-weight: 600; padding: 0.3em 0.7em; border-radius: 20px; }
+        .dash-card-body { padding: 1rem 1.5rem 1.5rem; }
+
+        .trade-item { display: flex; align-items: center; padding: 0.85rem 0; border-bottom: 1px solid var(--border); }
+        .trade-item:last-child { border-bottom: none; }
+        .trade-avatar { width: 40px; height: 40px; border-radius: 10px; background: rgba(24,95,165,0.1); display: flex; align-items: center; justify-content: center; color: #185FA5; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+        .trade-info { flex: 1; margin-left: 0.85rem; }
+        .trade-info strong { display: block; font-size: 0.9rem; color: var(--text); }
+        .trade-info span { font-size: 0.75rem; color: var(--muted); }
+        .trade-status { font-size: 0.7rem; font-weight: 700; padding: 0.25em 0.65em; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.3px; }
+        .trade-status.active { background: rgba(24,95,165,0.12); color: #185FA5; }
+        .trade-status.completed { background: rgba(15,110,86,0.12); color: #0F6E56; }
+        .trade-status.disputed { background: rgba(220,53,69,0.12); color: #dc3545; }
+        .trade-status.pending { background: rgba(255,152,0,0.12); color: #f39c12; }
+
+        .kyc-item { display: flex; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
+        .kyc-item:last-child { border-bottom: none; }
+        .kyc-avatar { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,152,0,0.15); display: flex; align-items: center; justify-content: center; color: #f39c12; font-weight: 700; font-size: 0.8rem; }
+        .kyc-info { flex: 1; margin-left: 0.75rem; }
+        .kyc-info strong { font-size: 0.85rem; color: var(--text); display: block; }
+        .kyc-info span { font-size: 0.7rem; color: var(--muted); }
+        .kyc-action { font-size: 0.75rem; font-weight: 600; color: #185FA5; text-decoration: none; }
+
+        .quick-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; }
+        .quick-action { display: flex; align-items: center; gap: 0.6rem; padding: 0.85rem 1rem; border-radius: 12px; background: rgba(24,95,165,0.06); color: #185FA5; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: background 0.2s; border: none; cursor: pointer; }
+        .quick-action:hover { background: rgba(24,95,165,0.12); color: #185FA5; text-decoration: none; }
+        .quick-action i { font-size: 1rem; }
+
+        .empty-state { text-align: center; padding: 2rem; color: var(--muted); }
+        .empty-state i { font-size: 2.5rem; margin-bottom: 0.75rem; opacity: 0.3; }
+        .empty-state p { font-size: 0.85rem; margin: 0; }
+
+        .main-footer { background: var(--card-bg); border-top: 1px solid var(--border); padding: 1rem 1.5rem; font-size: 0.85rem; color: var(--muted); }
+    </style>
+</head>
+<body class="hold-transition layout-fixed">
+<div class="wrapper">
+    <header class="main-header navbar navbar-white navbar-light">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="ml-1">{{ request.user.get_full_name|default:request.user.name }}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a href="{% url 'admin:logout' %}" class="dropdown-item"><i class="fas fa-sign-out-alt mr-2"></i> Logout</a>
+                </div>
+            </li>
+        </ul>
+    </header>
+
+    <div class="content-wrapper">
+        <div class="dashboard-header">
+            <h1>Dashboard</h1>
+            <p>Welcome back, {{ request.user.name }}. Here's what's happening on SafeSwap PH.</p>
+        </div>
+
+        {% total_users as total_users_count %}
+        {% active_trades as active_trades_count %}
+        {% pending_kyc as pending_kyc_count %}
+        {% open_disputes as open_disputes_count %}
+        {% total_escrow_value as escrow_value %}
+        {% completed_trades as completed_trades_count %}
+
+        <div class="stat-row">
+            <div class="stat-card">
+                <div class="stat-icon blue"><i class="fas fa-users"></i></div>
+                <div class="stat-info"><h3>{{ total_users_count }}</h3><p>Total Users</p></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon purple"><i class="fas fa-exchange-alt"></i></div>
+                <div class="stat-info"><h3>{{ active_trades_count }}</h3><p>Active Trades</p></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green"><i class="fas fa-check-circle"></i></div>
+                <div class="stat-info"><h3>{{ completed_trades_count }}</h3><p>Completed Trades</p></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon orange"><i class="fas fa-id-card"></i></div>
+                <div class="stat-info"><h3>{{ pending_kyc_count }}</h3><p>Pending KYC</p></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon red"><i class="fas fa-gavel"></i></div>
+                <div class="stat-info"><h3>{{ open_disputes_count }}</h3><p>Open Disputes</p></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon teal"><i class="fas fa-lock"></i></div>
+                <div class="stat-info"><h3>₱{{ escrow_value|floatformat:0 }}</h3><p>In Escrow</p></div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="dash-card">
+                <div class="dash-card-header">
+                    <h5><i class="fas fa-clock mr-2"></i> Recent Trades</h5>
+                    <a href="{% url 'admin:core_trade_changelist' %}" class="badge badge-primary">View All</a>
+                </div>
+                <div class="dash-card-body">
+                    {% recent_trades as recent %}
+                    {% if recent %}
+                        {% for trade in recent %}
+                        <div class="trade-item">
+                            <div class="trade-avatar">{{ trade.buyer.name|first|upper }}</div>
+                            <div class="trade-info">
+                                <strong>{{ trade.listing.title|truncatechars:30 }}</strong>
+                                <span>{{ trade.buyer.name }} → {{ trade.seller.name }} · {{ trade.created_at|timesince }} ago</span>
+                            </div>
+                            <span class="trade-status {{ trade.status }}">{{ trade.status }}</span>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="empty-state"><i class="fas fa-exchange-alt"></i><p>No trades yet</p></div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="dash-card">
+                <div class="dash-card-header">
+                    <h5><i class="fas fa-hourglass-half mr-2"></i> Pending KYC</h5>
+                    <a href="{% url 'admin:core_kycverification_changelist' %}" class="badge badge-warning">{{ pending_kyc_count }}</a>
+                </div>
+                <div class="dash-card-body">
+                    {% pending_kyc_list as kyc_list %}
+                    {% if kyc_list %}
+                        {% for kyc in kyc_list %}
+                        <div class="kyc-item">
+                            <div class="kyc-avatar">{{ kyc.user.name|first|upper }}</div>
+                            <div class="kyc-info">
+                                <strong>{{ kyc.user.name }}</strong>
+                                <span>{{ kyc.id_type }} · {{ kyc.submitted_at|timesince }} ago</span>
+                            </div>
+                            <a href="{% url 'admin:core_kycverification_change' kyc.id %}" class="kyc-action">Review</a>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="empty-state"><i class="fas fa-check-circle" style="color:#0F6E56;opacity:0.5;"></i><p>All KYC reviews up to date</p></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="dash-card">
+            <div class="dash-card-header">
+                <h5><i class="fas fa-bolt mr-2"></i> Quick Actions</h5>
+            </div>
+            <div class="dash-card-body">
+                <div class="quick-actions">
+                    <a href="{% url 'admin:core_customuser_add' %}" class="quick-action"><i class="fas fa-user-plus"></i> Add User</a>
+                    <a href="{% url 'admin:core_listing_add' %}" class="quick-action"><i class="fas fa-plus-circle"></i> Add Listing</a>
+                    <a href="{% url 'admin:core_trade_add' %}" class="quick-action"><i class="fas fa-random"></i> New Trade</a>
+                    <a href="{% url 'admin:core_kycverification_changelist' %}?status__exact=pending" class="quick-action"><i class="fas fa-id-card"></i> Review KYC</a>
+                    <a href="{% url 'admin:core_dispute_changelist' %}?outcome__exact=pending" class="quick-action"><i class="fas fa-gavel"></i> Disputes</a>
+                    <a href="{% url 'admin:core_platformconfig_change' 1 %}" class="quick-action"><i class="fas fa-cog"></i> Settings</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <strong>&copy; {% now 'Y' %} SafeSwap PH</strong>. All rights reserved.
+    </footer>
+</div>
+
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script>$(function(){ $('[data-toggle="dropdown"]').dropdown(); })</script>
+</body>
+</html>

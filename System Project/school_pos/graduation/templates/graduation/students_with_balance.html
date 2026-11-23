@@ -1,0 +1,317 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Students with Outstanding Graduation Fees - Graduation Management{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0 text-gray-800">
+            <i class="fas fa-user-graduate text-primary me-2"></i>
+            Students with Outstanding Graduation Fees
+        </h1>
+        <div>
+            <a href="{% url 'graduation:summary_report' %}" class="btn btn-info btn-sm me-2">
+                <i class="fas fa-chart-bar me-1"></i>
+                Summary Report
+            </a>
+            <a href="{% url 'graduation:dashboard' %}" class="btn btn-secondary btn-sm">
+                <i class="fas fa-arrow-left me-1"></i>
+                Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                Students with Balance
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_students }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Total Outstanding Balance
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                ₱{{ total_balance|floatformat:2 }}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-money-bill-wave fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Active Events
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ events|length }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar-alt fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search and Filters -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-4">
+                    <label for="search" class="form-label">Search</label>
+                    <input type="text" class="form-control" id="search" name="search"
+                           value="{{ search_query }}" placeholder="Name or LRN...">
+                </div>
+                <div class="col-md-3">
+                    <label for="level" class="form-label">Level</label>
+                    <select class="form-control" id="level" name="level">
+                        <option value="">All Levels</option>
+                        {% for level_code, level_name in level_choices %}
+                            <option value="{{ level_code }}" {% if level_filter == level_code %}selected{% endif %}>
+                                {{ level_name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="event" class="form-label">Event</label>
+                    <select class="form-control" id="event" name="event">
+                        <option value="">All Events</option>
+                        {% for event in events %}
+                            <option value="{{ event.id }}" {% if event_filter|add:"0" == event.id %}selected{% endif %}>
+                                {{ event.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary me-2">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                    <a href="?" class="btn btn-secondary">
+                        <i class="fas fa-redo"></i> Clear
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Balance by Event Summary -->
+    {% if events_summary %}
+    <div class="card shadow mb-4">
+        <div class="card-header bg-light">
+            <h6 class="m-0 font-weight-bold text-primary">
+                <i class="fas fa-chart-pie me-2"></i>Outstanding Balance by Event
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                {% for summary in events_summary %}
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <div class="border rounded p-3 h-100">
+                        <h6 class="font-weight-bold text-dark">{{ summary.graduation_event__name }}</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-muted">Students:</span>
+                            <span class="badge bg-danger">{{ summary.student_count }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="text-muted">Total Balance:</span>
+                            <span class="font-weight-bold text-danger">
+                                ₱{{ summary.total_balance|floatformat:2 }}
+                            </span>
+                        </div>
+                        <div class="progress mt-2" style="height: 8px;">
+                            <div class="progress-bar bg-danger" role="progressbar"
+                                 style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Students Table -->
+    <div class="card shadow mb-4">
+        <div class="card-header bg-light">
+            <h6 class="m-0 font-weight-bold text-primary">
+                <i class="fas fa-table me-2"></i>Students with Outstanding Fees
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover" id="studentsTable" width="100%" cellspacing="0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>Student</th>
+                            <th>LRN</th>
+                            <th>Level</th>
+                            <th>Section</th>
+                            <th>Event</th>
+                            <th>Total Fee</th>
+                            <th>Paid</th>
+                            <th>Balance</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student_grad in students %}
+                        <tr>
+                            <td>
+                                <div class="font-weight-bold">
+                                    {{ student_grad.student.last_name }}, {{ student_grad.student.first_name }}
+                                </div>
+                                <small class="text-muted">{{ student_grad.student.email|default:"No Email" }}</small>
+                            </td>
+                            <td>{{ student_grad.student.lrn|default:"N/A" }}</td>
+                            <td>
+                                <span class="badge bg-info">
+                                    {{ student_grad.get_graduation_level_display }}
+                                </span>
+                            </td>
+                            <td>{{ student_grad.section|default:"N/A" }}</td>
+                            <td>
+                                <div class="font-weight-bold">{{ student_grad.graduation_event.name }}</div>
+                                <small class="text-muted">
+                                    {{ student_grad.graduation_event.event_date|date:"M d, Y" }}
+                                </small>
+                            </td>
+                            <td class="font-weight-bold">₱{{ student_grad.total_fee|floatformat:2 }}</td>
+                            <td class="text-success font-weight-bold">
+                                ₱{{ student_grad.amount_paid|floatformat:2 }}
+                            </td>
+                            <td class="font-weight-bold text-danger">
+                                ₱{{ student_grad.balance|floatformat:2 }}
+                            </td>
+                            <td>
+                                {% if student_grad.status == 'Partial' %}
+                                    <span class="badge bg-warning text-dark">
+                                        <i class="fas fa-exclamation-triangle me-1"></i>
+                                        Partially Paid
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-info">
+                                        <i class="fas fa-clock me-1"></i>
+                                        {{ student_grad.get_status_display }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'graduation:student_detail' student_grad.id %}"
+                                   class="btn btn-sm btn-primary">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{% url 'graduation:payment' student_grad.id %}"
+                                   class="btn btn-sm btn-success">
+                                    <i class="fas fa-money-bill"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="10" class="text-center py-4">
+                                <i class="fas fa-check-circle text-success fa-3x mb-3"></i>
+                                <p class="mb-0">Great! All students have paid their graduation fees.</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="card shadow">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <h6 class="font-weight-bold text-primary">Quick Actions</h6>
+                    <div class="mt-3">
+                        <a href="{% url 'graduation:dashboard' %}" class="btn btn-primary me-2">
+                            <i class="fas fa-calendar-alt me-1"></i> Manage Events
+                        </a>
+                        <a href="{% url 'graduation:summary_report' %}" class="btn btn-info me-2">
+                            <i class="fas fa-chart-bar me-1"></i> View Reports
+                        </a>
+                        <a href="{% url 'graduation:create_event' %}" class="btn btn-success">
+                            <i class="fas fa-plus me-1"></i> Create Event
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4 text-end">
+                    <small class="text-muted">Last updated: {% now "M d, Y h:i A" %}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .border-left-danger {
+        border-left: 0.25rem solid #e74a3b;
+    }
+    .border-left-warning {
+        border-left: 0.25rem solid #f6c23e;
+    }
+    .border-left-info {
+        border-left: 0.25rem solid #36b9cc;
+    }
+    .card {
+        border: none;
+        border-radius: 0.5rem;
+    }
+    .table-hover tbody tr:hover {
+        background-color: rgba(78, 115, 223, 0.05);
+    }
+    .progress {
+        background-color: rgba(231, 74, 59, 0.1);
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        $('#studentsTable').DataTable({
+            "pageLength": 25,
+            "language": {
+                "search": "",
+                "searchPlaceholder": "Search students...",
+                "emptyTable": "No students with outstanding fees found"
+            },
+            "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>rt<"row"<"col-sm-6"i><"col-sm-6"p>>',
+            "order": [[7, 'desc']], // Sort by balance
+        });
+    });
+</script>
+{% endblock %}
