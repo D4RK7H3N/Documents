@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Dashboard - School Management System{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item active">Dashboard</li>
+{% endblock %}
+
+{% block content %}
+<div class="page-header d-flex justify-content-between align-items-center">
+    <div>
+        <h1 class="page-title">Welcome back, {{ user.username }}!</h1>
+        <p class="page-subtitle">Here's what's happening at your school today</p>
+    </div>
+    <div class="text-muted">
+        <i class="fas fa-calendar-alt me-1"></i>
+        {{ "now"|date:"l, F j, Y" }}
+    </div>
+</div>
+
+<!-- Quick Stats -->
+<div class="row g-4 mb-4">
+    <div class="col-sm-6 col-xl-3">
+        <div class="stat-card bg-gradient-primary">
+            <i class="fas fa-user-graduate stat-icon"></i>
+            <p class="stat-label">Total Students</p>
+            <h3 class="stat-value">--</h3>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="stat-card bg-gradient-success">
+            <i class="fas fa-peso-sign stat-icon"></i>
+            <p class="stat-label">Today's Revenue</p>
+            <h3 class="stat-value">--</h3>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="stat-card bg-gradient-warning">
+            <i class="fas fa-receipt stat-icon"></i>
+            <p class="stat-label">Today's Transactions</p>
+            <h3 class="stat-value">--</h3>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="stat-card bg-gradient-info">
+            <i class="fas fa-boxes stat-icon"></i>
+            <p class="stat-label">Products</p>
+            <h3 class="stat-value">--</h3>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row g-4 mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-bolt me-2 text-warning"></i>Quick Actions
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <a href="{% url 'cashier:dashboard' %}" class="btn btn-outline-primary w-100 py-3">
+                            <i class="fas fa-cash-register fa-2x mb-2 d-block"></i>
+                            <span>POS / Cashier</span>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <a href="{% url 'students:enroll_student' %}" class="btn btn-outline-success w-100 py-3">
+                            <i class="fas fa-user-plus fa-2x mb-2 d-block"></i>
+                            <span>Enroll Student</span>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <a href="{% url 'students:tuition_payment_search' %}" class="btn btn-outline-warning w-100 py-3">
+                            <i class="fas fa-money-check-alt fa-2x mb-2 d-block"></i>
+                            <span>Tuition Payment</span>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <a href="{% url 'students:student_list' %}" class="btn btn-outline-info w-100 py-3">
+                            <i class="fas fa-users fa-2x mb-2 d-block"></i>
+                            <span>Student List</span>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <a href="{% url 'revenue:dashboard' %}" class="btn btn-outline-danger w-100 py-3">
+                            <i class="fas fa-chart-line fa-2x mb-2 d-block"></i>
+                            <span>Revenue</span>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <a href="{% url 'products:product_list' %}" class="btn btn-outline-secondary w-100 py-3">
+                            <i class="fas fa-boxes fa-2x mb-2 d-block"></i>
+                            <span>Products</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Modules -->
+<div class="row g-4">
+    <!-- Operations Column -->
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="fas fa-cogs me-2 text-primary"></i>Operations
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <a href="{% url 'cashier:dashboard' %}" class="list-group-item list-group-item-action d-flex align-items-center py-3">
+                        <div class="rounded-circle bg-primary bg-opacity-10 p-3 me-3">
+                            <i class="fas fa-cash-register text-primary"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">Cashier / POS</h6>
+                            <small class="text-muted">Process sales and payments</small>
+                        </div>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </a>
+                    <a href="{% url 'students:student_list' %}" class="list-group-item list-group-item-action d-flex align-items-center py-3">
+                        <div class="rounded-circle bg-success bg-opacity-10 p-3 me-3">
+                            <i class="fas fa-user-graduate text-success"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">Student Management</h6>
+                            <small class="text-muted">View and manage student records</small>
+                        </div>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </a>
+                    <a href="{% url 'students:tuition_payment_search' %}" class="list-group-item list-group-item-action d-flex align-items-center py-3">
+                        <div class="rounded-circle bg-warning bg-opacity-10 p-3 me-3">
+                            <i class="fas fa-money-check-alt text-warning"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">Tuition Payments</h6>
+                            <small class="text-muted">Process student tuition fees</small>
+                        </div>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </a>
+                    <a href="{% url 'products:product_list' %}" class="list-group-item list-group-item-action d-flex align-items-center py-3">
+                        <div class="rounded-circle bg-info bg-opacity-10 p-3 me-3">
+                            <i class="fas fa-boxes text-info"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">Product Inventory</h6>
+                            <small class="text-muted">Manage products and stock</small>
+                        </div>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Management Column -->
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="fas fa-tasks me-2 text-success"></i>Management
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <a href="{% url 'assessment:dashboard' %}" class="list-group-item list-group-item-action d-flex align-items-center py-3">
+                        <div class="rounded-circle bg-danger bg-opacity-10 p-3 me-3">
+                            <i class="fas fa-file-invoice-dollar text-danger"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">Assessments</h6>
+                            <small class="text-muted">Student fee assessments</small>
+                        </div>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </a>
+                    <a href="{% url 'tours:tour_list' %}" class="list-group-item list-group-item-action d-flex align-items-center py-3">
+                        <div class="rounded-circle bg-secondary bg-opacity-10 p-3 me-3">
+                            <i class="fas fa-map-marked-alt text-secondary"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">Educational Tours</h6>
+                            <small class="text-muted">Manage tour enrollments</small>
+                        </div>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </a>
+                    <a href="{% url 'dorm:dashboard' %}" class="list-group-item list-group-item-action d-flex align-items-center py-3">
+                        <div class="rounded-circle bg-purple bg-opacity-10 p-3 me-3" style="background-color: rgba(139, 92, 246, 0.1);">
+                            <i class="fas fa-building" style="color: #8b5cf6;"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">Dormitory</h6>
+                            <small class="text-muted">Room assignments and payments</small>
+                        </div>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </a>
+                    <a href="{% url 'revenue:dashboard' %}" class="list-group-item list-group-item-action d-flex align-items-center py-3">
+                        <div class="rounded-circle bg-success bg-opacity-10 p-3 me-3">
+                            <i class="fas fa-chart-line text-success"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">Revenue Reports</h6>
+                            <small class="text-muted">View financial reports</small>
+                        </div>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

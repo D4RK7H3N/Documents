@@ -1,0 +1,286 @@
+# Sagay Tourist Navigator
+
+An **offline-first, backend-free** Android app that helps tourists get around
+**Sagay City, Negros Occidental, Philippines** using tricycles.
+
+- Flutter stable · Dart null-safety · Material 3
+- **No server, no database, no login** — all city data ships inside the app as
+  a JSON asset (`assets/data/sagay_data.json`).
+
+> **Two implementations live in this repo.** The shipping app is the **native
+> Android** build in [`SagayTouristNavigation/`](SagayTouristNavigation/)
+> (Kotlin + Jetpack Compose). The sections further below document the original
+> **Flutter** prototype in [`lib/`](lib/).
+
+## Screenshots — native Android app
+
+Captured on a physical Android device running the v1.0.0 debug build:
+
+| Destination search | Route & fare estimate |
+| :---: | :---: |
+| ![Searchable destination list over the map](docs/screenshots/01-map.png) | ![Road route with distance, duration and fare](docs/screenshots/02-route-result.png) |
+
+The result survives rotation (landscape):
+
+![Route result preserved in landscape](docs/screenshots/03-rotated.png)
+
+## Demo video
+
+An animated preview of the app on a physical device — planning the trip from
+**Old Sagay** into **Sagay City**, the yellow-to-red corridor journey and its
+**₱20** fare (tap the senior/student/PWD toggle to see **₱16**):
+
+![Animated preview of the Sagay Tourist Navigator demo](docs/demo/preview.gif)
+
+[Watch the full 2:55 recording (MP4, 7.6 MB)](docs/demo/sagay-tourist-navigator-demo.mp4) ·
+[About the recording](docs/demo/README.md).
+
+## Native Android app — v1.0.0
+
+The current implementation: Kotlin + Jetpack Compose, MVVM with `StateFlow`,
+Hilt dependency injection, Room (SQLite) persistence, osmdroid maps, OSRM road
+routing, and Google fused location. Offline-capable — bundled seed data ships
+in the APK and pending trips are saved and resume when connectivity returns.
+
+**Highlights**
+
+- **38 searchable destinations** (tourist spots + 21 DepEd schools) across
+  **3 colour-coded terminals**; island/reef entries route to their boat port.
+- **Road distance + duration** from OSRM, with a straight-line offline fallback.
+- **Fare estimate** from the official Sagay City fare matrix (Resolution No.
+  2026-117): flat **₱15–₱40** per tricycle trip, with a **20%** discount for
+  seniors, students and PWDs.
+- **Branded adaptive launcher icon** and the calm-teal "Sunrise Route" theme.
+- **Map zoom controls** and a responsive **Locate Me** button.
+- **Rotation-safe state** and saved trips that survive app updates
+  (Room schema v9).
+- **Trip history and favourites** with totals, most-used service and starred
+  destinations.
+- **Journey guidance** with live progress, remaining distance and prompts at
+  the service change point and on arrival.
+- **Offline map packs** for a bounded Sagay City area, with download progress
+  and on-device tile storage.
+- **Group fares, sharing and CSV export** of saved trips, plus animated layouts
+  and page transitions that respect the OS reduce-motion setting.
+
+**Build & test** (JDK 17; minSdk 28 / Android 9, targetSdk 35):
+
+```bash
+cd SagayTouristNavigation
+./gradlew :app:testDebugUnitTest :app:assembleDebug
+# APK: app/build/outputs/apk/debug/Sagay-Tourist-Navigator-debug.apk
+```
+
+See [`SagayTouristNavigation/README.md`](SagayTouristNavigation/README.md) for
+the architecture and data-replacement guide, and
+[`SagayTouristNavigation/RELEASE_NOTES.md`](SagayTouristNavigation/RELEASE_NOTES.md)
+for the full v1.0.0 changelog. Full app documentation (user guide, architecture,
+state machine, data model, routing, fare, offline behaviour, build, testing):
+[`docs/APP_DOCUMENTATION.md`](docs/APP_DOCUMENTATION.md).
+
+The Flutter version also builds for iOS on a macOS GitHub Actions runner; see
+[`docs/ios/README.md`](docs/ios/README.md) for the sideload instructions and
+the unsigned/signed build pipeline.
+
+---
+
+*The sections below describe the original Flutter prototype (`lib/`).*
+
+## What it does
+
+1. Shows your current GPS location on an OpenStreetMap map (no API key).
+2. Lets you pick a destination from a searchable list (by name or category).
+3. Shows the **road distance** to it (OSRM public routing API; falls back to a
+   straight-line estimate labelled **"Estimated (offline)"** when there is no
+   internet).
+4. Shows an **estimated tricycle fare** computed from a simple stepped formula
+   (plus an optional Senior/PWD discount toggle).
+5. Shows **which tricycle terminal** serves that destination and its assigned
+   **colour**, so you can find the right tricycle queue at a glance.
+
+Out of scope by design: booking, payments, real-time tricycle tracking, user
+accounts, turn-by-turn voice navigation.
+
+## ⚠️ DATA STATUS: RESEARCHED FROM PUBLIC SOURCES — VERIFY LOCALLY
+
+The bundled data (v2) was researched from public sources:
+
+- **Destinations & coordinates**: PhilAtlas (barangay centres), OpenStreetMap /
+  Nominatim nodes (Carbin Reef, Suyac Island, Museo sang Bata sa Negros,
+  Sagay Public Plaza), Wikipedia (city centre). Offshore approximations:
+  Margaha Beach, San Vicente Ferrer Parish (Vito), Lapus Lapus (Bulanon).
+- **Fare rule**: City of Sagay temporary fare order (EO 2026-117 as announced
+  by the City Government / PULS Sagay, 2026): base **₱15** for the first
+  **3 km**, **+₱2 per km** beyond, **20%** mandatory discount for senior
+  citizens, students, and PWDs.
+- **Terminals & colours**: reasonable structure based on the poblacion,
+  Vito Government Center, and Old Sagay Port — **the colour assignments and
+  exact terminal locations MUST be verified with the Sagay City Tourism
+  Office / LTFRB-franchised operators before release.**
+
+The fare rule may change when the city lifts the "temporary" order — replace
+`fare_rule` in `assets/data/sagay_data.json` when the official matrix is
+published.
+
+## Project structure
+
+```
+lib/
+  main.dart                      App entry, providers, theme
+  models/
+    terminal.dart                Terminal + "#RRGGBB" colour parsing
+    destination.dart             Destination
+    fare_rule.dart               FareRule (formula) + Discount + FarePolicy
+    app_data.dart                Root JSON model + terminal lookups
+  services/
+    data_service.dart            Loads the bundled JSON asset
+    location_service.dart        GPS + permissions, normalised outcomes
+    distance_service.dart        OSRM road distance + Haversine fallback
+    fare_service.dart            Fare computation + discount + formatting
+  state/app_state.dart           Central ChangeNotifier (provider)
+  screens/
+    home_screen.dart             Map + locate-me + searchable destination sheet
+    result_screen.dart           Distance / fare / terminal / mini map
+  widgets/
+    color_chip.dart              Big terminal colour swatch
+    result_card.dart             Card layout for result blocks
+assets/data/sagay_data.json      THE data file you will replace
+test/                            Unit tests (fare, haversine, data integrity)
+```
+
+## Setup
+
+```bash
+# 1. Install Flutter stable and verify
+flutter doctor
+
+# 2. Fetch packages
+flutter pub get
+
+# 3. Run on a connected device or emulator (Android-first)
+flutter run
+```
+
+Dependencies (pinned by `pubspec.yaml`):
+
+| Package      | Used for                                   |
+| ------------ | ------------------------------------------ |
+| geolocator   | GPS + runtime location permissions         |
+| flutter_map  | OpenStreetMap map rendering (no API key)   |
+| latlong2     | Latitude/longitude types                   |
+| http         | OSRM road-distance request                 |
+| provider     | Simple state management                    |
+
+## Replacing the data
+
+Edit **`assets/data/sagay_data.json`** only — no code changes are needed if
+you keep the schema:
+
+```json
+{
+  "version": 1,
+  "fare_rule": {
+    "base_fare": 15,          // ₱ charged for trips up to base_distance_km
+    "base_distance_km": 2.0,
+    "step_km": 1.5,           // each full step beyond the base adds:
+    "extra_per_step": 10,     //   base_fare + ceil(extra_km / step_km) * extra_per_step
+    "road_factor": 1.3,       // offline estimate multiplier (see below)
+    "discounts": [
+      { "label": "Senior Citizen / PWD", "percent": 20 }
+    ]
+  },
+  "terminals": [
+    {
+      "id": "T1",             // any stable string id
+      "name": "Sagay City Plaza Terminal",
+      "lat": 10.9451, "lng": 123.4799,
+      "color": "#E53935",     // the tricycle colour assigned to this terminal
+      "color_name": "Red",    // human-readable label shown on the big chip
+      "areas": ["Poblacion", "Public Market"]
+    }
+  ],
+  "destinations": [
+    {
+      "id": "D1",
+      "name": "Carbin Reef Sandbar",
+      "category": "Beach / Island",   // used by search
+      "lat": 10.956, "lng": 123.518,
+      "terminal_id": "T1"             // must match a terminal id
+    }
+  ]
+}
+```
+
+Notes:
+
+- Every `terminal_id` in `destinations` must exist in `terminals` — the test
+  suite checks this (`flutter test`).
+- `discounts`: the **first** entry becomes the optional toggle on the result
+  screen. Leave the array empty (`[]`) to hide the toggle entirely.
+- Colours must be `#RRGGBB`.
+
+## Calibrating `road_factor`
+
+`road_factor` scales the straight-line (Haversine) distance into an
+approximate **road** distance for the offline fallback:
+
+```
+road_distance ≈ straight_line_distance × road_factor
+```
+
+To calibrate:
+
+1. Pick 5–10 real origin/destination pairs around Sagay City.
+2. Measure the actual driving distance for each (e.g. with OSRM's demo
+   server, or a car's odometer / Google Maps route distance).
+3. For each pair compute `actual_km / straight_line_km`.
+4. Use the **average** (or median) ratio as `road_factor`. Typical values for
+   small Philippine cities land between **1.2 and 1.5**; the bundled
+   placeholder uses 1.3.
+5. Re-run `flutter test` — the data test asserts `road_factor >= 1`.
+
+A well-calibrated factor keeps offline estimates within a few hundred metres
+of the real route for short tricycle rides.
+
+## Running the tests
+
+```bash
+flutter test
+```
+
+The suite covers:
+
+- **FareRule** — within the base distance, exactly at the base distance, just
+  above the base, multiple steps, exact step boundary, just below a boundary,
+  discount math, peso rounding, JSON parsing.
+- **Haversine** — zero distance, 0.01° latitude ≈ 1.11 km, 1° longitude at
+  the equator ≈ 111.2 km, a Sagay-area sanity check, symmetry.
+- **Data integrity** — the bundled JSON parses, all `terminal_id`s resolve,
+  colours are `#RRGGBB`, fare values are sane.
+
+## Swapping the routing provider
+
+The OSRM base URL is a single constant in
+`lib/services/distance_service.dart` (`DistanceService.defaultBaseUrl`). To
+switch to e.g. OpenRouteService, change that constant and adapt the small
+response parser (`_parseRoadDistanceKm`) to the new API's response shape.
+
+## Running on Android
+
+`AndroidManifest.xml` already declares `INTERNET`,
+`ACCESS_FINE_LOCATION` and `ACCESS_COARSE_LOCATION`; `minSdk` is set to 23.
+Just run `flutter run` with a device connected.
+
+## Known limitations
+
+- **All data values are placeholders** and must be replaced with surveyed
+  data and the official city fare matrix (see above).
+- The OSRM demo server is rate-limited and not meant for production; swap in
+  a self-hosted OSRM or OpenRouteService before wide release.
+- Offline distances are straight-line × `road_factor` estimates, not real
+  routes — always shown with an "Estimated (offline)" label.
+- The fare is an estimate only; actual tricycle fares may vary (traffic,
+  night surcharges, driver discretion). The app displays a disclaimer.
+- The map uses standard OpenStreetMap tiles; a dedicated tile source with
+  proper attribution policy may be preferable at scale.
+- Only the first discount entry in the JSON is offered as a toggle.

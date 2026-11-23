@@ -1,0 +1,475 @@
+{
+  "tracks": [
+    {
+      "name": "TVL",
+      "code": "TVL",
+      "level_type": "SHS",
+      "description": "",
+      "is_active": true,
+      "strand_count": 10
+    }
+  ],
+  "strands": [
+    {
+      "name": "Agricultural Crops Production",
+      "code": "ACP",
+      "track": "TVL",
+      "description": "",
+      "aliases": [
+        "Agri-Fishery Business and Food Innovation",
+        "Organic Agriculture Production NC II",
+        "Organic Agriculture Production (NC II)",
+        "Organic Agriculture NC II",
+        "Agricultural Crops Production NC II",
+        "Agricultural Crops Production (NC I)",
+        "Organic Farming NC II"
+      ],
+      "is_active": true,
+      "sections": [
+        "Amos",
+        "PSALMS"
+      ],
+      "students": 70
+    },
+    {
+      "name": "Automotive Servicing (NCI & NCII",
+      "code": "Automotive",
+      "track": "TVL",
+      "description": "",
+      "aliases": [
+        "Automotive Servicing NC II",
+        "Automotive Servicing NC I",
+        "Automotive Mechanic"
+      ],
+      "is_active": true,
+      "sections": [
+        "1A",
+        "2A",
+        "James",
+        "John",
+        "Elijah",
+        "Ephesians"
+      ],
+      "students": 140
+    },
+    {
+      "name": "Bartending (NCII)",
+      "code": "BTG",
+      "track": "TVL",
+      "description": "",
+      "aliases": [
+        "Bartending NC II",
+        "Bartending Services NC II",
+        "BTG NC II"
+      ],
+      "is_active": true,
+      "sections": [],
+      "students": 0
+    },
+    {
+      "name": "Computer Service System",
+      "code": "ICT-CSS",
+      "track": "TVL",
+      "description": "",
+      "aliases": [
+        "ICT-PROGRAMMING",
+        "Computer Systems Servicing NC II",
+        "Computer Systems Servicing (CSS) NC II",
+        "Computer Systems Servicing NC I",
+        "CSS NC II",
+        "ICT Programming"
+      ],
+      "is_active": true,
+      "sections": [
+        "Hebrews"
+      ],
+      "students": 35
+    },
+    {
+      "name": "Electronic Product Assembly and Servicing (NCII)",
+      "code": "EPAS",
+      "track": "TVL",
+      "description": "",
+      "aliases": [
+        "Electronic Products Assembly and Servicing NC II",
+        "Electronic Products Assembly and Servicing (NC II)",
+        "EPAS NC II",
+        "Electronics"
+      ],
+      "is_active": true,
+      "sections": [
+        "Proverbs"
+      ],
+      "students": 35
+    },
+    {
+      "name": "Food and Beverage Servicing (NC II)",
+      "code": "FBS",
+      "track": "TVL",
+      "description": "",
+      "aliases": [
+        "Food and Beverage Services NC II",
+        "Food and Beverage Services (NC II)",
+        "Food and Beverage Service NC II",
+        "FBS NC II",
+        "Food and Beverage Processing NC II"
+      ],
+      "is_active": true,
+      "sections": [
+        "Thessalonians",
+        "Chronicles",
+        "Corinthians"
+      ],
+      "students": 105
+    },
+    {
+      "name": "House Keeping",
+      "code": "HK",
+      "track": "TVL",
+      "description": "",
+      "aliases": [
+        "Housekeeping NC II",
+        "House Keeping NC II",
+        "HK NC II"
+      ],
+      "is_active": true,
+      "sections": [
+        "Esther"
+      ],
+      "students": 35
+    },
+    {
+      "name": "ICT - (JAVA) PROGRAMMING",
+      "code": "ICT(JAVA)",
+      "track": "TVL",
+      "description": "",
+      "aliases": [
+        "ICT Programming (JAVA)",
+        "ICT Programming JAVA",
+        "Java Programming"
+      ],
+      "is_active": true,
+      "sections": [
+        "Zechariah"
+      ],
+      "students": 35
+    },
+    {
+      "name": "ICT -(.NET) PROGRAMMING",
+      "code": "ICT(.NET)",
+      "track": "TVL",
+      "description": "",
+      "aliases": [
+        "ICT Programming (.NET)",
+        "ICT Programming NET",
+        ".NET Programming"
+      ],
+      "is_active": true,
+      "sections": [
+        "NOAH"
+      ],
+      "students": 35
+    },
+    {
+      "name": "Shielded Metal Arc Welding (NCI & NCII)",
+      "code": "SMAW",
+      "track": "TVL",
+      "description": "",
+      "aliases": [
+        "Shielded Metal Arc Welding NC II",
+        "Shielded Metal Arc Welding NC I",
+        "Shielded Metal Arc Welding (SMAW) NC II",
+        "SMAW NC II",
+        "SMAW NC I",
+        "Welding"
+      ],
+      "is_active": true,
+      "sections": [
+        "Daniel",
+        "David",
+        "Gideon"
+      ],
+      "students": 105
+    }
+  ],
+  "courses": [
+    {
+      "name": "Automotive Mechanic",
+      "code": "AM",
+      "abbreviation": "",
+      "description": "",
+      "aliases": [
+        "Automotive Mechanic NC II",
+        "Automotive Servicing NC II"
+      ],
+      "level_type": "BUN",
+      "duration_years": 2,
+      "is_active": true,
+      "sections": [
+        "1A",
+        "2A",
+        "James"
+      ],
+      "students": 50
+    },
+    {
+      "name": "Computer and Electronics",
+      "code": "COMP-E",
+      "abbreviation": "",
+      "description": "",
+      "aliases": [
+        "Computer and Electronics NC II",
+        "Computer Systems Servicing NC II",
+        "Electronic Products Assembly and Servicing NC II"
+      ],
+      "level_type": "BUN",
+      "duration_years": 2,
+      "is_active": true,
+      "sections": [
+        "1B",
+        "2B",
+        "Proverbs",
+        "Hebrews"
+      ],
+      "students": 50
+    },
+    {
+      "name": "Hotel and Restaurant Services",
+      "code": "HRS",
+      "abbreviation": "",
+      "description": "",
+      "aliases": [
+        "Hotel and Restaurant Services NC II",
+        "Food and Beverage Services NC II",
+        "Housekeeping NC II",
+        "Tourism Services NC II"
+      ],
+      "level_type": "BUN",
+      "duration_years": 2,
+      "is_active": true,
+      "sections": [
+        "1C",
+        "2C",
+        "Esther",
+        "Thessalonians"
+      ],
+      "students": 25
+    }
+  ],
+  "sections": [
+    {
+      "name": "1A",
+      "level_type": "BUN",
+      "grade_year": "1st Year",
+      "strand": "Automotive Servicing (NCI & NCII",
+      "course": "Automotive Mechanic",
+      "adviser": "",
+      "students": 25
+    },
+    {
+      "name": "1B",
+      "level_type": "BUN",
+      "grade_year": "1st Year",
+      "strand": "",
+      "course": "Computer and Electronics",
+      "adviser": "",
+      "students": 25
+    },
+    {
+      "name": "1C",
+      "level_type": "BUN",
+      "grade_year": "1st Year",
+      "strand": "",
+      "course": "Hotel and Restaurant Services",
+      "adviser": "",
+      "students": 0
+    },
+    {
+      "name": "2A",
+      "level_type": "BUN",
+      "grade_year": "2nd Year",
+      "strand": "Automotive Servicing (NCI & NCII",
+      "course": "Automotive Mechanic",
+      "adviser": "",
+      "students": 25
+    },
+    {
+      "name": "2B",
+      "level_type": "BUN",
+      "grade_year": "2nd Year",
+      "strand": "",
+      "course": "Computer and Electronics",
+      "adviser": "",
+      "students": 25
+    },
+    {
+      "name": "2C",
+      "level_type": "BUN",
+      "grade_year": "2nd Year",
+      "strand": "",
+      "course": "Hotel and Restaurant Services",
+      "adviser": "",
+      "students": 25
+    },
+    {
+      "name": "Amos",
+      "level_type": "SHS",
+      "grade_year": "Grade 11",
+      "strand": "Agricultural Crops Production",
+      "course": "",
+      "adviser": "",
+      "students": 35
+    },
+    {
+      "name": "Daniel",
+      "level_type": "SHS",
+      "grade_year": "Grade 11",
+      "strand": "Shielded Metal Arc Welding (NCI & NCII)",
+      "course": "",
+      "adviser": "",
+      "students": 35
+    },
+    {
+      "name": "David",
+      "level_type": "SHS",
+      "grade_year": "Grade 11",
+      "strand": "Shielded Metal Arc Welding (NCI & NCII)",
+      "course": "",
+      "adviser": "",
+      "students": 35
+    },
+    {
+      "name": "Esther",
+      "level_type": "SHS",
+      "grade_year": "Grade 11",
+      "strand": "House Keeping",
+      "course": "Hotel and Restaurant Services",
+      "adviser": "",
+      "students": 35
+    },
+    {
+      "name": "James",
+      "level_type": "SHS",
+      "grade_year": "Grade 11",
+      "strand": "Automotive Servicing (NCI & NCII",
+      "course": "Automotive Mechanic",
+      "adviser": "",
+      "students": 35
+    },
+    {
+      "name": "John",
+      "level_type": "SHS",
+      "grade_year": "Grade 11",
+      "strand": "Automotive Servicing (NCI & NCII",
+      "course": "",
+      "adviser": "",
+      "students": 35
+    },
+    {
+      "name": "NOAH",
+      "level_type": "SHS",
+      "grade_year": "Grade 11",
+      "strand": "ICT -(.NET) PROGRAMMING",
+      "course": "",
+      "adviser": "",
+      "students": 35
+    },
+    {
+      "name": "Proverbs",
+      "level_type": "SHS",
+      "grade_year": "Grade 11",
+      "strand": "Electronic Product Assembly and Servicing (NCII)",
+      "course": "Computer and Electronics",
+      "adviser": "",
+      "students": 35
+    },
+    {
+      "name": "Thessalonians",
+      "level_type": "SHS",
+      "grade_year": "Grade 11",
+      "strand": "Food and Beverage Servicing (NC II)",
+      "course": "Hotel and Restaurant Services",
+      "adviser": "",
+      "students": 35
+    },
+    {
+      "name": "Chronicles",
+      "level_type": "SHS",
+      "grade_year": "Grade 12",
+      "strand": "Food and Beverage Servicing (NC II)",
+      "course": "",
+      "adviser": "",
+      "students": 35
+    },
+    {
+      "name": "Corinthians",
+      "level_type": "SHS",
+      "grade_year": "Grade 12",
+      "strand": "Food and Beverage Servicing (NC II)",
+      "course": "",
+      "adviser": "",
+      "students": 35
+    },
+    {
+      "name": "Elijah",
+      "level_type": "SHS",
+      "grade_year": "Grade 12",
+      "strand": "Automotive Servicing (NCI & NCII",
+      "course": "",
+      "adviser": "",
+      "students": 35
+    },
+    {
+      "name": "Ephesians",
+      "level_type": "SHS",
+      "grade_year": "Grade 12",
+      "strand": "Automotive Servicing (NCI & NCII",
+      "course": "",
+      "adviser": "",
+      "students": 35
+    },
+    {
+      "name": "Gideon",
+      "level_type": "SHS",
+      "grade_year": "Grade 12",
+      "strand": "Shielded Metal Arc Welding (NCI & NCII)",
+      "course": "",
+      "adviser": "",
+      "students": 35
+    },
+    {
+      "name": "Hebrews",
+      "level_type": "SHS",
+      "grade_year": "Grade 12",
+      "strand": "Computer Service System",
+      "course": "Computer and Electronics",
+      "adviser": "",
+      "students": 35
+    },
+    {
+      "name": "PSALMS",
+      "level_type": "SHS",
+      "grade_year": "Grade 12",
+      "strand": "Agricultural Crops Production",
+      "course": "",
+      "adviser": "",
+      "students": 35
+    },
+    {
+      "name": "Zechariah",
+      "level_type": "SHS",
+      "grade_year": "Grade 12",
+      "strand": "ICT - (JAVA) PROGRAMMING",
+      "course": "",
+      "adviser": "Gabriel Mohagan",
+      "students": 35
+    }
+  ],
+  "students": {},
+  "grade_years": [
+    "1st Year",
+    "2nd Year",
+    "Grade 11",
+    "Grade 12"
+  ]
+}
