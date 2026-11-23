@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-secondary-container": "#98bea9", "on-primary-fixed-variant": "#005231", "outline": "#849588", "tertiary-fixed-dim": "#4edea3", "on-primary-fixed": "#002111", "background": "#0f141b", "primary": "#cdffdc", "secondary-fixed": "#c4ebd6", "on-tertiary-fixed-variant": "#005236", "tertiary": "#caffe1", "surface": "#0f141b", "tertiary-fixed": "#6ffbbe", "secondary-container": "#2b4e3e", "surface-container-lowest": "#090f15", "primary-fixed": "#53ffab", "secondary": "#a9cfba", "outline-variant": "#3b4a3f", "primary-fixed-dim": "#00e38f", "on-error-container": "#ffdad6", "surface-container-highest": "#30353d", "surface-bright": "#343941", "on-tertiary": "#003824", "on-background": "#dee2ec", "on-tertiary-container": "#006b48", "surface-container": "#1b2027", "surface-dim": "#0f141b", "on-primary": "#003920", "on-secondary-fixed-variant": "#2b4e3e", "surface-variant": "#30353d", "on-surface": "#dee2ec", "on-primary-container": "#006b41", "surface-container-low": "#171c23", "inverse-on-surface": "#2c3138", "surface-tint": "#00e38f", "tertiary-container": "#61efb2", "inverse-primary": "#006d42", "on-secondary": "#133728", "on-error": "#690005", "on-surface-variant": "#b9cbbd", "surface-container-high": "#252a32", "on-tertiary-fixed": "#002113", "error": "#ffb4ab", "primary-container": "#00f59b", "error-container": "#93000a", "inverse-surface": "#dee2ec", "secondary-fixed-dim": "#a9cfba", "on-secondary-fixed": "#002114" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "margin": "1rem", "gutter-mobile": "0.5rem", "space-md": "0.5rem", "gutter": "0.75rem", "space-sm": "0.25rem", "margin-mobile": "0.75rem", "space-xs": "0.125rem", "space-lg": "0.75rem", "space-xl": "1rem" }, "fontFamily": { "headline-lg": ["Inter"], "body-sm": ["Inter"], "code-md": ["JetBrains Mono"], "code-sm": ["JetBrains Mono"], "headline-md": ["Inter"], "headline-xl": ["Inter"], "label-caps": ["JetBrains Mono"], "kbd-badge": ["JetBrains Mono"], "body-md": ["Inter"] }, "fontSize": { "headline-lg": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "400" }], "code-md": ["12px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "code-sm": ["11px", { "lineHeight": "15px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "headline-md": ["15px", { "lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-xl": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "label-caps": ["10px", { "lineHeight": "12px", "letterSpacing": "0.06em", "fontWeight": "600" }], "kbd-badge": ["10px", { "lineHeight": "12px", "letterSpacing": "0em", "fontWeight": "500" }], "body-md": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.005em", "fontWeight": "400" }] } } } }</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest flex flex-col z-50 select-none shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="p-space-lg flex flex-col gap-space-sm bg-surface-container-lowest"><div class="flex items-center gap-space-md"><img alt="Django Admin Modern Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1UsEXRgODxD4A7ULUFKn5VS8H0bHcsumcE1NPieE9gkoAPx4520Rc60ajkQfoD_9ohWTebou3SXXckeppjYsso_DkqgQJgx6hQa-7LD6tO_a4Rd3o8G_AMnlUpkATKZ7QZlTuCABLoDgkx031GgeMlbS9KBRohE6IhbdbL0Ach79fZd6Tfa7Ik8rAmV6q6jvnx-iJ_WB9nwi_o1Uo_-vVWsYwUE9Ml9RTGPDEvVrhyKnztp4fkyMfGC_Ew"/><div class="flex flex-col"><span class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight">Django 5.1 Admin</span><div class="flex items-center gap-space-sm mt-space-xs"><span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-fixed-dim opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-primary-container"></span></span><span class="font-code-sm text-code-sm text-secondary">Production • v5.1.2</span></div></div></div></div><div class="flex-1 overflow-y-auto px-space-md py-space-sm space-y-space-lg"><nav data-active-classes="bg-secondary-container text-primary font-medium rounded-lg"><div class="px-space-sm mb-space-xs"><span class="font-label-caps text-label-caps uppercase text-outline tracking-wider">System</span></div><div class="space-y-space-xs"><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="overview" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">dashboard</span><span class="font-body-md text-body-md">Overview</span></span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="system-health" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">vital_signs</span><span class="font-body-md text-body-md">System Health</span></span><span class="h-2 w-2 rounded-full bg-primary-container"></span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="database-metrics" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">database</span><span class="font-body-md text-body-md">Database Metrics</span></span><span class="font-code-sm text-code-sm text-secondary bg-surface-container-high px-space-sm rounded">p99 12ms</span></a></div></nav><nav data-active-classes="bg-secondary-container text-primary font-medium rounded-lg"><div class="px-space-sm mb-space-xs flex items-center justify-between"><span class="font-label-caps text-label-caps uppercase text-outline tracking-wider">Auth</span><span class="material-symbols-outlined text-sm text-outline">shield</span></div><div class="space-y-space-xs"><a aria-current="page" class="flex items-center justify-between px-space-md py-space-sm transition-all bg-secondary-container text-primary font-medium rounded-lg" data-path="users" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">person</span><span class="font-body-md text-body-md">Users</span></span><span class="font-code-sm text-code-sm px-space-sm py-0.5 rounded bg-surface-container text-secondary">14,290</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="groups" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">group</span><span class="font-body-md text-body-md">Groups</span></span><span class="font-code-sm text-code-sm px-space-sm py-0.5 rounded bg-surface-container text-secondary">8</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="permissions" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">key</span><span class="font-body-md text-body-md">Permissions</span></span></a></div></nav><nav data-active-classes="bg-secondary-container text-primary font-medium rounded-lg"><div class="px-space-sm mb-space-xs flex items-center justify-between"><span class="font-label-caps text-label-caps uppercase text-outline tracking-wider">Billing &amp; Commerce</span><span class="material-symbols-outlined text-sm text-outline">credit_card</span></div><div class="space-y-space-xs"><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="subscriptions" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">autorenew</span><span class="font-body-md text-body-md">Subscriptions</span></span><span class="font-code-sm text-code-sm px-space-sm py-0.5 rounded bg-surface-container text-secondary">8,421</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="invoices" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">receipt_long</span><span class="font-body-md text-body-md">Invoices</span></span><span class="font-code-sm text-code-sm px-space-sm py-0.5 rounded bg-surface-container text-secondary">29,400</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="payment-methods" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">account_balance_wallet</span><span class="font-body-md text-body-md">PaymentMethods</span></span></a></div></nav><nav data-active-classes="bg-secondary-container text-primary font-medium rounded-lg"><div class="px-space-sm mb-space-xs flex items-center justify-between"><span class="font-label-caps text-label-caps uppercase text-outline tracking-wider">Core Apps</span><span class="material-symbols-outlined text-sm text-outline">hub</span></div><div class="space-y-space-xs"><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="organizations" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">corporate_fare</span><span class="font-body-md text-body-md">Organizations</span></span><span class="font-code-sm text-code-sm px-space-sm py-0.5 rounded bg-surface-container text-secondary">1,204</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="api-keys" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">vpn_key</span><span class="font-body-md text-body-md">API Keys</span></span><span class="font-code-sm text-code-sm px-space-sm py-0.5 rounded bg-surface-container text-secondary">4,812</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="audit-logs" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">history_edu</span><span class="font-body-md text-body-md">AuditLogs</span></span><span class="font-code-sm text-code-sm px-space-sm py-0.5 rounded bg-surface-container text-secondary">142k</span></a></div></nav><nav data-active-classes="bg-secondary-container text-primary font-medium rounded-lg"><div class="px-space-sm mb-space-xs flex items-center justify-between"><span class="font-label-caps text-label-caps uppercase text-outline tracking-wider">Background Jobs</span><span class="material-symbols-outlined text-sm text-outline">precision_manufacturing</span></div><div class="space-y-space-xs"><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="celery-tasks" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">task_alt</span><span class="font-body-md text-body-md">Celery Tasks</span></span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="periodic-beats" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">alarm</span><span class="font-body-md text-body-md">Periodic Beats</span></span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="workers" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">dns</span><span class="font-body-md text-body-md">Workers</span></span><span class="font-code-sm text-code-sm px-space-sm py-0.5 rounded bg-secondary-container text-primary">4 Active</span></a></div></nav></div><div class="p-space-md bg-surface-container-lowest space-y-space-xs"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="documentation" href="#"><span class="material-symbols-outlined text-base">menu_book</span><span class="font-body-sm text-body-sm">Documentation</span></a><div class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">bug_report</span><span class="font-body-sm text-body-sm">Debug Toolbar</span></span><span class="font-code-sm text-code-sm text-primary-container bg-surface-container-high px-space-sm py-0.5 rounded">DJDT ON</span></div><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="settings" href="#"><span class="material-symbols-outlined text-base">settings</span><span class="font-body-sm text-body-sm">Settings</span></a><div class="flex items-center gap-space-md px-space-md py-space-sm mt-space-xs rounded-lg bg-surface-container-low"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCO4f90OVVOItPfRm7vc7lEI1MUnkCcCKpMxgoDCMgafk1QXGjx68apVdNTBk-NpDCzA-PIUXmlDpqmicFbYAyCFBRTdfrd_qXPe6ni9t9Jwe_qWfEd2QzN3H6CsVdrczF6W_q52IRGkwO91EC_qTiS8qAwwlb8jz5CzJghR3aUqyvpYywjqRnjMWZOXpnDkupNZjhxrIr6XkILXMB3PWawf084wBTAPymVc-tmgy1V8n7rpAvlAS8w"/><div class="flex flex-col min-w-0 flex-1"><span class="font-body-sm text-body-sm text-on-surface font-semibold truncate">Alex Vance</span><span class="font-code-sm text-code-sm text-outline truncate">Staff Admin</span></div><span class="material-symbols-outlined text-outline text-base">more_vert</span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-14 bg-surface-container-lowest/80 backdrop-blur-xl z-40 flex items-center justify-between px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.2)]"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-code-sm text-code-sm text-outline"><span class="hover:text-on-surface cursor-pointer">Django Admin</span><span>/</span><span class="text-primary font-medium">Control Plane</span></div><button class="flex items-center gap-space-md ml-space-lg bg-surface-container px-space-md py-space-xs rounded-lg text-outline hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-base">search</span><span class="font-body-sm text-body-sm">Search models, records, queries...</span><kbd class="font-kbd-badge text-kbd-badge px-space-sm py-0.5 rounded bg-surface-container-highest text-secondary">⌘K</kbd></button></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container px-space-md py-space-xs rounded-lg text-secondary"><span class="material-symbols-outlined text-sm text-primary-container">dataset</span><span class="font-code-sm text-code-sm">production-db-replica-01</span><span class="material-symbols-outlined text-sm text-outline">expand_more</span></div><button class="flex items-center gap-space-xs bg-primary-container text-on-primary-container font-headline-md text-body-sm px-space-md py-space-xs rounded font-semibold hover:bg-tertiary-fixed-dim transition-colors"><span class="material-symbols-outlined text-base">add</span><span>Add Object</span></button><button class="flex items-center gap-space-xs bg-surface-container-high px-space-md py-space-xs rounded text-on-surface hover:bg-surface-bright transition-colors font-code-sm text-code-sm"><span class="material-symbols-outlined text-base text-primary-fixed">terminal</span><span>SQL Console</span></button><button class="relative p-space-xs text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-lg">notifications</span><span class="absolute top-0 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-error text-on-error font-code-sm text-code-sm font-bold">2</span></button><button class="p-space-xs text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-lg">dark_mode</span></button></div></header><main class="relative pt-14 w-full px-space-lg pb-space-xl bg-background min-h-screen"><div class="flex flex-col w-full gap-space-lg">
+<!-- Top Stat Ribbon & Context Strip -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md bg-surface-container-low p-space-md rounded-xl shadow-sm">
+<div class="flex items-center flex-wrap gap-space-xs font-code-sm text-code-sm text-outline">
+<a class="hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-sm">home</span>
+<span>Home</span>
+</a>
+<span class="text-surface-container-highest">/</span>
+<span class="text-on-surface-variant">Authentication and Authorization</span>
+<span class="text-surface-container-highest">/</span>
+<span class="text-primary font-medium flex items-center gap-space-xs">
+        Users
+        <span class="px-1.5 py-0.5 rounded bg-surface-container text-secondary text-label-caps font-label-caps">14,290 TOTAL</span>
+<span class="px-1.5 py-0.5 rounded bg-secondary-container text-primary text-label-caps font-label-caps">12 FILTERED</span>
+</span>
+</div>
+<!-- Quick Ops and Metrics -->
+<div class="flex items-center gap-space-md self-end md:self-auto">
+<div class="flex items-center gap-space-xs px-space-sm py-1 bg-surface-container rounded font-code-sm text-code-sm text-secondary">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+<span>Query: 2.4ms (Indexed PK Scan)</span>
+</div>
+<button class="flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-base">download</span>
+<span>Export (Filtered)</span>
+</button>
+<button class="flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-base">tune</span>
+<span>Columns (8/12)</span>
+</button>
+</div>
+</div>
+<!-- Primary Model Operations Toolbar -->
+<div class="flex flex-col lg:flex-row gap-space-md items-stretch lg:items-center justify-between bg-surface-container rounded-xl p-space-md shadow-md">
+<!-- Search Query Bar with Tokenized Filter Badges -->
+<div class="flex-1 flex items-center gap-space-sm bg-surface-container-lowest rounded-lg px-space-md py-1.5 shadow-inner">
+<span class="material-symbols-outlined text-base text-outline">search</span>
+<!-- Filter Badges inside search -->
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="inline-flex items-center gap-1 bg-surface-container-high px-space-sm py-0.5 rounded font-code-sm text-code-sm text-primary">
+<span class="text-outline">is_staff:</span>true
+          <button class="hover:text-error transition-colors flex items-center"><span class="material-symbols-outlined text-xs">close</span></button>
+</span>
+<span class="inline-flex items-center gap-1 bg-surface-container-high px-space-sm py-0.5 rounded font-code-sm text-code-sm text-secondary">
+<span class="text-outline">status:</span>active
+          <button class="hover:text-error transition-colors flex items-center"><span class="material-symbols-outlined text-xs">close</span></button>
+</span>
+</div>
+<input class="bg-transparent border-none text-on-surface font-body-md text-body-md focus:outline-none flex-1 min-w-[140px] placeholder:text-outline" placeholder="Filter by username, email prefix, or full name..." type="text" value="alex"/>
+<span class="font-kbd-badge text-kbd-badge text-outline bg-surface-container px-1 rounded">ESC to clear</span>
+</div>
+<!-- Action Bar & Add Object -->
+<div class="flex items-center gap-space-md flex-wrap lg:flex-nowrap">
+<!-- Django Admin Bulk Action Picker -->
+<div class="flex items-center gap-space-xs bg-surface-container-lowest rounded-lg p-1">
+<span class="material-symbols-outlined text-base text-outline ml-space-sm">bolt</span>
+<select class="bg-transparent font-body-sm text-body-sm text-on-surface py-1 pr-space-md pl-1 focus:outline-none cursor-pointer">
+<option class="bg-surface-container-lowest text-on-surface" value="">Bulk Actions (3 items)</option>
+<option class="bg-surface-container-lowest text-error" value="delete">Delete selected users</option>
+<option class="bg-surface-container-lowest text-on-surface" value="reset_pwd">Send password reset emails</option>
+<option class="bg-surface-container-lowest text-on-surface" value="activate">Mark as Active</option>
+<option class="bg-surface-container-lowest text-on-surface" value="deactivate">Deactivate accounts</option>
+<option class="bg-surface-container-lowest text-on-surface" value="export_json">Export to formatted JSON</option>
+</select>
+<button class="bg-surface-container-high hover:bg-surface-bright text-on-surface font-code-sm text-code-sm px-space-md py-1 rounded transition-colors shadow-sm">
+          Run
+        </button>
+</div>
+<button class="flex items-center gap-space-xs bg-surface-container-low hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm px-space-md py-2 rounded-lg transition-colors" id="toggleFilterBtn">
+<span class="material-symbols-outlined text-base text-primary-container">filter_list</span>
+<span>Filters</span>
+<span class="bg-secondary-container text-primary font-code-sm text-code-sm px-1.5 rounded-full font-bold">3</span>
+</button>
+<button class="flex items-center gap-space-xs bg-primary-container hover:bg-tertiary-fixed-dim text-on-primary-container font-headline-md text-body-sm px-space-lg py-2 rounded-lg font-bold transition-all shadow-md hover:shadow-lg active:scale-95">
+<span class="material-symbols-outlined text-base">person_add</span>
+<span>Add user</span>
+<span class="bg-on-primary-container/20 text-on-primary-container font-kbd-badge text-kbd-badge px-1 rounded">⇧A</span>
+</button>
+</div>
+</div>
+<!-- Operational Context Banner: Selection state -->
+<div class="flex items-center justify-between px-space-lg py-space-sm bg-secondary-container/40 rounded-lg text-primary text-body-sm font-body-sm">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-base text-primary-container">check_circle</span>
+<span><strong>3 users selected</strong> on this page.</span>
+<a class="underline hover:text-primary-fixed font-medium" href="#">Select all 14,290 users matching current query</a>
+</div>
+<button class="font-code-sm text-code-sm text-on-surface-variant hover:text-on-surface transition-colors">Clear selection</button>
+</div>
+<!-- Main Workstation Layout: Table + Collapsible Right Filter Panel -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+<!-- Tabular Data Area (Django Change List Table) -->
+<div class="xl:col-span-9 bg-surface-container-low rounded-xl shadow-md overflow-hidden flex flex-col">
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse select-none">
+<thead>
+<tr class="bg-surface-container-high font-label-caps text-label-caps text-outline uppercase tracking-wider h-9">
+<th class="w-10 px-space-md text-center">
+<input checked="" class="rounded bg-surface-container-lowest border-none accent-primary-container cursor-pointer w-3.5 h-3.5" type="checkbox"/>
+</th>
+<th class="px-space-md cursor-pointer hover:text-primary transition-colors">
+<div class="flex items-center gap-1">
+<span>Username</span>
+<span class="material-symbols-outlined text-xs text-primary-container">arrow_upward</span>
+</div>
+</th>
+<th class="px-space-md cursor-pointer hover:text-primary transition-colors">
+<div class="flex items-center gap-1">
+<span>Email address</span>
+<span class="material-symbols-outlined text-xs opacity-40">sort</span>
+</div>
+</th>
+<th class="px-space-md cursor-pointer hover:text-primary transition-colors">
+<div class="flex items-center gap-1">
+<span>Name</span>
+<span class="material-symbols-outlined text-xs opacity-40">sort</span>
+</div>
+</th>
+<th class="px-space-md text-center">Staff</th>
+<th class="px-space-md text-center">Superuser</th>
+<th class="px-space-md">Assigned Groups</th>
+<th class="px-space-md cursor-pointer hover:text-primary transition-colors">
+<div class="flex items-center gap-1">
+<span>Last login</span>
+<span class="material-symbols-outlined text-xs opacity-40">sort</span>
+</div>
+</th>
+<th class="px-space-md text-right pr-space-lg">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-on-surface font-body-md text-body-md">
+<!-- Row 1: Selected, Staff & Superuser -->
+<tr class="bg-secondary-container/20 hover:bg-surface-container transition-colors group h-12">
+<td class="px-space-md text-center">
+<input checked="" class="rounded bg-surface-container-lowest border-none accent-primary-container cursor-pointer w-3.5 h-3.5" type="checkbox"/>
+</td>
+<td class="px-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-md text-code-md text-primary font-semibold hover:underline cursor-pointer">alex.vance</span>
+<span class="font-code-sm text-code-sm text-outline px-1 rounded bg-surface-container select-all cursor-copy">#usr_9921f</span>
+</div>
+</td>
+<td class="px-space-md font-code-sm text-code-sm text-on-surface-variant">alex.vance@blackmesa.internal</td>
+<td class="px-space-md font-medium">Alex Vance</td>
+<td class="px-space-md text-center">
+<span class="material-symbols-outlined text-base text-primary-container" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+<td class="px-space-md text-center">
+<span class="material-symbols-outlined text-base text-primary-container" style="font-variation-settings: 'FILL' 1;">stars</span>
+</td>
+<td class="px-space-md">
+<div class="flex items-center gap-1">
+<span class="bg-surface-container-highest text-secondary text-label-caps font-label-caps px-1.5 py-0.5 rounded">Core-Ops</span>
+<span class="bg-surface-container-highest text-secondary text-label-caps font-label-caps px-1.5 py-0.5 rounded">SRE</span>
+</div>
+</td>
+<td class="px-space-md font-code-sm text-code-sm text-secondary">
+<span class="cursor-help" title="2025-02-23T14:22:10Z">14m ago</span>
+</td>
+<td class="px-space-md text-right pr-space-lg">
+<div class="flex items-center justify-end gap-space-xs opacity-75 group-hover:opacity-100 transition-opacity">
+<button class="p-1 hover:text-primary transition-colors" title="Edit User"><span class="material-symbols-outlined text-base">edit</span></button>
+<button class="p-1 hover:text-primary-fixed transition-colors" title="View Audit Trail"><span class="material-symbols-outlined text-base">history</span></button>
+<button class="p-1 hover:text-error transition-colors" title="Impersonate User"><span class="material-symbols-outlined text-base">switch_account</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 2: Selected -->
+<tr class="bg-secondary-container/20 hover:bg-surface-container transition-colors group h-12">
+<td class="px-space-md text-center">
+<input checked="" class="rounded bg-surface-container-lowest border-none accent-primary-container cursor-pointer w-3.5 h-3.5" type="checkbox"/>
+</td>
+<td class="px-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-md text-code-md text-primary font-semibold hover:underline cursor-pointer">alexa.morales</span>
+<span class="font-code-sm text-code-sm text-outline px-1 rounded bg-surface-container select-all cursor-copy">#usr_7418b</span>
+</div>
+</td>
+<td class="px-space-md font-code-sm text-code-sm text-on-surface-variant">amorales@infra.corp</td>
+<td class="px-space-md font-medium">Alexa Morales</td>
+<td class="px-space-md text-center">
+<span class="material-symbols-outlined text-base text-primary-container" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+<td class="px-space-md text-center">
+<span class="material-symbols-outlined text-base text-outline opacity-40">remove</span>
+</td>
+<td class="px-space-md">
+<span class="bg-surface-container-highest text-secondary text-label-caps font-label-caps px-1.5 py-0.5 rounded">Security</span>
+</td>
+<td class="px-space-md font-code-sm text-code-sm text-secondary">
+<span class="cursor-help" title="2025-02-23T12:04:02Z">2h ago</span>
+</td>
+<td class="px-space-md text-right pr-space-lg">
+<div class="flex items-center justify-end gap-space-xs opacity-75 group-hover:opacity-100 transition-opacity">
+<button class="p-1 hover:text-primary transition-colors" title="Edit User"><span class="material-symbols-outlined text-base">edit</span></button>
+<button class="p-1 hover:text-primary-fixed transition-colors" title="View Audit Trail"><span class="material-symbols-outlined text-base">history</span></button>
+<button class="p-1 hover:text-error transition-colors" title="Impersonate User"><span class="material-symbols-outlined text-base">switch_account</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Selected -->
+<tr class="bg-secondary-container/20 hover:bg-surface-container transition-colors group h-12">
+<td class="px-space-md text-center">
+<input checked="" class="rounded bg-surface-container-lowest border-none accent-primary-container cursor-pointer w-3.5 h-3.5" type="checkbox"/>
+</td>
+<td class="px-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-md text-code-md text-primary font-semibold hover:underline cursor-pointer">alexander.wright</span>
+<span class="font-code-sm text-code-sm text-outline px-1 rounded bg-surface-container select-all cursor-copy">#usr_3309a</span>
+</div>
+</td>
+<td class="px-space-md font-code-sm text-code-sm text-on-surface-variant">awright@cloudplatform.io</td>
+<td class="px-space-md font-medium">Alexander Wright</td>
+<td class="px-space-md text-center">
+<span class="material-symbols-outlined text-base text-primary-container" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+<td class="px-space-md text-center">
+<span class="material-symbols-outlined text-base text-outline opacity-40">remove</span>
+</td>
+<td class="px-space-md">
+<span class="bg-surface-container-highest text-secondary text-label-caps font-label-caps px-1.5 py-0.5 rounded">Billing Admins</span>
+</td>
+<td class="px-space-md font-code-sm text-code-sm text-secondary">
+<span class="cursor-help" title="2025-02-23T08:11:00Z">6h ago</span>
+</td>
+<td class="px-space-md text-right pr-space-lg">
+<div class="flex items-center justify-end gap-space-xs opacity-75 group-hover:opacity-100 transition-opacity">
+<button class="p-1 hover:text-primary transition-colors" title="Edit User"><span class="material-symbols-outlined text-base">edit</span></button>
+<button class="p-1 hover:text-primary-fixed transition-colors" title="View Audit Trail"><span class="material-symbols-outlined text-base">history</span></button>
+<button class="p-1 hover:text-error transition-colors" title="Impersonate User"><span class="material-symbols-outlined text-base">switch_account</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 4: Unselected Regular Staff -->
+<tr class="hover:bg-surface-container transition-colors group h-12 bg-surface-container-low">
+<td class="px-space-md text-center">
+<input class="rounded bg-surface-container-lowest border-none accent-primary-container cursor-pointer w-3.5 h-3.5" type="checkbox"/>
+</td>
+<td class="px-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-md text-code-md text-on-surface font-semibold hover:text-primary hover:underline cursor-pointer">alexandra.ross</span>
+<span class="font-code-sm text-code-sm text-outline px-1 rounded bg-surface-container select-all cursor-copy">#usr_1102e</span>
+</div>
+</td>
+<td class="px-space-md font-code-sm text-code-sm text-on-surface-variant">aross@finance-ops.net</td>
+<td class="px-space-md font-medium">Alexandra Ross</td>
+<td class="px-space-md text-center">
+<span class="material-symbols-outlined text-base text-primary-container" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+<td class="px-space-md text-center">
+<span class="material-symbols-outlined text-base text-outline opacity-40">remove</span>
+</td>
+<td class="px-space-md">
+<span class="text-outline font-code-sm text-code-sm">—</span>
+</td>
+<td class="px-space-md font-code-sm text-code-sm text-secondary">
+<span class="cursor-help" title="2025-02-22T19:30:11Z">1d ago</span>
+</td>
+<td class="px-space-md text-right pr-space-lg">
+<div class="flex items-center justify-end gap-space-xs opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1 hover:text-primary transition-colors" title="Edit User"><span class="material-symbols-outlined text-base">edit</span></button>
+<button class="p-1 hover:text-primary-fixed transition-colors" title="View Audit Trail"><span class="material-symbols-outlined text-base">history</span></button>
+<button class="p-1 hover:text-error transition-colors" title="Impersonate User"><span class="material-symbols-outlined text-base">switch_account</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 5: Superuser External Consultant -->
+<tr class="hover:bg-surface-container transition-colors group h-12 bg-surface-container-low">
+<td class="px-space-md text-center">
+<input class="rounded bg-surface-container-lowest border-none accent-primary-container cursor-pointer w-3.5 h-3.5" type="checkbox"/>
+</td>
+<td class="px-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-md text-code-md text-on-surface font-semibold hover:text-primary hover:underline cursor-pointer">alexey.petrov</span>
+<span class="font-code-sm text-code-sm text-outline px-1 rounded bg-surface-container select-all cursor-copy">#usr_8820c</span>
+</div>
+</td>
+<td class="px-space-md font-code-sm text-code-sm text-on-surface-variant">alexey@petrov-sec.de</td>
+<td class="px-space-md font-medium">Alexey Petrov</td>
+<td class="px-space-md text-center">
+<span class="material-symbols-outlined text-base text-primary-container" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+<td class="px-space-md text-center">
+<span class="material-symbols-outlined text-base text-primary-container" style="font-variation-settings: 'FILL' 1;">stars</span>
+</td>
+<td class="px-space-md">
+<span class="bg-surface-container-highest text-secondary text-label-caps font-label-caps px-1.5 py-0.5 rounded">External Auditors</span>
+</td>
+<td class="px-space-md font-code-sm text-code-sm text-secondary">
+<span class="cursor-help" title="2025-02-21T11:45:00Z">2d ago</span>
+</td>
+<td class="px-space-md text-right pr-space-lg">
+<div class="flex items-center justify-end gap-space-xs opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1 hover:text-primary transition-colors" title="Edit User"><span class="material-symbols-outlined text-base">edit</span></button>
+<button class="p-1 hover:text-primary-fixed transition-colors" title="View Audit Trail"><span class="material-symbols-outlined text-base">history</span></button>
+<button class="p-1 hover:text-error transition-colors" title="Impersonate User"><span class="material-symbols-outlined text-base">switch_account</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 6: Inactive Staff -->
+<tr class="hover:bg-surface-container transition-colors group h-12 bg-surface-container-low opacity-60 hover:opacity-100">
+<td class="px-space-md text-center">
+<input class="rounded bg-surface-container-lowest border-none accent-primary-container cursor-pointer w-3.5 h-3.5" type="checkbox"/>
+</td>
+<td class="px-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-md text-code-md text-on-surface line-through font-semibold hover:text-primary hover:underline cursor-pointer">alex.chen.offboarded</span>
+<span class="font-code-sm text-code-sm text-outline px-1 rounded bg-surface-container select-all cursor-copy">#usr_4011x</span>
+</div>
+</td>
+<td class="px-space-md font-code-sm text-code-sm text-outline">alex.chen@archived.corp</td>
+<td class="px-space-md font-medium text-outline">Alex Chen (Deactivated)</td>
+<td class="px-space-md text-center">
+<span class="material-symbols-outlined text-base text-outline opacity-40">cancel</span>
+</td>
+<td class="px-space-md text-center">
+<span class="material-symbols-outlined text-base text-outline opacity-40">remove</span>
+</td>
+<td class="px-space-md">
+<span class="text-outline font-code-sm text-code-sm">None</span>
+</td>
+<td class="px-space-md font-code-sm text-code-sm text-outline">
+<span class="cursor-help" title="2024-11-14T03:00:00Z">3mo ago</span>
+</td>
+<td class="px-space-md text-right pr-space-lg">
+<div class="flex items-center justify-end gap-space-xs opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1 hover:text-primary transition-colors" title="Edit User"><span class="material-symbols-outlined text-base">edit</span></button>
+<button class="p-1 hover:text-primary-fixed transition-colors" title="View Audit Trail"><span class="material-symbols-outlined text-base">history</span></button>
+<button class="p-1 hover:text-error transition-colors" title="Re-enable User"><span class="material-symbols-outlined text-base">restore</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 7: Member Regular -->
+<tr class="hover:bg-surface-container transition-colors group h-12 bg-surface-container-low">
+<td class="px-space-md text-center">
+<input class="rounded bg-surface-container-lowest border-none accent-primary-container cursor-pointer w-3.5 h-3.5" type="checkbox"/>
+</td>
+<td class="px-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-md text-code-md text-on-surface font-semibold hover:text-primary hover:underline cursor-pointer">alexis.bailey</span>
+<span class="font-code-sm text-code-sm text-outline px-1 rounded bg-surface-container select-all cursor-copy">#usr_5902d</span>
+</div>
+</td>
+<td class="px-space-md font-code-sm text-code-sm text-on-surface-variant">alexis.b@customerops.co</td>
+<td class="px-space-md font-medium">Alexis Bailey</td>
+<td class="px-space-md text-center">
+<span class="material-symbols-outlined text-base text-primary-container" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+<td class="px-space-md text-center">
+<span class="material-symbols-outlined text-base text-outline opacity-40">remove</span>
+</td>
+<td class="px-space-md">
+<div class="flex items-center gap-1">
+<span class="bg-surface-container-highest text-secondary text-label-caps font-label-caps px-1.5 py-0.5 rounded">Support L3</span>
+</div>
+</td>
+<td class="px-space-md font-code-sm text-code-sm text-secondary">
+<span class="cursor-help" title="2025-02-20T17:15:20Z">3d ago</span>
+</td>
+<td class="px-space-md text-right pr-space-lg">
+<div class="flex items-center justify-end gap-space-xs opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1 hover:text-primary transition-colors" title="Edit User"><span class="material-symbols-outlined text-base">edit</span></button>
+<button class="p-1 hover:text-primary-fixed transition-colors" title="View Audit Trail"><span class="material-symbols-outlined text-base">history</span></button>
+<button class="p-1 hover:text-error transition-colors" title="Impersonate User"><span class="material-symbols-outlined text-base">switch_account</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-space-md p-space-md bg-surface-container-high">
+<div class="flex items-center gap-space-md">
+<span class="font-body-sm text-body-sm text-outline">
+            Showing <strong class="text-on-surface">1–7</strong> of <strong class="text-on-surface">12 filtered</strong> (from 14,290 total entries)
+          </span>
+<div class="flex items-center gap-1 font-code-sm text-code-sm text-outline">
+<span>Per page:</span>
+<select class="bg-surface-container-lowest text-on-surface rounded px-space-sm py-0.5 focus:outline-none cursor-pointer">
+<option value="25">25</option>
+<option value="50">50</option>
+<option value="100">100</option>
+<option value="250">250</option>
+</select>
+</div>
+</div>
+<!-- Page Numbers Navigation -->
+<div class="flex items-center gap-space-xs">
+<button class="p-1 rounded bg-surface-container-lowest text-outline hover:text-on-surface disabled:opacity-30 disabled:cursor-not-allowed" disabled="">
+<span class="material-symbols-outlined text-base">keyboard_double_arrow_left</span>
+</button>
+<button class="p-1 rounded bg-surface-container-lowest text-outline hover:text-on-surface disabled:opacity-30 disabled:cursor-not-allowed" disabled="">
+<span class="material-symbols-outlined text-base">chevron_left</span>
+</button>
+<button class="px-space-md py-0.5 rounded bg-secondary-container text-primary font-code-sm text-code-sm font-bold">1</button>
+<button class="px-space-md py-0.5 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-code-sm text-code-sm">2</button>
+<button class="p-1 rounded bg-surface-container-lowest text-outline hover:text-on-surface">
+<span class="material-symbols-outlined text-base">chevron_right</span>
+</button>
+<button class="p-1 rounded bg-surface-container-lowest text-outline hover:text-on-surface">
+<span class="material-symbols-outlined text-base">keyboard_double_arrow_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Right Side Django Filter Palette (Facets) -->
+<div class="xl:col-span-3 bg-surface-container-low rounded-xl p-space-md shadow-md flex flex-col gap-space-lg" id="filterSidebar">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-base text-primary-container">filter_alt</span>
+<span class="font-headline-md text-headline-md text-on-surface font-bold">Filters</span>
+</div>
+<button class="font-code-sm text-code-sm text-outline hover:text-primary transition-colors">Reset all</button>
+</div>
+<!-- Filter Section: Staff Status -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-caps text-label-caps uppercase text-outline tracking-wider">By staff status</span>
+<div class="space-y-1">
+<a class="flex items-center justify-between px-space-md py-1 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="font-body-sm text-body-sm">All</span>
+<span class="font-code-sm text-code-sm text-outline">14,290</span>
+</a>
+<a class="flex items-center justify-between px-space-md py-1 rounded bg-secondary-container text-primary font-medium transition-colors" href="#">
+<span class="font-body-sm text-body-sm flex items-center gap-1.5">
+<span class="material-symbols-outlined text-xs text-primary-container">check</span>
+<span>Yes (Staff only)</span>
+</span>
+<span class="font-code-sm text-code-sm text-primary">12</span>
+</a>
+<a class="flex items-center justify-between px-space-md py-1 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="font-body-sm text-body-sm">No</span>
+<span class="font-code-sm text-code-sm text-outline">14,278</span>
+</a>
+</div>
+</div>
+<!-- Filter Section: Superuser -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-caps text-label-caps uppercase text-outline tracking-wider">By superuser status</span>
+<div class="space-y-1">
+<a class="flex items-center justify-between px-space-md py-1 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="font-body-sm text-body-sm">All</span>
+</a>
+<a class="flex items-center justify-between px-space-md py-1 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="font-body-sm text-body-sm">Yes</span>
+<span class="font-code-sm text-code-sm text-outline">3</span>
+</a>
+<a class="flex items-center justify-between px-space-md py-1 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="font-body-sm text-body-sm">No</span>
+<span class="font-code-sm text-code-sm text-outline">9</span>
+</a>
+</div>
+</div>
+<!-- Filter Section: Active Status -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-caps text-label-caps uppercase text-outline tracking-wider">By active state</span>
+<div class="space-y-1">
+<a class="flex items-center justify-between px-space-md py-1 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="font-body-sm text-body-sm">All</span>
+</a>
+<a class="flex items-center justify-between px-space-md py-1 rounded bg-secondary-container text-primary font-medium transition-colors" href="#">
+<span class="font-body-sm text-body-sm flex items-center gap-1.5">
+<span class="material-symbols-outlined text-xs text-primary-container">check</span>
+<span>Active</span>
+</span>
+<span class="font-code-sm text-code-sm text-primary">11</span>
+</a>
+<a class="flex items-center justify-between px-space-md py-1 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="font-body-sm text-body-sm">Disabled / Archived</span>
+<span class="font-code-sm text-code-sm text-outline">1</span>
+</a>
+</div>
+</div>
+<!-- Filter Section: Date Joined -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-caps text-label-caps uppercase text-outline tracking-wider">By date joined</span>
+<div class="space-y-1">
+<a class="flex items-center justify-between px-space-md py-1 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="font-body-sm text-body-sm">Any date</span>
+</a>
+<a class="flex items-center justify-between px-space-md py-1 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="font-body-sm text-body-sm">Today</span>
+<span class="font-code-sm text-code-sm text-outline">0</span>
+</a>
+<a class="flex items-center justify-between px-space-md py-1 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="font-body-sm text-body-sm">Past 7 days</span>
+<span class="font-code-sm text-code-sm text-outline">2</span>
+</a>
+<a class="flex items-center justify-between px-space-md py-1 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="font-body-sm text-body-sm">This month</span>
+<span class="font-code-sm text-code-sm text-outline">5</span>
+</a>
+<a class="flex items-center justify-between px-space-md py-1 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="font-body-sm text-body-sm">This year (2025)</span>
+<span class="font-code-sm text-code-sm text-outline">12</span>
+</a>
+</div>
+</div>
+<!-- Filter Section: 2FA MFA status -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-caps text-label-caps uppercase text-outline tracking-wider">Multi-factor auth</span>
+<div class="space-y-1">
+<a class="flex items-center justify-between px-space-md py-1 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="font-body-sm text-body-sm">Any</span>
+</a>
+<a class="flex items-center justify-between px-space-md py-1 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="font-body-sm text-body-sm">Hardware Token (FIDO2)</span>
+<span class="font-code-sm text-code-sm text-outline">7</span>
+</a>
+<a class="flex items-center justify-between px-space-md py-1 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="font-body-sm text-body-sm">TOTP Authenticator</span>
+<span class="font-code-sm text-code-sm text-outline">4</span>
+</a>
+<a class="flex items-center justify-between px-space-md py-1 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="font-body-sm text-body-sm">Disabled / None</span>
+<span class="font-code-sm text-code-sm text-error">1</span>
+</a>
+</div>
+</div>
+<!-- Custom SQL or DJDT Metadata Box -->
+<div class="bg-surface-container-lowest p-space-sm rounded-lg flex flex-col gap-1">
+<div class="flex items-center justify-between text-outline font-label-caps text-label-caps">
+<span>SQL EXPLAIN</span>
+<span>Index: auth_user_staff_idx</span>
+</div>
+<code class="font-code-sm text-code-sm text-secondary truncate">SELECT id, username, email FROM auth_user WHERE is_staff = 1;</code>
+</div>
+</div>
+</div>
+<!-- Operational Health Micro-Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-space-md mt-space-sm">
+<div class="bg-surface-container-low p-space-md rounded-xl flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-outline uppercase">Active Sessions</span>
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface">3,491</span>
+</div>
+<div class="p-2 rounded-lg bg-surface-container text-primary-container">
+<span class="material-symbols-outlined text-xl">devices</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-xl flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-outline uppercase">Superuser Ratio</span>
+<span class="font-headline-lg text-headline-lg font-bold text-primary">0.05%</span>
+</div>
+<div class="p-2 rounded-lg bg-surface-container text-primary">
+<span class="material-symbols-outlined text-xl">shield_person</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-xl flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-outline uppercase">Failed Auth (1h)</span>
+<span class="font-headline-lg text-headline-lg font-bold text-error">14</span>
+</div>
+<div class="p-2 rounded-lg bg-surface-container text-error">
+<span class="material-symbols-outlined text-xl">lock_reset</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-xl flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-outline uppercase">MFA Adoption</span>
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface">98.2%</span>
+</div>
+<div class="p-2 rounded-lg bg-surface-container text-tertiary">
+<span class="material-symbols-outlined text-xl">verified_user</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple filter sidebar toggle helper
+  document.getElementById('toggleFilterBtn')?.addEventListener('click', () => {
+    const sidebar = document.getElementById('filterSidebar');
+    if (sidebar) {
+      sidebar.classList.toggle('hidden');
+    }
+  });
+
+  // Hotkey listener for Django add user action (Shift+A)
+  window.addEventListener('keydown', (e) => {
+    if (e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+      e.preventDefault();
+      const addBtn = document.querySelector('button:has(.material-symbols-outlined:contains("person_add"))') || document.querySelector('button');
+      // Visual feedback
+      const originalText = document.title;
+      document.title = "Navigating to Add User Form...";
+      setTimeout(() => { document.title = originalText; }, 1000);
+    }
+  });
+</script></main></div></body></html>
