@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-secondary-container": "#98bea9", "on-primary-fixed-variant": "#005231", "outline": "#849588", "tertiary-fixed-dim": "#4edea3", "on-primary-fixed": "#002111", "background": "#0f141b", "primary": "#cdffdc", "secondary-fixed": "#c4ebd6", "on-tertiary-fixed-variant": "#005236", "tertiary": "#caffe1", "surface": "#0f141b", "tertiary-fixed": "#6ffbbe", "secondary-container": "#2b4e3e", "surface-container-lowest": "#090f15", "primary-fixed": "#53ffab", "secondary": "#a9cfba", "outline-variant": "#3b4a3f", "primary-fixed-dim": "#00e38f", "on-error-container": "#ffdad6", "surface-container-highest": "#30353d", "surface-bright": "#343941", "on-tertiary": "#003824", "on-background": "#dee2ec", "on-tertiary-container": "#006b48", "surface-container": "#1b2027", "surface-dim": "#0f141b", "on-primary": "#003920", "on-secondary-fixed-variant": "#2b4e3e", "surface-variant": "#30353d", "on-surface": "#dee2ec", "on-primary-container": "#006b41", "surface-container-low": "#171c23", "inverse-on-surface": "#2c3138", "surface-tint": "#00e38f", "tertiary-container": "#61efb2", "inverse-primary": "#006d42", "on-secondary": "#133728", "on-error": "#690005", "on-surface-variant": "#b9cbbd", "surface-container-high": "#252a32", "on-tertiary-fixed": "#002113", "error": "#ffb4ab", "primary-container": "#00f59b", "error-container": "#93000a", "inverse-surface": "#dee2ec", "secondary-fixed-dim": "#a9cfba", "on-secondary-fixed": "#002114" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "margin": "1rem", "gutter-mobile": "0.5rem", "space-md": "0.5rem", "gutter": "0.75rem", "space-sm": "0.25rem", "margin-mobile": "0.75rem", "space-xs": "0.125rem", "space-lg": "0.75rem", "space-xl": "1rem" }, "fontFamily": { "headline-lg": ["Inter"], "body-sm": ["Inter"], "code-md": ["JetBrains Mono"], "code-sm": ["JetBrains Mono"], "headline-md": ["Inter"], "headline-xl": ["Inter"], "label-caps": ["JetBrains Mono"], "kbd-badge": ["JetBrains Mono"], "body-md": ["Inter"] }, "fontSize": { "headline-lg": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "400" }], "code-md": ["12px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "code-sm": ["11px", { "lineHeight": "15px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "headline-md": ["15px", { "lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-xl": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "label-caps": ["10px", { "lineHeight": "12px", "letterSpacing": "0.06em", "fontWeight": "600" }], "kbd-badge": ["10px", { "lineHeight": "12px", "letterSpacing": "0em", "fontWeight": "500" }], "body-md": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.005em", "fontWeight": "400" }] } } } }</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest flex flex-col z-50 select-none shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="p-space-lg flex flex-col gap-space-sm bg-surface-container-lowest"><div class="flex items-center gap-space-md"><img alt="Django Admin Modern Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1UsEXRgODxD4A7ULUFKn5VS8H0bHcsumcE1NPieE9gkoAPx4520Rc60ajkQfoD_9ohWTebou3SXXckeppjYsso_DkqgQJgx6hQa-7LD6tO_a4Rd3o8G_AMnlUpkATKZ7QZlTuCABLoDgkx031GgeMlbS9KBRohE6IhbdbL0Ach79fZd6Tfa7Ik8rAmV6q6jvnx-iJ_WB9nwi_o1Uo_-vVWsYwUE9Ml9RTGPDEvVrhyKnztp4fkyMfGC_Ew"/><div class="flex flex-col"><span class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight">Django 5.1 Admin</span><div class="flex items-center gap-space-sm mt-space-xs"><span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-fixed-dim opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-primary-container"></span></span><span class="font-code-sm text-code-sm text-secondary">Production • v5.1.2</span></div></div></div></div><div class="flex-1 overflow-y-auto px-space-md py-space-sm space-y-space-lg"><nav data-active-classes="bg-secondary-container text-primary font-medium rounded-lg"><div class="px-space-sm mb-space-xs"><span class="font-label-caps text-label-caps uppercase text-outline tracking-wider">System</span></div><div class="space-y-space-xs"><a aria-current="page" class="flex items-center justify-between px-space-md py-space-sm transition-all bg-secondary-container text-primary font-medium rounded-lg" data-path="overview" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">dashboard</span><span class="font-body-md text-body-md">Overview</span></span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="system-health" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">vital_signs</span><span class="font-body-md text-body-md">System Health</span></span><span class="h-2 w-2 rounded-full bg-primary-container"></span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="database-metrics" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">database</span><span class="font-body-md text-body-md">Database Metrics</span></span><span class="font-code-sm text-code-sm text-secondary bg-surface-container-high px-space-sm rounded">p99 12ms</span></a></div></nav><nav data-active-classes="bg-secondary-container text-primary font-medium rounded-lg"><div class="px-space-sm mb-space-xs flex items-center justify-between"><span class="font-label-caps text-label-caps uppercase text-outline tracking-wider">Auth</span><span class="material-symbols-outlined text-sm text-outline">shield</span></div><div class="space-y-space-xs"><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="users" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">person</span><span class="font-body-md text-body-md">Users</span></span><span class="font-code-sm text-code-sm px-space-sm py-0.5 rounded bg-surface-container text-secondary">14,290</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="groups" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">group</span><span class="font-body-md text-body-md">Groups</span></span><span class="font-code-sm text-code-sm px-space-sm py-0.5 rounded bg-surface-container text-secondary">8</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="permissions" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">key</span><span class="font-body-md text-body-md">Permissions</span></span></a></div></nav><nav data-active-classes="bg-secondary-container text-primary font-medium rounded-lg"><div class="px-space-sm mb-space-xs flex items-center justify-between"><span class="font-label-caps text-label-caps uppercase text-outline tracking-wider">Billing &amp; Commerce</span><span class="material-symbols-outlined text-sm text-outline">credit_card</span></div><div class="space-y-space-xs"><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="subscriptions" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">autorenew</span><span class="font-body-md text-body-md">Subscriptions</span></span><span class="font-code-sm text-code-sm px-space-sm py-0.5 rounded bg-surface-container text-secondary">8,421</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="invoices" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">receipt_long</span><span class="font-body-md text-body-md">Invoices</span></span><span class="font-code-sm text-code-sm px-space-sm py-0.5 rounded bg-surface-container text-secondary">29,400</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="payment-methods" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">account_balance_wallet</span><span class="font-body-md text-body-md">PaymentMethods</span></span></a></div></nav><nav data-active-classes="bg-secondary-container text-primary font-medium rounded-lg"><div class="px-space-sm mb-space-xs flex items-center justify-between"><span class="font-label-caps text-label-caps uppercase text-outline tracking-wider">Core Apps</span><span class="material-symbols-outlined text-sm text-outline">hub</span></div><div class="space-y-space-xs"><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="organizations" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">corporate_fare</span><span class="font-body-md text-body-md">Organizations</span></span><span class="font-code-sm text-code-sm px-space-sm py-0.5 rounded bg-surface-container text-secondary">1,204</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="api-keys" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">vpn_key</span><span class="font-body-md text-body-md">API Keys</span></span><span class="font-code-sm text-code-sm px-space-sm py-0.5 rounded bg-surface-container text-secondary">4,812</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="audit-logs" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">history_edu</span><span class="font-body-md text-body-md">AuditLogs</span></span><span class="font-code-sm text-code-sm px-space-sm py-0.5 rounded bg-surface-container text-secondary">142k</span></a></div></nav><nav data-active-classes="bg-secondary-container text-primary font-medium rounded-lg"><div class="px-space-sm mb-space-xs flex items-center justify-between"><span class="font-label-caps text-label-caps uppercase text-outline tracking-wider">Background Jobs</span><span class="material-symbols-outlined text-sm text-outline">precision_manufacturing</span></div><div class="space-y-space-xs"><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="celery-tasks" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">task_alt</span><span class="font-body-md text-body-md">Celery Tasks</span></span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="periodic-beats" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">alarm</span><span class="font-body-md text-body-md">Periodic Beats</span></span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="workers" href="#"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">dns</span><span class="font-body-md text-body-md">Workers</span></span><span class="font-code-sm text-code-sm px-space-sm py-0.5 rounded bg-secondary-container text-primary">4 Active</span></a></div></nav></div><div class="p-space-md bg-surface-container-lowest space-y-space-xs"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="documentation" href="#"><span class="material-symbols-outlined text-base">menu_book</span><span class="font-body-sm text-body-sm">Documentation</span></a><div class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-base">bug_report</span><span class="font-body-sm text-body-sm">Debug Toolbar</span></span><span class="font-code-sm text-code-sm text-primary-container bg-surface-container-high px-space-sm py-0.5 rounded">DJDT ON</span></div><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="settings" href="#"><span class="material-symbols-outlined text-base">settings</span><span class="font-body-sm text-body-sm">Settings</span></a><div class="flex items-center gap-space-md px-space-md py-space-sm mt-space-xs rounded-lg bg-surface-container-low"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCO4f90OVVOItPfRm7vc7lEI1MUnkCcCKpMxgoDCMgafk1QXGjx68apVdNTBk-NpDCzA-PIUXmlDpqmicFbYAyCFBRTdfrd_qXPe6ni9t9Jwe_qWfEd2QzN3H6CsVdrczF6W_q52IRGkwO91EC_qTiS8qAwwlb8jz5CzJghR3aUqyvpYywjqRnjMWZOXpnDkupNZjhxrIr6XkILXMB3PWawf084wBTAPymVc-tmgy1V8n7rpAvlAS8w"/><div class="flex flex-col min-w-0 flex-1"><span class="font-body-sm text-body-sm text-on-surface font-semibold truncate">Alex Vance</span><span class="font-code-sm text-code-sm text-outline truncate">Staff Admin</span></div><span class="material-symbols-outlined text-outline text-base">more_vert</span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-14 bg-surface-container-lowest/80 backdrop-blur-xl z-40 flex items-center justify-between px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.2)]"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-code-sm text-code-sm text-outline"><span class="hover:text-on-surface cursor-pointer">Django Admin</span><span>/</span><span class="text-primary font-medium">Control Plane</span></div><button class="flex items-center gap-space-md ml-space-lg bg-surface-container px-space-md py-space-xs rounded-lg text-outline hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-base">search</span><span class="font-body-sm text-body-sm">Search models, records, queries...</span><kbd class="font-kbd-badge text-kbd-badge px-space-sm py-0.5 rounded bg-surface-container-highest text-secondary">⌘K</kbd></button></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container px-space-md py-space-xs rounded-lg text-secondary"><span class="material-symbols-outlined text-sm text-primary-container">dataset</span><span class="font-code-sm text-code-sm">production-db-replica-01</span><span class="material-symbols-outlined text-sm text-outline">expand_more</span></div><button class="flex items-center gap-space-xs bg-primary-container text-on-primary-container font-headline-md text-body-sm px-space-md py-space-xs rounded font-semibold hover:bg-tertiary-fixed-dim transition-colors"><span class="material-symbols-outlined text-base">add</span><span>Add Object</span></button><button class="flex items-center gap-space-xs bg-surface-container-high px-space-md py-space-xs rounded text-on-surface hover:bg-surface-bright transition-colors font-code-sm text-code-sm"><span class="material-symbols-outlined text-base text-primary-fixed">terminal</span><span>SQL Console</span></button><button class="relative p-space-xs text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-lg">notifications</span><span class="absolute top-0 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-error text-on-error font-code-sm text-code-sm font-bold">2</span></button><button class="p-space-xs text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-lg">dark_mode</span></button></div></header><main class="relative pt-14 w-full px-space-lg pb-space-xl bg-background min-h-screen"><div class="flex flex-col w-full">
+<div class="flex flex-col gap-space-lg w-full">
+<!-- Top Telemetry & Health Bar -->
+<section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-md w-full">
+<!-- Card 1: Postgres -->
+<div class="relative overflow-hidden bg-surface-container rounded-xl p-space-lg flex flex-col justify-between shadow-sm group hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-base">database</span>
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">PostgreSQL Primary</span>
+</div>
+<span class="inline-flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-secondary-container text-primary font-code-sm text-code-sm font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-ping"></span>
+            99.4% hit
+          </span>
+</div>
+<div class="mt-space-md flex items-baseline justify-between">
+<div>
+<div class="font-headline-xl text-headline-xl text-on-surface font-bold tracking-tight">4.2<span class="font-code-md text-code-md text-secondary ml-space-xs font-normal">ms</span></div>
+<div class="font-body-sm text-body-sm text-outline mt-space-xs">Avg Query Latency (p95: 11ms)</div>
+</div>
+<!-- Micro Sparkline SVG -->
+<div class="w-24 h-9">
+<svg class="w-full h-full overflow-visible" viewbox="0 0 100 36">
+<defs>
+<lineargradient id="gradPostgres" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#00f59b" stop-opacity="0.35"></stop>
+<stop offset="100%" stop-color="#00f59b" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,28 Q15,30 30,18 T60,20 T80,10 L100,6 L100,36 L0,36 Z" fill="url(#gradPostgres)"></path>
+<path d="M0,28 Q15,30 30,18 T60,20 T80,10 L100,6" fill="none" stroke="#00f59b" stroke-linecap="round" stroke-width="1.75"></path>
+</svg>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between text-outline font-code-sm text-code-sm">
+<span>Conn: <strong class="text-on-surface font-medium">42 / 100</strong></span>
+<span class="text-secondary">Replica lag: &lt;10ms</span>
+</div>
+</div>
+<!-- Card 2: Users & Sessions -->
+<div class="relative overflow-hidden bg-surface-container rounded-xl p-space-lg flex flex-col justify-between shadow-sm group hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-base">group</span>
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Active Sessions</span>
+</div>
+<span class="inline-flex items-center gap-0.5 px-space-sm py-0.5 rounded-full bg-secondary-container text-primary font-code-sm text-code-sm font-medium">
+<span class="material-symbols-outlined text-xs">trending_up</span>
+            +12% today
+          </span>
+</div>
+<div class="mt-space-md flex items-baseline justify-between">
+<div>
+<div class="font-headline-xl text-headline-xl text-on-surface font-bold tracking-tight">1,482</div>
+<div class="font-body-sm text-body-sm text-outline mt-space-xs">Concurrent Authenticated</div>
+</div>
+<div class="text-right">
+<div class="font-code-md text-code-md text-secondary">14,290</div>
+<div class="font-label-caps text-label-caps text-outline uppercase">Total Users</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between text-outline font-code-sm text-code-sm">
+<span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> JWT Session Auth</span>
+<span class="text-secondary">Avg TTL 48h</span>
+</div>
+</div>
+<!-- Card 3: Celery Tasks -->
+<div class="relative overflow-hidden bg-surface-container rounded-xl p-space-lg flex flex-col justify-between shadow-sm group hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-base">precision_manufacturing</span>
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Celery Task Fleet</span>
+</div>
+<span class="inline-flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-secondary-container text-primary font-code-sm text-code-sm font-medium">
+            4 Active Workers
+          </span>
+</div>
+<div class="mt-space-md flex items-baseline justify-between">
+<div>
+<div class="font-headline-xl text-headline-xl text-on-surface font-bold tracking-tight">320<span class="font-code-md text-code-md text-secondary font-normal">k</span></div>
+<div class="font-body-sm text-body-sm text-outline mt-space-xs">Processed Today</div>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container-low px-space-md py-space-xs rounded-lg">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-code-sm text-code-sm text-primary">0 Dead Letters</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between text-outline font-code-sm text-code-sm">
+<span>Queue Backlog: <strong class="text-on-surface font-medium">18 msgs</strong></span>
+<span class="text-secondary">Throughput 420/s</span>
+</div>
+</div>
+<!-- Card 4: Memory & Gunicorn -->
+<div class="relative overflow-hidden bg-surface-container rounded-xl p-space-lg flex flex-col justify-between shadow-sm group hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-base">memory</span>
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Gunicorn WSGI</span>
+</div>
+<span class="inline-flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-surface-container-highest text-secondary font-code-sm text-code-sm font-medium">
+            8 Workers
+          </span>
+</div>
+<div class="mt-space-md flex items-baseline justify-between">
+<div>
+<div class="font-headline-xl text-headline-xl text-on-surface font-bold tracking-tight">4.2 <span class="font-code-md text-code-md text-secondary font-normal">/ 16 GB</span></div>
+<div class="font-body-sm text-body-sm text-outline mt-space-xs">26.2% Allocated</div>
+</div>
+<div class="w-14 h-14 relative flex items-center justify-center">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-container-highest" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+<path class="text-primary-container" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="26.2, 100" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+<span class="absolute font-code-sm text-code-sm text-on-surface font-bold">26%</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between text-outline font-code-sm text-code-sm">
+<span>Worker Timeouts: <strong class="text-on-surface font-medium">0</strong></span>
+<span class="text-primary-fixed-dim">Uptime 14d 6h</span>
+</div>
+</div>
+</section>
+<!-- Main Asymmetric Workspace Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg w-full">
+<!-- Primary Data Pane (Left 8 Cols) -->
+<div class="lg:col-span-8 flex flex-col gap-space-lg">
+<!-- Quick Model Registry Section -->
+<section class="bg-surface-container rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-base">folder_supervised</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Registered Model Catalog</h2>
+</div>
+<div class="flex items-center gap-space-xs text-outline font-code-sm text-code-sm">
+<span>Installed Apps:</span>
+<span class="text-primary font-semibold">4 core</span>
+</div>
+</div>
+<!-- Apps Bento Sub-Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- App Card: Auth -->
+<div class="bg-surface-container-low rounded-lg p-space-md flex flex-col justify-between hover:bg-surface-container-high transition-colors">
+<div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-sm text-secondary">admin_panel_settings</span>
+<span class="font-headline-md text-headline-md text-on-surface">django.contrib.auth</span>
+</div>
+<span class="font-label-caps text-label-caps uppercase text-outline">System App</span>
+</div>
+<div class="mt-space-md space-y-space-xs">
+<!-- Row User -->
+<div class="flex items-center justify-between py-1 px-space-sm rounded hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-md text-code-md text-on-surface font-medium">User</span>
+<span class="font-code-sm text-code-sm px-1.5 py-0.5 rounded bg-surface-container-high text-secondary">14,290</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<a class="font-code-sm text-code-sm text-primary hover:underline flex items-center gap-0.5" href="#"><span class="material-symbols-outlined text-xs">add</span>Add</a>
+<span class="text-outline-variant">•</span>
+<a class="font-code-sm text-code-sm text-outline hover:text-on-surface" href="#">Change List</a>
+</div>
+</div>
+<!-- Row Group -->
+<div class="flex items-center justify-between py-1 px-space-sm rounded hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-md text-code-md text-on-surface font-medium">Group</span>
+<span class="font-code-sm text-code-sm px-1.5 py-0.5 rounded bg-surface-container-high text-secondary">8</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<a class="font-code-sm text-code-sm text-primary hover:underline flex items-center gap-0.5" href="#"><span class="material-symbols-outlined text-xs">add</span>Add</a>
+<span class="text-outline-variant">•</span>
+<a class="font-code-sm text-code-sm text-outline hover:text-on-surface" href="#">Change List</a>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between font-code-sm text-code-sm text-outline">
+<span>Migration: 0012_alter_user_first_name_max_length</span>
+<span class="text-secondary font-medium">Updated 3m ago</span>
+</div>
+</div>
+<!-- App Card: Billing -->
+<div class="bg-surface-container-low rounded-lg p-space-md flex flex-col justify-between hover:bg-surface-container-high transition-colors">
+<div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-sm text-secondary">payments</span>
+<span class="font-headline-md text-headline-md text-on-surface">apps.billing</span>
+</div>
+<span class="font-label-caps text-label-caps uppercase text-primary-container">Commerce</span>
+</div>
+<div class="mt-space-md space-y-space-xs">
+<!-- Row Subscription -->
+<div class="flex items-center justify-between py-1 px-space-sm rounded hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-md text-code-md text-on-surface font-medium">Subscription</span>
+<span class="font-code-sm text-code-sm px-1.5 py-0.5 rounded bg-surface-container-high text-secondary">8,421</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<a class="font-code-sm text-code-sm text-primary hover:underline flex items-center gap-0.5" href="#"><span class="material-symbols-outlined text-xs">add</span>Add</a>
+<span class="text-outline-variant">•</span>
+<a class="font-code-sm text-code-sm text-outline hover:text-on-surface" href="#">Change List</a>
+</div>
+</div>
+<!-- Row Invoice -->
+<div class="flex items-center justify-between py-1 px-space-sm rounded hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-md text-code-md text-on-surface font-medium">Invoice</span>
+<span class="font-code-sm text-code-sm px-1.5 py-0.5 rounded bg-surface-container-high text-secondary">29,400</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<a class="font-code-sm text-code-sm text-primary hover:underline flex items-center gap-0.5" href="#"><span class="material-symbols-outlined text-xs">add</span>Add</a>
+<span class="text-outline-variant">•</span>
+<a class="font-code-sm text-code-sm text-outline hover:text-on-surface" href="#">Change List</a>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between font-code-sm text-code-sm text-outline">
+<span>Stripe Webhook Sync: Active</span>
+<span class="text-secondary font-medium">Updated 14s ago</span>
+</div>
+</div>
+<!-- App Card: Core -->
+<div class="bg-surface-container-low rounded-lg p-space-md flex flex-col justify-between hover:bg-surface-container-high transition-colors">
+<div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-sm text-secondary">hub</span>
+<span class="font-headline-md text-headline-md text-on-surface">apps.core</span>
+</div>
+<span class="font-label-caps text-label-caps uppercase text-outline">Multi-tenant</span>
+</div>
+<div class="mt-space-md space-y-space-xs">
+<!-- Row Org -->
+<div class="flex items-center justify-between py-1 px-space-sm rounded hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-md text-code-md text-on-surface font-medium">Organization</span>
+<span class="font-code-sm text-code-sm px-1.5 py-0.5 rounded bg-surface-container-high text-secondary">1,204</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<a class="font-code-sm text-code-sm text-primary hover:underline flex items-center gap-0.5" href="#"><span class="material-symbols-outlined text-xs">add</span>Add</a>
+<span class="text-outline-variant">•</span>
+<a class="font-code-sm text-code-sm text-outline hover:text-on-surface" href="#">Change List</a>
+</div>
+</div>
+<!-- Row APIKey -->
+<div class="flex items-center justify-between py-1 px-space-sm rounded hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-md text-code-md text-on-surface font-medium">APIKey</span>
+<span class="font-code-sm text-code-sm px-1.5 py-0.5 rounded bg-surface-container-high text-secondary">4,812</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<a class="font-code-sm text-code-sm text-primary hover:underline flex items-center gap-0.5" href="#"><span class="material-symbols-outlined text-xs">add</span>Add</a>
+<span class="text-outline-variant">•</span>
+<a class="font-code-sm text-code-sm text-outline hover:text-on-surface" href="#">Change List</a>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between font-code-sm text-code-sm text-outline">
+<span>Row Level Security (RLS): Enabled</span>
+<span class="text-secondary font-medium">Updated 1m ago</span>
+</div>
+</div>
+<!-- App Card: Analytics -->
+<div class="bg-surface-container-low rounded-lg p-space-md flex flex-col justify-between hover:bg-surface-container-high transition-colors">
+<div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-sm text-secondary">query_stats</span>
+<span class="font-headline-md text-headline-md text-on-surface">apps.analytics</span>
+</div>
+<span class="font-label-caps text-label-caps uppercase text-outline">Timeseries</span>
+</div>
+<div class="mt-space-md space-y-space-xs">
+<!-- Row EventRecord -->
+<div class="flex items-center justify-between py-1 px-space-sm rounded hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-md text-code-md text-on-surface font-medium">EventRecord</span>
+<span class="font-code-sm text-code-sm px-1.5 py-0.5 rounded bg-surface-container-high text-secondary">1.82M</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<a class="font-code-sm text-code-sm text-primary hover:underline flex items-center gap-0.5" href="#"><span class="material-symbols-outlined text-xs">add</span>Add</a>
+<span class="text-outline-variant">•</span>
+<a class="font-code-sm text-code-sm text-outline hover:text-on-surface" href="#">Change List</a>
+</div>
+</div>
+<!-- Row MetricSnapshot -->
+<div class="flex items-center justify-between py-1 px-space-sm rounded hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-md text-code-md text-on-surface font-medium">MetricSnapshot</span>
+<span class="font-code-sm text-code-sm px-1.5 py-0.5 rounded bg-surface-container-high text-secondary">420k</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<a class="font-code-sm text-code-sm text-primary hover:underline flex items-center gap-0.5" href="#"><span class="material-symbols-outlined text-xs">add</span>Add</a>
+<span class="text-outline-variant">•</span>
+<a class="font-code-sm text-code-sm text-outline hover:text-on-surface" href="#">Change List</a>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between font-code-sm text-code-sm text-outline">
+<span>Timescale Hypertable: ON</span>
+<span class="text-secondary font-medium">Updated 2s ago</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Recent Audit Log Activity Stream -->
+<section class="bg-surface-container rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-base">history_edu</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">django.contrib.admin.models.LogEntry Activity</h2>
+</div>
+<a class="font-code-sm text-code-sm text-primary hover:underline flex items-center gap-space-xs" href="#">
+<span>View All 142k Audit Entries</span>
+<span class="material-symbols-outlined text-xs">arrow_forward</span>
+</a>
+</div>
+<!-- High-density event log stream table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="bg-surface-container-low text-outline font-label-caps text-label-caps uppercase tracking-wider">
+<th class="py-space-sm px-space-md">Action</th>
+<th class="py-space-sm px-space-md">Model</th>
+<th class="py-space-sm px-space-md">Object Representation</th>
+<th class="py-space-sm px-space-md">Admin Staff</th>
+<th class="py-space-sm px-space-md">IP Address</th>
+<th class="py-space-sm px-space-md text-right">Age</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-transparent font-code-sm text-code-sm">
+<!-- Row 1: CHANGE -->
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="py-space-sm px-space-md">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-secondary-container text-primary font-bold">CHANGE</span>
+</td>
+<td class="py-space-sm px-space-md text-on-surface">auth.User</td>
+<td class="py-space-sm px-space-md font-mono text-on-surface-variant max-w-xs truncate">
+<span class="text-on-surface font-semibold">User: sara@acme.inc</span> (is_staff=True)
+                  </td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-xs">
+<img class="w-5 h-5 rounded-full object-cover" data-alt="Portrait photo of a young technical woman with glasses smiling subtly in modern dark office setting with soft neon backlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABf7hLJDR6eSO8LlSZq7QiyG3y5trBMcca1yi9m8RmXKxEex-wjn3c7BqfOXzKpg_1XR-Ln9sRO-n_dQ58pQhpWLpL9Ihf_qnjNFFxv3YXrbGHSjUu494Bu1x6f2pho1R5NLlLhKkwzLiDYfGxJaSjtDx7lIAH7glRTBz0cxPmPz1enI5COUxkOdG5vvBwoPxadAjWvmh9xi6nxDjClCVk14irAFuBz38WJWP2Sku6v3Dg4Q4vRysE"/>
+<span class="text-on-surface font-body-sm text-body-sm">Alex Vance</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-outline">192.168.4.12</td>
+<td class="py-space-sm px-space-md text-right text-secondary">2m ago</td>
+</tr>
+<!-- Row 2: ADD -->
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="py-space-sm px-space-md">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-primary-container text-on-primary-container font-bold">ADD</span>
+</td>
+<td class="py-space-sm px-space-md text-on-surface">billing.Subscription</td>
+<td class="py-space-sm px-space-md font-mono text-on-surface-variant max-w-xs truncate">
+<span class="text-on-surface font-semibold">Sub #sub_88914 (Enterprise Tier)</span>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="w-5 h-5 rounded-full bg-surface-container-highest flex items-center justify-center font-label-caps text-label-caps text-primary">SYS</span>
+<span class="text-on-surface font-body-sm text-body-sm">Worker_Celery_01</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-outline">10.0.12.8</td>
+<td class="py-space-sm px-space-md text-right text-secondary">5m ago</td>
+</tr>
+<!-- Row 3: DELETE -->
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="py-space-sm px-space-md">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-error-container text-on-error-container font-bold">DELETE</span>
+</td>
+<td class="py-space-sm px-space-md text-on-surface">core.APIKey</td>
+<td class="py-space-sm px-space-md font-mono text-on-surface-variant max-w-xs truncate">
+<span class="text-error font-semibold">Key: org_acme_live_f8902b...</span>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-xs">
+<img class="w-5 h-5 rounded-full object-cover" data-alt="Close up photo of an experienced male system architect in dark minimalist software control room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCry3brhc1DZPHmjQTLhOJi7rN3JnhRRKAJWarT6jrl0lO23dlZMmeaDrKNjOTc_LPkItOq3-8bw-UvSbK2_G7KR3V6x1eOk5YB5OfgsMy38IpKcQqbBXn4i3YyU6ffrueMwluYHiSxU4xkSSuiJVPbv0F7ucUUglEQwDBEDBop1NsHmRroOZ3VzQlJAIkKvPIxhbHZM562o0kBc8A380aoOEigVFAZQUI6s4R_TTJwb_kLbLAG2Nb"/>
+<span class="text-on-surface font-body-sm text-body-sm">Elena Rostova</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-outline">192.168.4.88</td>
+<td class="py-space-sm px-space-md text-right text-secondary">11m ago</td>
+</tr>
+<!-- Row 4: CHANGE -->
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="py-space-sm px-space-md">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-secondary-container text-primary font-bold">CHANGE</span>
+</td>
+<td class="py-space-sm px-space-md text-on-surface">core.Organization</td>
+<td class="py-space-sm px-space-md font-mono text-on-surface-variant max-w-xs truncate">
+<span class="text-on-surface font-semibold">Org: HyperDrive Labs</span> (plan=Scale)
+                  </td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-xs">
+<img class="w-5 h-5 rounded-full object-cover" data-alt="Portrait of an engineering leader wearing black hoodie with modern server rack blur in dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDU3jQVc4KabnYZEGKzl3gO3C3Zq0c5VElSTOIgxOVC4N02UV0z_Zs2RcGB4rpEjTMs_HtYbaXTP30C4Ag-7-cprNYokOAgjuESqK3JqIRqzIHihfvV9EokkGGH7YcSrXIKcLiMWsjM3TEFn5J4ydKgml1achml47dVsKZtYzuXfklSpsiixIycziUHRK9jZm-_JJSRpe91DtrL0j1WQ7JS_kdjAI_gpvdJql3UwY9fpE1keAKav-XP"/>
+<span class="text-on-surface font-body-sm text-body-sm">Marcus Chen</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-outline">192.168.4.15</td>
+<td class="py-space-sm px-space-md text-right text-secondary">18m ago</td>
+</tr>
+<!-- Row 5: CHANGE -->
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="py-space-sm px-space-md">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-secondary-container text-primary font-bold">CHANGE</span>
+</td>
+<td class="py-space-sm px-space-md text-on-surface">auth.Group</td>
+<td class="py-space-sm px-space-md font-mono text-on-surface-variant max-w-xs truncate">
+<span class="text-on-surface font-semibold">Group: Data Engineers</span> (+3 permissions)
+                  </td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-xs">
+<img class="w-5 h-5 rounded-full object-cover" data-alt="Portrait of a female security engineer looking intently with cool emerald lighting highlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATQGWUkrMY021AYJ_IV7ozzClbadfETMy5ciBMlQDmcL3Fiv1TM5EZVHS606cDc1EIXYz6JpNfZ3o-bE3MFac5SmtJ_y8ivhmtmbqESgntjLTBFSjizHEZs0O6SPVWC29xreP0afS83oNUzMXKrl6OjkWYkJqndHHikN-hXSwbYm9DguU9yP7wvFOg_luThFdq9tl6b1gdRoS5xHK1hPOoRNKRKbRU4LSgZ_OIirJqZzqS-5Nuyo5V"/>
+<span class="text-on-surface font-body-sm text-body-sm">Alex Vance</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-outline">192.168.4.12</td>
+<td class="py-space-sm px-space-md text-right text-secondary">24m ago</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- Tactical Operations Column (Right 4 Cols) -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg">
+<!-- Django System Checks Widget -->
+<section class="bg-secondary-container/30 rounded-xl p-space-lg flex flex-col gap-space-sm shadow-sm relative overflow-hidden">
+<div class="flex items-start gap-space-md">
+<span class="material-symbols-outlined text-primary-container text-2xl mt-0.5">verified</span>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-primary font-bold">System Checks Passed</span>
+<p class="font-code-sm text-code-sm text-secondary mt-1">
+                System check identified no issues (0 silenced). Ready for high-throughput traffic.
+              </p>
+</div>
+</div>
+<div class="mt-space-sm pt-space-sm flex items-center justify-between font-code-sm text-code-sm text-outline">
+<span>manage.py check --deploy</span>
+<span class="text-primary font-mono">0 ERRORS</span>
+</div>
+</section>
+<!-- Slow Query Watch / SQL Inspector -->
+<section class="bg-surface-container rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-base">timer</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Slow Query Watch</h2>
+</div>
+<span class="font-label-caps text-label-caps uppercase text-error font-mono">&gt;100ms threshold</span>
+</div>
+<div class="flex flex-col gap-space-md">
+<!-- Query 1 -->
+<div class="bg-surface-container-low rounded-lg p-space-md flex flex-col gap-space-xs hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-code-sm text-code-sm text-error font-bold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                  142ms execution
+                </span>
+<button class="font-code-sm text-code-sm px-2 py-0.5 rounded bg-surface-container-high text-primary hover:bg-surface-bright transition-colors font-medium">EXPLAIN</button>
+</div>
+<p class="font-code-sm text-code-sm text-on-surface font-mono break-all line-clamp-2">
+                SELECT "auth_user"."id", "auth_user"."email", "core_profile"."tier" FROM "auth_user" INNER JOIN "core_profile" ON ...
+              </p>
+<div class="mt-1 flex items-center gap-space-xs text-outline font-code-sm text-code-sm">
+<span class="material-symbols-outlined text-xs text-tertiary-fixed-dim">warning</span>
+<span class="text-secondary font-mono">Missing select_related('profile')</span>
+</div>
+</div>
+<!-- Query 2 -->
+<div class="bg-surface-container-low rounded-lg p-space-md flex flex-col gap-space-xs hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-code-sm text-code-sm text-error font-bold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                  118ms execution
+                </span>
+<button class="font-code-sm text-code-sm px-2 py-0.5 rounded bg-surface-container-high text-primary hover:bg-surface-bright transition-colors font-medium">EXPLAIN</button>
+</div>
+<p class="font-code-sm text-code-sm text-on-surface font-mono break-all line-clamp-2">
+                SELECT COUNT(*) AS "__count" FROM "billing_invoice" WHERE ("billing_invoice"."status" = 'OVERDUE' AND ...
+              </p>
+<div class="mt-1 flex items-center gap-space-xs text-outline font-code-sm text-code-sm">
+<span class="material-symbols-outlined text-xs text-primary-fixed">info</span>
+<span class="text-secondary font-mono">Seq scan on index `billing_invoice_created`</span>
+</div>
+</div>
+<!-- Query 3 -->
+<div class="bg-surface-container-low rounded-lg p-space-md flex flex-col gap-space-xs hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-code-sm text-code-sm text-tertiary-fixed-dim font-bold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>
+                  89ms execution
+                </span>
+<button class="font-code-sm text-code-sm px-2 py-0.5 rounded bg-surface-container-high text-primary hover:bg-surface-bright transition-colors font-medium">EXPLAIN</button>
+</div>
+<p class="font-code-sm text-code-sm text-on-surface font-mono break-all line-clamp-2">
+                SELECT "analytics_event"."id", "analytics_event"."payload" FROM "analytics_event" ORDER BY "analytics_event"."id" DESC LIMIT 50;
+              </p>
+<div class="mt-1 flex items-center gap-space-xs text-outline font-code-sm text-code-sm">
+<span class="material-symbols-outlined text-xs text-primary-fixed">check_circle</span>
+<span class="text-secondary font-mono">Index Scan using analytics_event_pkey</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Operations Console -->
+<section class="bg-surface-container rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-base">terminal</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Admin Command Actions</h2>
+</div>
+<span class="font-label-caps text-label-caps uppercase text-outline">Root Access</span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<button class="flex flex-col items-start gap-space-xs p-space-md rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface transition-all text-left group" id="btn-cache">
+<div class="flex items-center justify-between w-full">
+<span class="material-symbols-outlined text-primary-container group-hover:scale-110 transition-transform">bolt</span>
+<kbd class="font-kbd-badge text-kbd-badge px-1 rounded bg-surface-container-highest text-secondary">⌘⇧C</kbd>
+</div>
+<span class="font-headline-md text-body-sm font-semibold mt-1">Clear Cache</span>
+<span class="font-code-sm text-code-sm text-outline">Redis Cluster</span>
+</button>
+<button class="flex flex-col items-start gap-space-xs p-space-md rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface transition-all text-left group" id="btn-sessions">
+<div class="flex items-center justify-between w-full">
+<span class="material-symbols-outlined text-secondary group-hover:scale-110 transition-transform">cleaning_services</span>
+<kbd class="font-kbd-badge text-kbd-badge px-1 rounded bg-surface-container-highest text-secondary">⌘⇧F</kbd>
+</div>
+<span class="font-headline-md text-body-sm font-semibold mt-1">Flush Sessions</span>
+<span class="font-code-sm text-code-sm text-outline">1,482 active</span>
+</button>
+<button class="flex flex-col items-start gap-space-xs p-space-md rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface transition-all text-left group" id="btn-migrate">
+<div class="flex items-center justify-between w-full">
+<span class="material-symbols-outlined text-tertiary-fixed-dim group-hover:scale-110 transition-transform">schema</span>
+<kbd class="font-kbd-badge text-kbd-badge px-1 rounded bg-surface-container-highest text-secondary">⌘⇧M</kbd>
+</div>
+<span class="font-headline-md text-body-sm font-semibold mt-1">Run Migrations</span>
+<span class="font-code-sm text-code-sm text-outline">All up-to-date</span>
+</button>
+<button class="flex flex-col items-start gap-space-xs p-space-md rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface transition-all text-left group" id="btn-backup">
+<div class="flex items-center justify-between w-full">
+<span class="material-symbols-outlined text-primary-fixed group-hover:scale-110 transition-transform">cloud_upload</span>
+<kbd class="font-kbd-badge text-kbd-badge px-1 rounded bg-surface-container-highest text-secondary">⌘⇧B</kbd>
+</div>
+<span class="font-headline-md text-body-sm font-semibold mt-1">Backup DB</span>
+<span class="font-code-sm text-code-sm text-outline">Snapshot S3</span>
+</button>
+</div>
+<!-- Quick Interactive Confirmation Banner -->
+<div class="hidden p-space-sm rounded bg-surface-container-high text-primary font-code-sm text-code-sm items-center justify-between" id="action-feedback">
+<span class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-sm text-primary-container">check_circle</span>
+<span id="feedback-text">Command executed successfully</span>
+</span>
+<span class="text-outline text-xs">200 OK</span>
+</div>
+</section>
+</div>
+</div>
+</div>
+<script>
+    (function() {
+      const feedback = document.getElementById('action-feedback');
+      const feedbackText = document.getElementById('feedback-text');
+      
+      const triggerAction = (text) => {
+        if (!feedback) return;
+        feedbackText.textContent = text;
+        feedback.classList.remove('hidden');
+        feedback.classList.add('flex');
+        setTimeout(() => {
+          feedback.classList.add('hidden');
+          feedback.classList.remove('flex');
+        }, 3200);
+      };
+
+      document.getElementById('btn-cache')?.addEventListener('click', () => triggerAction('Cache flushed: 41,209 keys deleted from Redis'));
+      document.getElementById('btn-sessions')?.addEventListener('click', () => triggerAction('Django session store purged (0 orphaned left)'));
+      document.getElementById('btn-migrate')?.addEventListener('click', () => triggerAction('Applying migrations: No migrations to apply.'));
+      document.getElementById('btn-backup')?.addEventListener('click', () => triggerAction('S3 WAL-G Point-in-time snapshot initiated'));
+    })();
+  </script>
+</div></main></div></body></html>
