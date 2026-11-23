@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+
+# Django
+db.sqlite3
+*.pid
+
+# Node (Phase 3+)
+node_modules/
+dist/
+db.test.sqlite3

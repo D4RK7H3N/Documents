@@ -1,0 +1,14 @@
+# Gradle / Loom
+.gradle/
+build/
+run/
+
+# IDE
+bin/
+.idea/
+*.iml
+.vscode/
+
+# Logs
+logs/
+*.log
