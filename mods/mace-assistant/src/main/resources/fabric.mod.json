@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "maceassistant",
+  "version": "${version}",
+  "name": "Mace Combat Assistant",
+  "description": "Honest, visible mace combat assistant: fall-distance attack timing, visible aim assist, target selection and HUD. Client-side only, no packet manipulation.",
+  "authors": [
+    "you"
+  ],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.maceassistant.MaceAssistantMod"
+    ]
+  },
+  "mixins": [
+    "maceassistant.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.0",
+    "fabric-api": "*",
+    "minecraft": "~1.21.11",
+    "java": ">=21"
+  }
+}

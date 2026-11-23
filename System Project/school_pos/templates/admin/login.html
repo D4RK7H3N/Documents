@@ -1,0 +1,20 @@
+{% extends 'admin/login.html' %}
+{% load static %}
+
+{% block branding %}
+<div style="text-align: center; padding: 20px 0;">
+  {% if school_logo_url %}
+    <img
+      src="{{ school_logo_url }}"
+      alt="{{ school_name }}"
+      style="height: 80px; width: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 10px;"
+    />
+  {% endif %}
+  <h1 style="color: white; font-size: 1.5rem;">
+    {{ school_name|default:"School Management System" }}
+  </h1>
+  <p style="color: rgba(255,255,255,0.7); font-size: 0.875rem;">
+    Administration Panel
+  </p>
+</div>
+{% endblock %}

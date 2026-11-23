@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Mission P2 - reverse proxy Worker: /api/* -> ORIGIN, browser-facing
+  // origin stays https://sms.darkzhub.asia.
+  // Deploy: npx wrangler deploy --config wrangler.proxy.jsonc
+  // Secret: npx wrangler secret put ORIGIN --config wrangler.proxy.jsonc
+  //         (value: the Django backend origin, e.g. https://sms2-api.darkzhub.asia)
+  "name": "sms-api-proxy",
+  "routes": [
+    "sms.darkzhub.asia/api/*",
+    "sms.darkzhub.asia/media/*",
+    "sms.darkzhub.asia/releases/*"
+  ],
+  "main": "proxy-worker.js",
+  "compatibility_date": "2026-08-03"
+}

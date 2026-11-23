@@ -1,0 +1,19 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+
+{% block branding %}
+<a id="site-name" href="{% url 'admin:index' %}">
+  {% if school_logo_url %}
+    <img
+      src="{{ school_logo_url }}"
+      alt="{{ school_name }}"
+      style="height: 40px; width: auto; margin-right: 10px; border-radius: 50%; object-fit: cover;"
+    />
+  {% endif %}
+  <strong>{{ school_name|default:"School Management System" }}</strong>
+</a>
+{% endblock %}
+
+{% block title %}
+  {{ school_name|default:"School Management System" }} Admin
+{% endblock %}

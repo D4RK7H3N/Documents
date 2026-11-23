@@ -1,0 +1,19 @@
+name: GodMace
+version: 1.0.0
+main: com.freshlol.godmace.GodMacePlugin
+api-version: '1.21'
+author: freshlol
+
+commands:
+  getgodmace:
+    description: Give yourself any God Mace item for testing.
+    usage: "/<command> [mace <kills>|crown|chestplate|leggings|boots|armor|spear|sword|mapwarden|mapskeleton|spawnwarden|spawnskeleton|all]"
+    permission: godmace.admin
+
+permissions:
+  godmace.admin:
+    description: Full admin access to GodMace test/crafting commands.
+    default: op
+  godmace.banability:
+    description: Allows using the Godly Mace's Banish ability on other players.
+    default: op

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "windslam",
+  "version": "${version}",
+  "name": "WindSlam",
+  "description": "Honest client-side mace combo assistant for private servers: sprint wind launch, axe stun slam, fall-gated auto mace. No packet spoofing, no hidden rotations.",
+  "authors": [
+    "you"
+  ],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.windslam.WindSlamMod"
+    ]
+  },
+  "mixins": [
+    "windslam.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.0",
+    "fabric-api": "*",
+    "minecraft": "~1.21.11",
+    "java": ">=21"
+  }
+}
